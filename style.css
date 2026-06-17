@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --bg: #F4F5F9;
+  --bg: #E2E4EC;
   --surface: #FFFFFF;
   --ink: #2B2D3A;
   --muted: #8D90A1;
@@ -21,10 +21,10 @@
   --navy-1: #1e293b;
   --navy-2: #0f172a;
 
-  --radius-lg: 22px;
-  --radius-md: 14px;
-  --shadow-soft: 0 10px 30px -12px rgba(43,45,58,0.12);
-  --shadow-card: 0 18px 40px -16px rgba(43,45,58,0.22);
+  --radius-lg: 8px;
+  --radius-md: 6px;
+  --shadow-soft: 0 1px 3px rgba(43,45,58,0.06), 0 1px 2px rgba(43,45,58,0.04);
+  --shadow-card: 0 4px 12px -2px rgba(43,45,58,0.10);
 }
 
 body {
@@ -60,7 +60,7 @@ h1, h2, h3, .display {
   gap: 10px;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 6px;
   padding: 10px 16px;
 }
 
@@ -90,7 +90,7 @@ h1, h2, h3, .display {
 .icon-btn {
   width: 40px;
   height: 40px;
-  border-radius: 12px;
+  border-radius: 6px;
   background: var(--surface);
   border: 1px solid var(--line);
   display: flex;
@@ -120,7 +120,7 @@ h1, h2, h3, .display {
 .topbar-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 12px;
+  border-radius: 6px;
   background: linear-gradient(135deg, var(--violet-1), var(--violet-2));
   display: flex;
   align-items: center;
@@ -174,7 +174,7 @@ h1, h2, h3, .display {
 .stat-icon {
   width: 38px;
   height: 38px;
-  border-radius: 10px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,7 +189,7 @@ h1, h2, h3, .display {
   font-size: 11px;
   font-weight: 700;
   padding: 3px 8px;
-  border-radius: 999px;
+  border-radius: 4px;
 }
 
 .trend-up {
@@ -243,7 +243,7 @@ h1, h2, h3, .display {
 
 .module-card {
   background: var(--surface);
-  border-radius: 28px;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: var(--shadow-card);
   border: 1px solid rgba(43, 45, 58, 0.04);
@@ -254,8 +254,8 @@ h1, h2, h3, .display {
 }
 
 .module-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 48px -12px rgba(43, 45, 58, 0.18);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px -4px rgba(43, 45, 58, 0.12);
 }
 
 .module-art {
@@ -366,20 +366,20 @@ h1, h2, h3, .display {
 .go-btn {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(43, 45, 58, 0.06);
   background: #ffffff;
-  box-shadow: 0 4px 10px rgba(43, 45, 58, 0.1);
+  box-shadow: 0 2px 6px rgba(43, 45, 58, 0.08);
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
 }
 
 .go-btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 6px 14px rgba(43, 45, 58, 0.16);
+  box-shadow: 0 4px 10px rgba(43, 45, 58, 0.12);
 }
 
 .go-btn:active {
@@ -454,7 +454,7 @@ tbody tr:hover {
 .who-cell .av {
   width: 32px;
   height: 32px;
-  border-radius: 10px;
+  border-radius: 6px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -478,7 +478,7 @@ tbody tr:hover {
   font-size: 11px;
   font-weight: 700;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 4px;
   display: inline-block;
 }
 
@@ -579,7 +579,7 @@ tbody tr:hover {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 12px;
+  border-radius: 6px;
   font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
@@ -635,9 +635,9 @@ tbody tr:hover {
 }
 
 /* Sizes */
-.btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 8px; }
+.btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 4px; }
 .btn-md { padding: 10px 18px; }
-.btn-lg { padding: 14px 24px; font-size: 15px; border-radius: 14px; }
+.btn-lg { padding: 14px 24px; font-size: 15px; border-radius: 8px; }
 
 /* Loading State Spinner */
 @keyframes spin {
@@ -662,7 +662,7 @@ tbody tr:hover {
   height: 44px;
   padding: 10px 16px;
   border: 2px solid var(--line);
-  border-radius: 12px;
+  border-radius: 6px;
   background: white;
   color: var(--ink);
   font-family: inherit;
@@ -696,7 +696,7 @@ tbody tr:hover {
   width: 100%;
   padding: 12px 16px;
   border: 2px solid var(--line);
-  border-radius: 12px;
+  border-radius: 6px;
   background: white;
   font-family: inherit;
   font-size: 13.5px;
@@ -716,7 +716,7 @@ tbody tr:hover {
   height: 44px;
   padding: 10px 36px 10px 16px;
   border: 2px solid var(--line);
-  border-radius: 12px;
+  border-radius: 6px;
   background: white;
   font-family: inherit;
   font-size: 13.5px;
@@ -772,7 +772,7 @@ tbody tr:hover {
   width: 20px;
   height: 20px;
   border: 2px solid #cbd5e1;
-  border-radius: 6px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -910,11 +910,11 @@ tbody tr:hover {
   border: none;
   background: #f1f5f9;
   padding: 4px;
-  border-radius: 12px;
+  border-radius: 6px;
   display: inline-flex;
 }
 .pill-tabs .tab-btn {
-  border-radius: 8px;
+  border-radius: 4px;
   border: none;
   padding: 6px 14px;
   margin: 0;
@@ -950,7 +950,7 @@ tbody tr:hover {
   margin-right: -14px;
   text-align: left;
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 .vertical-tabs .tab-btn.vtab-active {
   border-right: 2px solid var(--navy-2) !important;
@@ -965,7 +965,7 @@ tbody tr:hover {
 /* 5. Custom Accordion UI Styles */
 .accordion-item {
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 6px;
   overflow: hidden;
   margin-bottom: 12px;
   background: white;
@@ -1067,7 +1067,7 @@ tbody tr:hover {
   align-items: center;
   justify-content: center;
   padding: 4px;
-  border-radius: 6px;
+  border-radius: 4px;
   transition: all 0.2s ease;
 }
 .modal-close-btn:hover {
@@ -1099,7 +1099,7 @@ tbody tr:hover {
   align-items: flex-start;
   gap: 12px;
   padding: 16px;
-  border-radius: 12px;
+  border-radius: 6px;
   font-size: 13px;
   line-height: 1.5;
   font-weight: 500;
