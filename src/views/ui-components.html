@@ -1063,5 +1063,330 @@
 
   </div> <!-- End of Row 5 -->
 
+  <!-- Component Showcase Grid Row 6 -->
+  <div class="ui-grid" style="margin-top: 24px;">
+
+    <!-- Card 16: Tag Input & Multi-select -->
+    <div class="ui-section-card">
+      <h3>Tag Input &amp; Multi-select</h3>
+
+      <span class="ui-sublabel">Tag Input (Chips)</span>
+      <div class="tag-input-wrap" id="custom-tag-input">
+        <div class="tag-chips-container">
+          <!-- Chips will be injected here -->
+          <input type="text" class="tag-input-field" placeholder="Ketik tag &amp; enter...">
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:16px;">Multi-select Combobox</span>
+      <div class="multiselect-wrap" id="custom-multiselect">
+        <button type="button" class="form-input-premium multiselect-trigger">
+          <span class="multiselect-value">Pilih Layanan...</span>
+          <svg class="multiselect-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="multiselect-menu">
+          <label class="multiselect-item">
+            <input type="checkbox" value="Grooming"> Grooming &amp; Spa
+          </label>
+          <label class="multiselect-item">
+            <input type="checkbox" value="Vaksinasi"> Vaksinasi Kucing
+          </label>
+          <label class="multiselect-item">
+            <input type="checkbox" value="Penitipan"> Penitipan Pet Hotel
+          </label>
+          <label class="multiselect-item">
+            <input type="checkbox" value="Konsultasi"> Konsultasi Medis
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 17: Drag & Drop File Uploader -->
+    <div class="ui-section-card">
+      <h3>Drag &amp; Drop File Uploader</h3>
+
+      <span class="ui-sublabel">Unggah Berkas</span>
+      <div class="file-uploader-wrap" id="custom-file-uploader">
+        <input type="file" id="uploader-file-input" class="hidden" multiple>
+        <div class="dropzone-area" onclick="document.getElementById('uploader-file-input').click()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+          <div class="dropzone-title">Seret file ke sini atau <span>Pilih File</span></div>
+          <div class="dropzone-desc">Mendukung PDF, PNG, JPG (Maks. 5MB)</div>
+        </div>
+        
+        <!-- Preview files area -->
+        <div class="uploader-preview-list">
+          <!-- File previews will be injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 18: Range Slider & Star Rating -->
+    <div class="ui-section-card">
+      <h3>Range Slider &amp; Star Rating</h3>
+
+      <span class="ui-sublabel">Range Slider (Single)</span>
+      <div style="width:100%; margin-bottom: 16px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:6px;">
+          <span>Batas Anggaran</span>
+          <span id="slider-val-display" style="color:var(--violet-2)">Rp 250.000</span>
+        </div>
+        <input type="range" id="budget-range-slider" class="range-slider-input" min="50000" max="1000000" step="50000" value="250000">
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:4px;">
+          <span>Rp 50rb</span>
+          <span>Rp 1jt</span>
+        </div>
+      </div>
+
+      <span class="ui-sublabel">Star Rating (Interactive)</span>
+      <div class="star-rating-wrap" id="interactive-star-rating">
+        <div class="stars-container">
+          <svg class="star-icon" data-value="1" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star-icon" data-value="2" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star-icon" data-value="3" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star-icon" data-value="4" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star-icon" data-value="5" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </div>
+        <span class="rating-display-label" id="rating-text-feedback">Belum dinilai</span>
+      </div>
+    </div>
+
+  </div> <!-- End of Row 6 -->
+
+  <!-- Component Showcase Grid Row 7 -->
+  <div class="ui-grid" style="margin-top: 24px;">
+
+    <!-- Card 19: Date & Time Picker -->
+    <div class="ui-section-card">
+      <h3>Date &amp; Time Picker</h3>
+
+      <span class="ui-sublabel">Date Picker (Tanggal)</span>
+      <div class="picker-container" style="margin-bottom:16px;">
+        <div class="input-group-premium">
+          <svg class="input-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <input type="date" id="premium-date-input" class="form-input-premium input-picker-custom">
+        </div>
+      </div>
+
+      <span class="ui-sublabel">Time Picker (Waktu)</span>
+      <div class="picker-container">
+        <div class="input-group-premium">
+          <svg class="input-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <input type="time" id="premium-time-input" class="form-input-premium input-picker-custom">
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 20: Color Picker -->
+    <div class="ui-section-card">
+      <h3>Color Picker</h3>
+
+      <span class="ui-sublabel">Pilih Warna Aksen (Swatches)</span>
+      <div class="color-swatches" id="custom-color-swatches">
+        <button type="button" class="swatch-btn active" style="background:#7B5CFA;" data-color="#7B5CFA"></button>
+        <button type="button" class="swatch-btn" style="background:#13A39A;" data-color="#13A39A"></button>
+        <button type="button" class="swatch-btn" style="background:#E0264B;" data-color="#E0264B"></button>
+        <button type="button" class="swatch-btn" style="background:#FF7A2F;" data-color="#FF7A2F"></button>
+        <button type="button" class="swatch-btn" style="background:#3b82f6;" data-color="#3b82f6"></button>
+        <button type="button" class="swatch-btn" style="background:#10b981;" data-color="#10b981"></button>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:16px;">Kustom (Dinamis)</span>
+      <div class="custom-color-picker-wrap">
+        <input type="color" id="dynamic-color-picker" value="#7B5CFA">
+        <div class="picker-preview-box" id="color-preview-box" style="background:#7B5CFA;">
+          <span id="color-hex-label">#7B5CFA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 21: Drawer & Off-canvas Panel -->
+    <div class="ui-section-card">
+      <h3>Drawer Panel (Slide-out)</h3>
+
+      <span class="ui-sublabel">Slide-out Panel dari Sisi Kanan</span>
+      <div style="width:100%; margin-top:12px;">
+        <button type="button" class="btn-premium btn-md btn-primary" style="width:100%;" onclick="toggleDrawer('demo-drawer', true)">
+          <svg style="width:16px;height:16px;margin-right:6px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          Buka Panel Filter Drawer
+        </button>
+      </div>
+
+      <!-- Actual Drawer Markup (hidden by default) -->
+      <div id="demo-drawer" class="drawer-overlay-premium" onclick="if(event.target === this) toggleDrawer('demo-drawer', false)">
+        <div class="drawer-panel-premium">
+          <div class="drawer-header">
+            <h4>Penyaringan Lanjutan</h4>
+            <button class="drawer-close-btn" onclick="toggleDrawer('demo-drawer', false)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div class="drawer-body">
+            <span class="ui-sublabel">Status Booking</span>
+            <select class="form-select-premium" style="margin-bottom:16px;">
+              <option>Semua Status</option>
+              <option>Selesai</option>
+              <option>Ditinjau</option>
+              <option>Baru</option>
+            </select>
+
+            <span class="ui-sublabel">Tipe Layanan</span>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
+              <label class="checkbox-premium">
+                <input type="checkbox" checked>
+                <span class="checkbox-indicator"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
+                Grooming &amp; Spa
+              </label>
+              <label class="checkbox-premium">
+                <input type="checkbox">
+                <span class="checkbox-indicator"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
+                Dokter Hewan
+              </label>
+            </div>
+          </div>
+          <div class="drawer-footer">
+            <button class="btn-premium btn-sm btn-secondary" style="flex:1;" onclick="toggleDrawer('demo-drawer', false)">Batal</button>
+            <button class="btn-premium btn-sm btn-primary" style="flex:1;" onclick="alert('Filter diterapkan!'); toggleDrawer('demo-drawer', false);">Terapkan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- End of Row 7 -->
+
+  <!-- Component Showcase Grid Row 8 -->
+  <div class="ui-grid" style="margin-top: 24px; margin-bottom: 40px;">
+
+    <!-- Card 22: Timeline / Activity Feed -->
+    <div class="ui-section-card">
+      <h3>Timeline / Activity Log</h3>
+
+      <div class="timeline-wrap">
+        <div class="timeline-item">
+          <div class="timeline-badge success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-title">Booking Sukses Dikonfirmasi</div>
+            <div class="timeline-desc">Pemesanan grooming untuk Mochi telah disetujui.</div>
+            <div class="timeline-time">Hari ini, 09:14</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-badge warning">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-title">Peringatan Penyimpanan</div>
+            <div class="timeline-desc">Penyimpanan server utama tersisa 5%.</div>
+            <div class="timeline-time">Kemarin, 16:45</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-badge info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/></svg>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-title">Registrasi Akun Baru</div>
+            <div class="timeline-desc">User Citra Lestari mendaftarkan akun baru.</div>
+            <div class="timeline-time">15 Juni 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 23: Tree View Navigation -->
+    <div class="ui-section-card">
+      <h3>Tree View Navigation</h3>
+
+      <div class="tree-view-wrap" id="custom-tree-view">
+        <ul class="tree-root">
+          <li class="tree-folder open">
+            <div class="tree-folder-header">
+              <svg class="tree-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+              <svg class="tree-folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+              <span>Laporan Keuangan</span>
+            </div>
+            <ul class="tree-sub">
+              <li class="tree-folder">
+                <div class="tree-folder-header">
+                  <svg class="tree-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+                  <svg class="tree-folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                  <span>Q1 2026</span>
+                </div>
+                <ul class="tree-sub">
+                  <li class="tree-file">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                    <span>januari.pdf</span>
+                  </li>
+                  <li class="tree-file">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                    <span>februari.pdf</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="tree-file">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <span>ringkasan_tahunan.xlsx</span>
+              </li>
+            </ul>
+          </li>
+          <li class="tree-folder">
+            <div class="tree-folder-header">
+              <svg class="tree-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+              <svg class="tree-folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+              <span>Dokumentasi API</span>
+            </div>
+            <ul class="tree-sub">
+              <li class="tree-file">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                <span>v1_endpoints.md</span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Card 24: Transfer List -->
+    <div class="ui-section-card">
+      <h3>Transfer List (Dual Listbox)</h3>
+
+      <div class="transfer-list-wrap" id="custom-transfer-list">
+        <!-- Source Box -->
+        <div class="transfer-box">
+          <div class="transfer-box-title">Tersedia</div>
+          <div class="transfer-box-items source-items">
+            <div class="transfer-item" data-id="1">Budi Setiawan</div>
+            <div class="transfer-item" data-id="2">Rina Aulia</div>
+            <div class="transfer-item" data-id="3">Citra Lestari</div>
+            <div class="transfer-item" data-id="4">Bayu Pratama</div>
+          </div>
+        </div>
+
+        <!-- Buttons Box -->
+        <div class="transfer-btns">
+          <button type="button" class="btn-premium btn-sm btn-secondary to-target-btn" title="Pindahkan ke Kanan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <button type="button" class="btn-premium btn-sm btn-secondary to-source-btn" title="Pindahkan ke Kiri">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+        </div>
+
+        <!-- Target Box -->
+        <div class="transfer-box">
+          <div class="transfer-box-title">Dipilih</div>
+          <div class="transfer-box-items target-items">
+            <!-- Shuffled target items will go here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- End of Row 8 -->
+
 </div>
 

@@ -55,6 +55,7 @@ async function loadView(viewName) {
     // Initialize page-specific scripts
     if (viewName === 'ui-components') {
       initAutocomplete();
+      initNewComponents();
     }
   } catch (error) {
     contentArea.innerHTML = `<div class="p-4 bg-red-50 text-red-600 rounded-lg border border-red-200">Error loading view: ${viewName}</div>`;
@@ -434,4 +435,368 @@ function initAutocomplete() {
     document.removeEventListener('click', clickOutsideHandler);
     window.removeEventListener('hashchange', cleanup);
   });
+}
+
+// 9. New UI Components Logic (Row 6, Row 7, Row 8)
+window.toggleDrawer = function(drawerId, show) {
+  const drawer = document.getElementById(drawerId);
+  if (!drawer) return;
+  if (show) {
+    drawer.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  } else {
+    drawer.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+};
+
+function initNewComponents() {
+  // --- 16. TAG INPUT & MULTI-SELECT ---
+  
+  // Tag Input
+  const tagInputWrap = document.getElementById('custom-tag-input');
+  if (tagInputWrap) {
+    const chipsContainer = tagInputWrap.querySelector('.tag-chips-container');
+    const inputField = tagInputWrap.querySelector('.tag-input-field');
+    let tags = ['Grooming', 'Kucing'];
+
+    function renderChips() {
+      // Remove all current chips (except the input field itself)
+      const currentChips = chipsContainer.querySelectorAll('.tag-chip');
+      currentChips.forEach(chip => chip.remove());
+
+      tags.forEach(tag => {
+        const chip = document.createElement('span');
+        chip.className = 'tag-chip';
+        chip.innerHTML = `
+          ${tag}
+          <button type="button" class="tag-chip-remove">&times;</button>
+        `;
+
+        chip.querySelector('.tag-chip-remove').addEventListener('click', () => {
+          tags = tags.filter(t => t !== tag);
+          renderChips();
+        });
+
+        // Insert chip before input field
+        chipsContainer.insertBefore(chip, inputField);
+      });
+    }
+
+    // Initial render
+    renderChips();
+
+    // Focus input on wrap click
+    tagInputWrap.addEventListener('click', (e) => {
+      if (e.target === tagInputWrap || e.target === chipsContainer) {
+        inputField.focus();
+      }
+    });
+
+    inputField.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        const val = inputField.value.trim().replace(/,/g, '');
+        if (val && !tags.includes(val)) {
+          tags.push(val);
+          inputField.value = '';
+          renderChips();
+        }
+      } else if (e.key === 'Backspace' && inputField.value === '' && tags.length > 0) {
+        tags.pop();
+        renderChips();
+      }
+    });
+  }
+
+  // Multi-select Combobox
+  const multiselectWrap = document.getElementById('custom-multiselect');
+  if (multiselectWrap) {
+    const trigger = multiselectWrap.querySelector('.multiselect-trigger');
+    const valueLabel = multiselectWrap.querySelector('.multiselect-value');
+    const checkboxes = multiselectWrap.querySelectorAll('.multiselect-item input');
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      multiselectWrap.classList.toggle('open');
+    });
+
+    function updateTriggerLabel() {
+      const selected = [];
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          selected.push(cb.value);
+        }
+      });
+
+      if (selected.length === 0) {
+        valueLabel.textContent = 'Pilih Layanan...';
+      } else {
+        // Show as chips inside the trigger
+        valueLabel.innerHTML = selected.map(val => `<span class="multiselect-chip">${val}</span>`).join(' ');
+      }
+    }
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', updateTriggerLabel);
+    });
+
+    // Close on click outside
+    const outsideClick = (e) => {
+      if (!multiselectWrap.contains(e.target)) {
+        multiselectWrap.classList.remove('open');
+      }
+    };
+    document.addEventListener('click', outsideClick);
+    
+    window.addEventListener('hashchange', function cleanup() {
+      document.removeEventListener('click', outsideClick);
+      window.removeEventListener('hashchange', cleanup);
+    });
+  }
+
+  // --- 17. DRAG & DROP FILE UPLOADER ---
+  const uploaderWrap = document.getElementById('custom-file-uploader');
+  if (uploaderWrap) {
+    const fileInput = uploaderWrap.querySelector('#uploader-file-input');
+    const dropzone = uploaderWrap.querySelector('.dropzone-area');
+    const previewList = uploaderWrap.querySelector('.uploader-preview-list');
+
+    // Drag events
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+      }, false);
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      handleFiles(files);
+    });
+
+    fileInput.addEventListener('change', () => {
+      handleFiles(fileInput.files);
+    });
+
+    function handleFiles(files) {
+      Array.from(files).forEach(file => {
+        createFilePreview(file);
+      });
+    }
+
+    function createFilePreview(file) {
+      const card = document.createElement('div');
+      card.className = 'preview-file-card';
+      
+      const sizeKB = (file.size / 1024).toFixed(1);
+      const displaySize = sizeKB > 1024 ? `${(sizeKB / 1024).toFixed(1)} MB` : `${sizeKB} KB`;
+
+      card.innerHTML = `
+        <div class="preview-file-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <div class="preview-file-info">
+          <div class="preview-file-name" title="${file.name}">${file.name}</div>
+          <div class="preview-file-size">${displaySize}</div>
+          <div class="preview-file-progress-track">
+            <div class="preview-file-progress-fill"></div>
+          </div>
+        </div>
+        <button type="button" class="preview-file-remove">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        </button>
+      `;
+
+      card.querySelector('.preview-file-remove').addEventListener('click', () => {
+        card.remove();
+      });
+
+      previewList.appendChild(card);
+
+      // Simulated Upload Progress animation
+      const fill = card.querySelector('.preview-file-progress-fill');
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 20) + 10;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          setTimeout(() => {
+            card.querySelector('.preview-file-progress-track').style.display = 'none';
+          }, 400);
+        }
+        fill.style.width = `${progress}%`;
+      }, 150);
+    }
+  }
+
+  // --- 18. RANGE SLIDER & STAR RATING ---
+
+  // Range Slider
+  const slider = document.getElementById('budget-range-slider');
+  const sliderVal = document.getElementById('slider-val-display');
+  if (slider && sliderVal) {
+    slider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value);
+      sliderVal.textContent = `Rp ${val.toLocaleString('id-ID')}`;
+    });
+  }
+
+  // Star Rating
+  const ratingWrap = document.getElementById('interactive-star-rating');
+  if (ratingWrap) {
+    const stars = ratingWrap.querySelectorAll('.star-icon');
+    const feedback = ratingWrap.querySelector('#rating-text-feedback');
+    let currentRating = 0;
+
+    const ratingTexts = {
+      1: 'Buruk sekali (1/5)',
+      2: 'Kurang (2/5)',
+      3: 'Cukup (3/5)',
+      4: 'Bagus (4/5)',
+      5: 'Sangat Bagus (5/5)'
+    };
+
+    stars.forEach(star => {
+      star.addEventListener('mouseenter', () => {
+        const hoverVal = parseInt(star.dataset.value);
+        highlightStars(hoverVal, 'hovered');
+      });
+
+      star.addEventListener('mouseleave', () => {
+        removeHighlight('hovered');
+      });
+
+      star.addEventListener('click', () => {
+        currentRating = parseInt(star.dataset.value);
+        highlightStars(currentRating, 'selected');
+        feedback.textContent = ratingTexts[currentRating];
+        feedback.style.color = 'var(--ink)';
+      });
+    });
+
+    function highlightStars(rating, className) {
+      stars.forEach(star => {
+        const val = parseInt(star.dataset.value);
+        if (val <= rating) {
+          star.classList.add(className);
+        } else {
+          star.classList.remove(className);
+        }
+      });
+    }
+
+    function removeHighlight(className) {
+      stars.forEach(star => star.classList.remove(className));
+    }
+  }
+
+  // --- 19. DATE & TIME PICKER DEFAULT VALUES ---
+  const dateInput = document.getElementById('premium-date-input');
+  const timeInput = document.getElementById('premium-time-input');
+  if (dateInput && !dateInput.value) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+  }
+  if (timeInput && !timeInput.value) {
+    timeInput.value = "09:00";
+  }
+
+  // --- 20. COLOR PICKER ---
+  const swatchesWrap = document.getElementById('custom-color-swatches');
+  const dynamicColor = document.getElementById('dynamic-color-picker');
+  const previewBox = document.getElementById('color-preview-box');
+  const hexLabel = document.getElementById('color-hex-label');
+
+  if (swatchesWrap && dynamicColor && previewBox && hexLabel) {
+    const swatches = swatchesWrap.querySelectorAll('.swatch-btn');
+
+    swatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        swatches.forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        
+        const color = swatch.dataset.color;
+        dynamicColor.value = color;
+        updateColorDisplay(color);
+      });
+    });
+
+    dynamicColor.addEventListener('input', (e) => {
+      const color = e.target.value;
+      updateColorDisplay(color);
+      
+      // Deactivate swatches since custom color selected
+      swatches.forEach(s => {
+        if (s.dataset.color === color.toLowerCase()) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+    });
+
+    function updateColorDisplay(color) {
+      previewBox.style.background = color;
+      hexLabel.textContent = color.toUpperCase();
+    }
+  }
+
+  // --- 21. DRAWER TOGGLE --
+  // Exposed globally, so no local code needed except check
+  
+  // --- 23. TREE VIEW ---
+  const treeWrap = document.getElementById('custom-tree-view');
+  if (treeWrap) {
+    const folders = treeWrap.querySelectorAll('.tree-folder-header');
+    folders.forEach(folder => {
+      folder.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parent = folder.parentElement;
+        parent.classList.toggle('open');
+      });
+    });
+  }
+
+  // --- 24. TRANSFER LIST ---
+  const transferWrap = document.getElementById('custom-transfer-list');
+  if (transferWrap) {
+    const sourceBox = transferWrap.querySelector('.source-items');
+    const targetBox = transferWrap.querySelector('.target-items');
+    const toTargetBtn = transferWrap.querySelector('.to-target-btn');
+    const toSourceBtn = transferWrap.querySelector('.to-source-btn');
+
+    // Click to select/deselect items
+    transferWrap.addEventListener('click', (e) => {
+      const item = e.target.closest('.transfer-item');
+      if (item) {
+        item.classList.toggle('selected');
+      }
+    });
+
+    toTargetBtn.addEventListener('click', () => {
+      const selected = sourceBox.querySelectorAll('.transfer-item.selected');
+      selected.forEach(item => {
+        item.classList.remove('selected');
+        targetBox.appendChild(item);
+      });
+    });
+
+    toSourceBtn.addEventListener('click', () => {
+      const selected = targetBox.querySelectorAll('.transfer-item.selected');
+      selected.forEach(item => {
+        item.classList.remove('selected');
+        sourceBox.appendChild(item);
+      });
+    });
+  }
 }
