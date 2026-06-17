@@ -1,0 +1,495 @@
+<div>
+  <div class="mb-10">
+    <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Modern Flat Design System</h1>
+    <p class="text-[15px] text-slate-500 m-0">A clean, functional, and modern flat design system with crisp borders, solid colors, and minimal shadows.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    
+    <!-- COLUMN 1 (Left) -->
+    <div class="space-y-8">
+      
+      <!-- Typography -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div class="p-5 px-6 border-b border-slate-200 bg-slate-50"><h2 class="font-bold text-slate-900 text-[15px]">Premium Typography</h2></div>
+        <div class="p-6 space-y-6">
+          <div>
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Display Heading</h1>
+            <p class="text-[11px] text-slate-400 mt-2 font-bold tracking-wider uppercase">Used for massive impact</p>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Section Heading</h2>
+            <p class="text-[11px] text-slate-400 mt-1 font-bold tracking-wider uppercase">Used for content separation</p>
+          </div>
+          <div>
+            <p class="text-[15px] text-slate-600 leading-relaxed font-normal">This is the modern body text. It uses <span class="font-bold text-slate-900">Plus Jakarta Sans</span>, which provides excellent legibility and a crisp, geometric appearance that perfectly complements flat design.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons & Toggles -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div class="p-5 px-6 border-b border-slate-200 bg-slate-50"><h2 class="font-bold text-slate-900 text-[15px]">Buttons & Toggles</h2></div>
+        <div class="p-6 space-y-6">
+          <div class="flex flex-wrap gap-3 items-center">
+            <button class="px-5 py-2.5 text-[14px] font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-700 active:bg-blue-800 transition-colors">Primary Action</button>
+            <button class="px-5 py-2.5 text-[14px] font-bold text-slate-700 bg-slate-100 border border-transparent rounded-xl hover:bg-slate-200 active:bg-slate-300 transition-colors">Secondary Step</button>
+            <button class="px-5 py-2.5 text-[14px] font-bold text-red-600 bg-red-50 border border-transparent rounded-xl hover:bg-red-100 active:bg-red-200 transition-colors">Danger Zone</button>
+          </div>
+          
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div class="p-5 px-6 border-b border-slate-200 bg-slate-50"><h2 class="font-bold text-slate-900 text-[15px]">Navigation Tabs</h2></div>
+        <div class="p-6 space-y-8">
+          
+          <!-- Horizontal Tabs -->
+          <div class="tab-container">
+            <label class="block text-[13px] font-bold text-slate-700 mb-2">Horizontal Navigation Tabs</label>
+            <div class="flex border-b border-slate-200 tab-group">
+              <button class="tab-btn px-5 py-3 border-b-2 border-blue-600 text-blue-600 font-bold text-[14px] transition-colors" data-target="#tab-gen">General</button>
+              <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-medium text-[14px] transition-colors" data-target="#tab-sec">Security</button>
+              <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-500 hover:text-slate-800 font-medium text-[14px] transition-colors" data-target="#tab-bil">Billing</button>
+            </div>
+            <div class="pt-4 h-[80px]">
+              <div id="tab-gen" class="tab-content transition-opacity duration-300 opacity-100 text-sm text-slate-600">
+                <h4 class="font-bold text-slate-800 mb-1">General Settings</h4>
+                <p>Manage your account settings and global preferences here.</p>
+              </div>
+              <div id="tab-sec" class="tab-content hidden transition-opacity duration-300 opacity-0 text-sm text-slate-600">
+                <h4 class="font-bold text-slate-800 mb-1">Security Options</h4>
+                <p>Update passwords and configure two-factor authentication.</p>
+              </div>
+              <div id="tab-bil" class="tab-content hidden transition-opacity duration-300 opacity-0 text-sm text-slate-600">
+                <h4 class="font-bold text-slate-800 mb-1">Billing Details</h4>
+                <p>View your invoices, update payment methods, and subscriptions.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vertical Tabs (Left Design) -->
+          <div class="tab-container pt-4 border-t border-slate-100">
+            <label class="block text-[13px] font-bold text-slate-700 mb-3">Vertical Tabs (Left Design)</label>
+            <div class="flex gap-6 h-[140px]">
+              <!-- Left Sidebar Tabs -->
+              <div class="w-40 flex flex-col border-l-2 border-slate-100 tab-group vertical-tabs">
+                <button class="tab-btn text-left px-4 py-2.5 -ml-[2px] border-l-2 border-blue-600 bg-blue-50 text-blue-700 font-bold text-[13px] transition-colors" data-target="#vtab-profile">Profile</button>
+                <button class="tab-btn text-left px-4 py-2.5 -ml-[2px] border-l-2 border-transparent text-slate-600 hover:bg-slate-50 font-medium text-[13px] transition-colors" data-target="#vtab-notif">Notifications</button>
+                <button class="tab-btn text-left px-4 py-2.5 -ml-[2px] border-l-2 border-transparent text-slate-600 hover:bg-slate-50 font-medium text-[13px] transition-colors" data-target="#vtab-api">API Keys</button>
+              </div>
+              <!-- Content Area -->
+              <div class="flex-1 p-2">
+                <div id="vtab-profile" class="tab-content transition-opacity duration-300 opacity-100 text-sm text-slate-600">
+                  <h4 class="font-bold text-slate-800 mb-1">Profile View</h4>
+                  <p>Content for the profile tab goes here. It animates seamlessly.</p>
+                </div>
+                <div id="vtab-notif" class="tab-content hidden transition-opacity duration-300 opacity-0 text-sm text-slate-600">
+                  <h4 class="font-bold text-slate-800 mb-1">Notification Preferences</h4>
+                  <p>Choose when and how you want to be notified.</p>
+                </div>
+                <div id="vtab-api" class="tab-content hidden transition-opacity duration-300 opacity-0 text-sm text-slate-600">
+                  <h4 class="font-bold text-slate-800 mb-1">API Management</h4>
+                  <p>Generate and revoke application programming interface keys.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div> <!-- End Column 1 -->
+
+    <!-- COLUMN 2 (Right) -->
+    <div class="space-y-8">
+      
+      <!-- Forms -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div class="p-5 px-6 border-b border-slate-200 bg-slate-50"><h2 class="font-bold text-slate-900 text-[15px]">Clean Forms</h2></div>
+        <div class="p-6 space-y-6">
+          
+          <!-- Standard Input -->
+          <div>
+            <label class="block text-[13px] font-bold text-slate-700 mb-2">Standard Input</label>
+            <input type="text" class="w-full h-11 px-4 border-2 border-slate-200 rounded-xl bg-white text-slate-900 outline-none transition-colors focus:border-blue-600 text-[14px] font-medium placeholder:font-normal placeholder:text-slate-400" placeholder="Type something brilliant...">
+          </div>
+
+          <!-- Text Area -->
+          <div>
+            <label class="block text-[13px] font-bold text-slate-700 mb-2">Text Area</label>
+            <textarea class="w-full h-24 p-4 border-2 border-slate-200 rounded-xl bg-white text-slate-900 outline-none transition-colors focus:border-blue-600 text-[14px] font-medium placeholder:font-normal placeholder:text-slate-400 resize-none" placeholder="Write a description..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- Dropdown Biasa -->
+            <div>
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Standard Select</label>
+              <div class="relative">
+                <select class="w-full h-11 px-4 pr-10 border-2 border-slate-200 rounded-xl bg-white text-slate-900 outline-none transition-colors focus:border-blue-600 text-[14px] font-medium appearance-none cursor-pointer">
+                  <option value="">Choose an option...</option>
+                  <option value="1">Accounting & Finance</option>
+                  <option value="2">Human Resources</option>
+                  <option value="3">Information Technology</option>
+                </select>
+                <svg class="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+
+            <!-- Date Picker -->
+            <div>
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Date Picker</label>
+              <div class="relative">
+                <input type="date" onclick="this.showPicker()" class="w-full h-11 px-4 border-2 border-slate-200 rounded-xl bg-white text-slate-900 outline-none transition-colors focus:border-blue-600 text-[14px] font-medium text-slate-600 cursor-pointer">
+              </div>
+            </div>
+          </div>
+
+          <!-- Dropdown Autocomplete (Searchable) -->
+          <div class="relative z-10">
+            <label class="block text-[13px] font-bold text-slate-700 mb-2">Searchable Dropdown (Autocomplete)</label>
+            <div class="relative">
+              <div class="flex items-center w-full h-11 px-4 border-2 border-slate-200 focus-within:border-blue-600 rounded-xl bg-white text-slate-900 shadow-sm focus-within:shadow-blue-600/10 cursor-text transition-colors">
+                <input type="text" id="autocomplete-input" class="w-full bg-transparent outline-none text-[14px] font-medium" placeholder="Search country..." autocomplete="off">
+                <svg class="w-4 h-4 text-slate-400 ml-2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+              </div>
+              <!-- Dropdown List -->
+              <div id="autocomplete-list" class="absolute w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-[0_10px_40px_rgb(0,0,0,0.08)] py-1 hidden max-h-48 overflow-y-auto">
+                <div class="autocomplete-item px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors font-medium" data-value="Indonesia">Indonesia</div>
+                <div class="autocomplete-item px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors font-medium" data-value="India">India</div>
+                <div class="autocomplete-item px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors font-medium" data-value="British Indian Ocean Territory">British Indian Ocean Territory</div>
+                <div class="autocomplete-item px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors font-medium" data-value="United States">United States</div>
+                <div class="autocomplete-item px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors font-medium" data-value="United Kingdom">United Kingdom</div>
+                <div id="autocomplete-empty" class="px-4 py-2.5 text-sm text-slate-500 hidden text-center italic">No results found.</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Search Bar -->
+          <div class="pt-2">
+            <label class="block text-[13px] font-bold text-slate-700 mb-2">Search Bar (Icon Prefix)</label>
+            <div class="relative">
+              <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" class="w-full h-11 pl-11 pr-4 border-2 border-slate-200 rounded-xl bg-slate-50 text-slate-900 outline-none transition-colors focus:bg-white focus:border-blue-600 text-[14px] font-medium" placeholder="Search globally...">
+            </div>
+          </div>
+          
+          <!-- Checkbox & Radio -->
+          <div class="flex items-center gap-6 pt-5 border-t border-slate-100 mt-2">
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <div class="relative flex items-center justify-center">
+                <input type="checkbox" class="peer appearance-none w-5 h-5 border-2 border-slate-300 rounded-[6px] bg-white checked:bg-blue-600 checked:border-blue-600 transition-colors cursor-pointer" checked>
+                <svg class="absolute w-3.5 h-3.5 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <span class="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">Checkbox selected</span>
+            </label>
+            
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <div class="relative flex items-center justify-center">
+                <input type="radio" name="flat_radio" class="peer appearance-none w-5 h-5 border-2 border-slate-300 rounded-full bg-white checked:border-blue-600 transition-colors cursor-pointer" checked>
+                <div class="absolute w-2.5 h-2.5 bg-blue-600 rounded-full pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+              </div>
+              <span class="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">Radio selected</span>
+            </label>
+          </div>
+
+          <!-- Password & Number Input -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2 border-t border-slate-100 mt-2">
+            <!-- Password Input -->
+            <div class="pt-4">
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Password Input</label>
+              <div class="relative">
+                <input type="password" class="w-full h-11 px-4 pr-10 border-2 border-slate-200 rounded-xl bg-white text-slate-900 outline-none transition-colors focus:border-blue-600 text-[14px] font-medium placeholder:text-slate-400" placeholder="••••••••" value="password123">
+                <button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Number Input -->
+            <div class="pt-4">
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Number Input</label>
+              <div class="relative flex items-center">
+                <button class="w-11 h-11 flex items-center justify-center border-2 border-slate-200 border-r-0 rounded-l-xl bg-slate-50 text-slate-600 hover:bg-slate-100 transition-colors">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 12H4"/></svg>
+                </button>
+                <input type="number" class="w-full h-11 px-4 border-y-2 border-slate-200 bg-white text-slate-900 text-center outline-none transition-colors focus:border-blue-600 text-[14px] font-bold appearance-none m-0" value="1">
+                <button class="w-11 h-11 flex items-center justify-center border-2 border-slate-200 border-l-0 rounded-r-xl bg-slate-50 text-slate-600 hover:bg-slate-100 transition-colors">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7h14"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Time Picker & File Upload -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+            <!-- Time Picker -->
+            <div>
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Time Picker</label>
+              <input type="time" onclick="this.showPicker()" class="w-full h-11 px-4 border-2 border-slate-200 rounded-xl bg-white text-slate-900 outline-none transition-colors focus:border-blue-600 text-[14px] font-medium text-slate-600 cursor-pointer" value="14:30">
+            </div>
+
+            <!-- Standard File Upload -->
+            <div>
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Standard File Upload</label>
+              <input type="file" class="block w-full text-[14px] font-medium text-slate-600 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-[13px] file:font-bold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 transition-colors cursor-pointer border-2 border-slate-200 rounded-xl bg-white h-11 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600">
+            </div>
+          </div>
+
+          <!-- Multiple Select & Tags Input -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+            <!-- Multiple Select (Mock) -->
+            <div>
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Multiple Select</label>
+              <div class="relative w-full min-h-[44px] p-1.5 px-2 border-2 border-slate-200 rounded-xl bg-white flex flex-wrap gap-1.5 items-center cursor-pointer hover:border-slate-300 transition-colors">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-[12px] font-bold text-slate-700">Design <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-[12px] font-bold text-slate-700">Development <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+                <input type="text" class="flex-1 min-w-[50px] bg-transparent outline-none text-[13px] font-medium text-slate-900 ml-1 placeholder-slate-400" placeholder="Add...">
+              </div>
+            </div>
+
+            <!-- Tags Input (Mock) -->
+            <div>
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Tags / Tokenizer</label>
+              <div class="relative w-full min-h-[44px] p-1.5 px-2 border-2 border-blue-600 rounded-xl bg-white shadow-sm shadow-blue-600/10 flex flex-wrap gap-1.5 items-center cursor-text transition-colors">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-100 text-[12px] font-bold text-blue-700">UI/UX <svg class="w-3.5 h-3.5 text-blue-500 hover:text-blue-800 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-100 text-[12px] font-bold text-emerald-700">Figma <svg class="w-3.5 h-3.5 text-emerald-500 hover:text-emerald-800 cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+                <input type="text" class="flex-1 min-w-[50px] bg-transparent outline-none text-[13px] font-medium text-slate-900 ml-1" placeholder="">
+              </div>
+            </div>
+          </div>
+
+          <!-- Slider, Rating & Toggles -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-3 items-end">
+            <!-- Range Slider -->
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <label class="block text-[13px] font-bold text-slate-700">Volume / Range</label>
+                <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">75%</span>
+              </div>
+              <input type="range" min="0" max="100" value="75" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+            </div>
+
+            <!-- Rating Input -->
+            <div class="pl-0 sm:pl-2">
+              <label class="block text-[13px] font-bold text-slate-700 mb-2">Rating Input</label>
+              <div class="flex items-center gap-1.5 cursor-pointer">
+                <svg class="w-6 h-6 text-amber-400 fill-amber-400 hover:scale-110 transition-transform" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-1.822l4.88 5.64c.153.535-.468 1.011-.937.715l-4.706-3.053a.563.563 0 00-.616 0l-4.706 3.053c-.469.296-1.09-.18-.937-.715l1.822-5.64a.563.563 0 00-.182-.557l-4.204-3.602a.563.563 0 00-.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                <svg class="w-6 h-6 text-amber-400 fill-amber-400 hover:scale-110 transition-transform" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-1.822l4.88 5.64c.153.535-.468 1.011-.937.715l-4.706-3.053a.563.563 0 00-.616 0l-4.706 3.053c-.469.296-1.09-.18-.937-.715l1.822-5.64a.563.563 0 00-.182-.557l-4.204-3.602a.563.563 0 00-.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                <svg class="w-6 h-6 text-amber-400 fill-amber-400 hover:scale-110 transition-transform" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-1.822l4.88 5.64c.153.535-.468 1.011-.937.715l-4.706-3.053a.563.563 0 00-.616 0l-4.706 3.053c-.469.296-1.09-.18-.937-.715l1.822-5.64a.563.563 0 00-.182-.557l-4.204-3.602a.563.563 0 00-.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                <svg class="w-6 h-6 text-amber-400 fill-amber-400 hover:scale-110 transition-transform" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-1.822l4.88 5.64c.153.535-.468 1.011-.937.715l-4.706-3.053a.563.563 0 00-.616 0l-4.706 3.053c-.469.296-1.09-.18-.937-.715l1.822-5.64a.563.563 0 00-.182-.557l-4.204-3.602a.563.563 0 00-.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+                <svg class="w-6 h-6 text-slate-200 fill-slate-200 hover:scale-110 transition-transform" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-1.822l4.88 5.64c.153.535-.468 1.011-.937.715l-4.706-3.053a.563.563 0 00-.616 0l-4.706 3.053c-.469.296-1.09-.18-.937-.715l1.822-5.64a.563.563 0 00-.182-.557l-4.204-3.602a.563.563 0 00-.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+              </div>
+            </div>
+
+            <!-- Toggles (Moved) -->
+            <div class="pl-0 sm:pl-2">
+              <label class="block text-[13px] font-bold text-slate-700 mb-3">Toggles Switch</label>
+              <div class="flex items-center gap-5">
+                <label class="flex items-center gap-2 cursor-pointer group">
+                  <div class="relative">
+                    <input type="checkbox" class="sr-only peer" checked>
+                    <div class="w-9 h-[20px] bg-slate-200 rounded-full peer peer-checked:bg-blue-600 transition-colors"></div>
+                    <div class="absolute left-1 top-1 bg-white w-[12px] h-[12px] rounded-full transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+                  </div>
+                  <span class="text-[12px] font-bold text-slate-600 group-hover:text-slate-900 transition-colors">On</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer group">
+                  <div class="relative">
+                    <input type="checkbox" class="sr-only peer">
+                    <div class="w-9 h-[20px] bg-slate-200 rounded-full peer peer-checked:bg-blue-600 transition-colors"></div>
+                    <div class="absolute left-1 top-1 bg-white w-[12px] h-[12px] rounded-full transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+                  </div>
+                  <span class="text-[12px] font-bold text-slate-600 group-hover:text-slate-900 transition-colors">Off</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts & Modals -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div class="p-5 px-6 border-b border-slate-200 bg-slate-50"><h2 class="font-bold text-slate-900 text-[15px]">Alerts & Modals</h2></div>
+        <div class="p-6 space-y-6">
+          
+          <!-- Solid Alerts -->
+          <div class="space-y-4">
+            <div class="p-4 px-5 bg-blue-50 border border-blue-200 rounded-xl flex items-center gap-4 text-blue-800">
+              <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-sm">System Update</h4>
+                <p class="text-xs text-blue-700/80 mt-0.5 font-medium">A new version is available for download.</p>
+              </div>
+            </div>
+            
+            <div class="p-4 px-5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-4 text-emerald-800">
+              <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-sm">Transfer Successful</h4>
+                <p class="text-xs text-emerald-700/80 mt-0.5 font-medium">Your funds have been processed securely.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Confirmation Modal -->
+          <div>
+            <label class="block text-[13px] font-bold text-slate-700 mb-2">Notification Confirm (Modal/Dialog Inline)</label>
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-[0_10px_40px_rgb(0,0,0,0.08)]">
+              <div class="px-6 py-6 sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                </div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-[16px] font-bold leading-6 text-slate-900">Deactivate account</h3>
+                  <div class="mt-2">
+                    <p class="text-sm text-slate-500 font-medium">Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-slate-50 px-4 py-4 sm:flex sm:flex-row-reverse sm:px-6 border-t border-slate-200">
+                <button type="button" class="inline-flex w-full justify-center rounded-lg bg-red-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto transition-colors">Deactivate</button>
+                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-lg bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto transition-colors">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- File Upload & Profile -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div class="p-5 px-6 border-b border-slate-200 bg-slate-50"><h2 class="font-bold text-slate-900 text-[15px]">Media & Uploads</h2></div>
+        <div class="p-6 space-y-6">
+          
+          <!-- Edit Profile Picture -->
+          <div>
+            <label class="block text-[13px] font-bold text-slate-700 mb-3">Edit Profile Picture</label>
+            <div class="flex items-center gap-5">
+              <div class="relative w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden group border border-slate-200 cursor-pointer">
+                <!-- Fallback Initials -->
+                <span class="text-xl font-bold text-slate-400 group-hover:opacity-0 transition-opacity">AD</span>
+                <!-- Hover Overlay -->
+                <div class="absolute inset-0 bg-slate-900/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+              </div>
+              <div>
+                <button class="px-4 py-2 text-[13px] font-bold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors mb-1">Upload New</button>
+                <div class="text-xs text-slate-500">JPG or PNG. Max size 2MB.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drag and Drop Upload -->
+          <div>
+            <label class="block text-[13px] font-bold text-slate-700 mb-2">File Upload (Drag & Drop)</label>
+            <div class="flex justify-center px-6 pt-8 pb-8 border-2 border-slate-300 border-dashed rounded-xl hover:border-blue-500 hover:bg-blue-50/50 transition-colors cursor-pointer group">
+              <div class="space-y-2 text-center">
+                <svg class="mx-auto h-10 w-10 text-slate-400 group-hover:text-blue-500 transition-colors" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="flex text-[14px] text-slate-600">
+                  <span class="relative font-bold text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                    <span>Upload a file</span>
+                  </span>
+                  <p class="pl-1">or drag and drop</p>
+                </div>
+                <p class="text-xs text-slate-500">PNG, JPG, PDF up to 10MB</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+    </div> <!-- End Column 2 -->
+  </div> <!-- End Grid -->
+
+  <!-- Data Tables / Grid Tables -->
+  <div class="mt-8 bg-white border border-slate-200 rounded-2xl overflow-hidden mb-10">
+    <div class="p-5 px-6 border-b border-slate-100 flex items-center justify-between">
+      <h2 class="font-bold text-slate-900 text-[15px]">Data Table (Grid)</h2>
+      <button class="text-sm font-semibold text-blue-600 hover:text-blue-700">Export CSV</button>
+    </div>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-slate-50 border-b border-slate-200 text-[12px] uppercase tracking-wider text-slate-500 font-bold">
+            <th class="py-4 px-6">Name</th>
+            <th class="py-4 px-6">Title</th>
+            <th class="py-4 px-6">Status</th>
+            <th class="py-4 px-6">Role</th>
+            <th class="py-4 px-6 text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-sm">
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="py-4 px-6">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">JD</div>
+                <div>
+                  <div class="font-bold text-slate-900">Jane Doe</div>
+                  <div class="text-slate-500 text-xs mt-0.5">jane@example.com</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-6 text-slate-700">
+              <div class="font-medium">Software Engineer</div>
+              <div class="text-slate-500 text-xs mt-0.5">IT Department</div>
+            </td>
+            <td class="py-4 px-6">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-700">
+                Active
+              </span>
+            </td>
+            <td class="py-4 px-6 text-slate-500 font-medium">Member</td>
+            <td class="py-4 px-6 text-right">
+              <button class="text-blue-600 hover:text-blue-800 font-semibold text-[13px]">Edit</button>
+            </td>
+          </tr>
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="py-4 px-6">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xs">JS</div>
+                <div>
+                  <div class="font-bold text-slate-900">John Smith</div>
+                  <div class="text-slate-500 text-xs mt-0.5">john@example.com</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-6 text-slate-700">
+              <div class="font-medium">Product Manager</div>
+              <div class="text-slate-500 text-xs mt-0.5">Product</div>
+            </td>
+            <td class="py-4 px-6">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600">
+                Offline
+              </span>
+            </td>
+            <td class="py-4 px-6 text-slate-500 font-medium">Admin</td>
+            <td class="py-4 px-6 text-right">
+              <button class="text-blue-600 hover:text-blue-800 font-semibold text-[13px]">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="p-4 px-6 border-t border-slate-100 flex items-center justify-between bg-slate-50">
+      <div class="text-sm text-slate-500">Showing <span class="font-medium text-slate-900">1</span> to <span class="font-medium text-slate-900">2</span> of <span class="font-medium text-slate-900">20</span> results</div>
+      <div class="flex gap-2">
+        <button class="px-3 py-1.5 border border-slate-300 rounded-lg text-sm font-medium text-slate-600 bg-white hover:bg-slate-50 disabled:opacity-50" disabled>Previous</button>
+        <button class="px-3 py-1.5 border border-slate-300 rounded-lg text-sm font-medium text-slate-600 bg-white hover:bg-slate-50">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
