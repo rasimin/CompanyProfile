@@ -59,7 +59,7 @@ async function loadView(viewName) {
 
 function handleHashChange() {
   const hash = window.location.hash.substring(1); // Remove '#'
-  const route = hash || 'dashboard'; // Default to dashboard
+  const route = hash || 'ui-components'; // Default to ui-components
   loadView(route);
 }
 
