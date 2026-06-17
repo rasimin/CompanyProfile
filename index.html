@@ -6,7 +6,7 @@
   <title>Company Profile Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans min-h-screen">
@@ -67,31 +67,31 @@
   <div id="main-wrapper" class="flex flex-col min-h-screen lg:ml-[260px] transition-all duration-300">
     
     <!-- Header -->
-    <header class="sticky top-0 z-20 h-16 bg-white border-b border-slate-200 flex items-center px-4 lg:px-6 gap-3">
-      <button id="menuBtn" class="p-2 -ml-2 text-slate-500 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-
-      <div class="ml-auto flex items-center gap-4">
-        <button class="relative p-2 text-slate-500 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-colors">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-orange-500 rounded-full border-2 border-white"></span>
+    <header class="sticky top-0 z-20 bg-white border-b border-[#ECEDF3] h-[72px] flex items-center px-6 justify-between gap-4">
+      <div class="flex items-center gap-3 flex-1">
+        <button id="menuBtn" class="p-2 -ml-2 text-slate-500 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
-
-        <div class="flex items-center gap-3 pl-4 border-l border-slate-200">
-          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white font-semibold text-sm">
-            AD
-          </div>
-          <div class="hidden md:block leading-tight">
-            <div class="font-semibold text-sm text-slate-900">Admin User</div>
-            <div class="text-xs text-slate-500 mt-px">Administrator</div>
-          </div>
+        
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="searchInput" type="text" placeholder="Cari sesuatu...">
         </div>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="icon-btn"><span class="ping"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M21 8l-9 6-9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+        </div>
+        <div class="topbar-avatar">AD</div>
       </div>
     </header>
 
     <!-- Dynamic Content Area -->
-    <main id="app-content" class="p-6 lg:p-8 max-w-[1600px] mx-auto w-full flex-1">
+    <main id="app-content" class="main flex-1">
       <!-- Views will be loaded here by main.js -->
     </main>
 
@@ -102,7 +102,7 @@
     .active-nav { background-color: #1e293b !important; color: white !important; }
     .active-nav > div > svg { color: #cbd5e1 !important; }
     /* Submenu active state overrides */
-    .submenu .active-nav { background-color: rgba(30, 41, 59, 0.4) !important; border-left-color: #3b82f6 !important; color: white !important; border-radius: 0 8px 8px 0; }
+    .submenu .active-nav { background-color: rgba(30, 41, 59, 0.4) !important; border-left-color: #94a3b8 !important; color: white !important; border-radius: 0 8px 8px 0; }
   </style>
 
   <script type="module" src="./main.js"></script>

@@ -89,111 +89,50 @@ submenuToggles.forEach(toggle => {
   });
 });
 
-// 4. UI Components Tab Interactivity (Event Delegation)
-document.addEventListener('click', (e) => {
-  const tabBtn = e.target.closest('.tab-btn');
-  if (tabBtn) {
-    const targetId = tabBtn.getAttribute('data-target');
-    const tabGroup = tabBtn.closest('.tab-group');
-    const isVertical = tabGroup.classList.contains('vertical-tabs');
-
-    // Deactivate all buttons in group
-    tabGroup.querySelectorAll('.tab-btn').forEach(btn => {
-      if (isVertical) {
-        btn.classList.remove('bg-blue-50', 'text-blue-700', 'border-blue-600');
-        btn.classList.add('text-slate-600', 'border-transparent', 'hover:bg-slate-50');
-      } else {
-        btn.classList.remove('border-blue-600', 'text-blue-600');
-        btn.classList.add('border-transparent', 'text-slate-500', 'hover:text-slate-800');
-      }
-    });
-
-    // Activate clicked button
-    if (isVertical) {
-      tabBtn.classList.remove('text-slate-600', 'border-transparent', 'hover:bg-slate-50');
-      tabBtn.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-600');
-    } else {
-      tabBtn.classList.remove('border-transparent', 'text-slate-500', 'hover:text-slate-800');
-      tabBtn.classList.add('border-blue-600', 'text-blue-600');
-    }
-
-    // Switch Content
-    const tabContainer = tabGroup.closest('.tab-container');
-    if (tabContainer) {
-      const contents = tabContainer.querySelectorAll('.tab-content');
-      contents.forEach(content => {
-        content.classList.add('hidden');
-        content.classList.remove('opacity-100');
-        content.classList.add('opacity-0');
-      });
-
-      const targetContent = tabContainer.querySelector(targetId);
-      if (targetContent) {
-        targetContent.classList.remove('hidden');
-        // Small delay to allow display:block to apply before animating opacity
-        setTimeout(() => {
-          targetContent.classList.remove('opacity-0');
-          targetContent.classList.add('opacity-100');
-        }, 10);
-      }
-    }
-  }
-});
-
-// 5. Autocomplete Interactivity
-document.addEventListener('input', (e) => {
-  if (e.target.id === 'autocomplete-input') {
-    const input = e.target;
-    const list = document.getElementById('autocomplete-list');
-    const emptyState = document.getElementById('autocomplete-empty');
-    const items = list.querySelectorAll('.autocomplete-item');
-    const filter = input.value.toLowerCase();
-    
-    list.classList.remove('hidden');
-    let hasVisibleItems = false;
-    
-    items.forEach(item => {
-      const text = item.textContent.toLowerCase();
-      if (text.includes(filter)) {
-        item.classList.remove('hidden');
-        hasVisibleItems = true;
-      } else {
-        item.classList.add('hidden');
-      }
-    });
-    
-    if (hasVisibleItems) {
-      emptyState.classList.add('hidden');
-    } else {
-      emptyState.classList.remove('hidden');
-    }
-  }
-});
-
-document.addEventListener('click', (e) => {
-  const list = document.getElementById('autocomplete-list');
-  const input = document.getElementById('autocomplete-input');
+// 4. Global UI Component Helpers for Dynamic Content
+window.switchTab = function(button, paneId) {
+  const container = button.closest('.tabs-container');
+  if (!container) return;
   
-  if (!list || !input) return;
+  // Find siblings of the button and deactivate them
+  const buttons = button.parentElement.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('active');
+    btn.classList.remove('tab-active');
+    btn.classList.remove('vtab-active');
+  });
   
-  // Click on an item
-  const item = e.target.closest('.autocomplete-item');
-  if (item && list.contains(item)) {
-    input.value = item.getAttribute('data-value');
-    list.classList.add('hidden');
-    return;
-  }
+  // Determine if it is a vertical or horizontal tab
+  const isActiveClass = button.classList.contains('v-tab-btn') ? 'vtab-active' : 'tab-active';
+  button.classList.add(isActiveClass);
+  button.classList.add('active');
   
-  // Click on the input to show list
-  if (e.target === input) {
-    list.classList.remove('hidden');
-    // Trigger input event to re-filter based on current value
-    input.dispatchEvent(new Event('input', { bubbles: true }));
-    return;
-  }
+  // Find pane container and deactivate all panes
+  const panes = container.querySelectorAll('.tab-pane');
+  panes.forEach(pane => {
+    pane.classList.add('hidden');
+    pane.classList.remove('active');
+  });
   
-  // Click outside to hide list
-  if (!input.contains(e.target) && !list.contains(e.target)) {
-    list.classList.add('hidden');
+  // Activate target pane
+  const targetPane = container.querySelector('#' + paneId);
+  if (targetPane) {
+    targetPane.classList.remove('hidden');
+    targetPane.classList.add('active');
   }
-});
+};
+
+window.toggleModal = function(modalId, show) {
+  const modal = document.getElementById(modalId);
+  if (!modal) return;
+  
+  if (show) {
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden'; // prevent background scrolling
+  } else {
+    modal.classList.remove('show');
+    document.body.style.overflow = ''; // restore scrolling
+  }
+};
+
+
