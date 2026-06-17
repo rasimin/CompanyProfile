@@ -518,4 +518,550 @@
 
   </div> <!-- End of second grid row -->
 
+  <!-- Component Showcase Grid Row 3 -->
+  <div class="ui-grid" style="margin-top: 24px;">
+
+    <!-- Card 7: Progress Bars & Stepper -->
+    <div class="ui-section-card">
+      <h3>Progress Bar &amp; Stepper</h3>
+
+      <span class="ui-sublabel">Linear Progress Bars</span>
+      <div style="display:flex; flex-direction:column; gap:16px; width:100%;">
+        <div>
+          <div class="progress-label"><span>Upload File</span><span>78%</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill progress-fill-navy" style="width:78%;"></div></div>
+        </div>
+        <div>
+          <div class="progress-label"><span>Disk Usage</span><span>45%</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill progress-fill-teal" style="width:45%;"></div></div>
+        </div>
+        <div>
+          <div class="progress-label"><span>CPU Load</span><span>92%</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill progress-fill-coral" style="width:92%;"></div></div>
+        </div>
+        <div>
+          <div class="progress-label"><span>Memory</span><span>33%</span></div>
+          <div class="progress-bar-track"><div class="progress-bar-fill progress-fill-amber" style="width:33%;"></div></div>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:16px;">Circular / Ring Progress</span>
+      <div class="ui-group" style="justify-content:center; gap:24px;">
+        <!-- 75% ring -->
+        <div class="progress-ring-wrap">
+          <svg width="72" height="72">
+            <circle class="progress-ring-bg" cx="36" cy="36" r="28" stroke-width="6"/>
+            <circle class="progress-ring-fg" cx="36" cy="36" r="28" stroke-width="6" stroke="var(--navy-2)"
+              stroke-dasharray="175.93" stroke-dashoffset="43.98"/>
+          </svg>
+          <span class="progress-ring-text">75%</span>
+        </div>
+        <!-- 52% ring teal -->
+        <div class="progress-ring-wrap">
+          <svg width="72" height="72">
+            <circle class="progress-ring-bg" cx="36" cy="36" r="28" stroke-width="6"/>
+            <circle class="progress-ring-fg" cx="36" cy="36" r="28" stroke-width="6" stroke="var(--teal-2)"
+              stroke-dasharray="175.93" stroke-dashoffset="84.45"/>
+          </svg>
+          <span class="progress-ring-text">52%</span>
+        </div>
+        <!-- 90% ring coral -->
+        <div class="progress-ring-wrap">
+          <svg width="72" height="72">
+            <circle class="progress-ring-bg" cx="36" cy="36" r="28" stroke-width="6"/>
+            <circle class="progress-ring-fg" cx="36" cy="36" r="28" stroke-width="6" stroke="var(--coral-2)"
+              stroke-dasharray="175.93" stroke-dashoffset="17.59"/>
+          </svg>
+          <span class="progress-ring-text">90%</span>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:16px;">Step Indicator / Wizard</span>
+      <div class="step-indicator">
+        <div class="step-item step-completed">
+          <div class="step-circle">
+            <svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div class="step-label">Data Diri</div>
+        </div>
+        <div class="step-item step-completed">
+          <div class="step-circle">
+            <svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div class="step-label">Alamat</div>
+        </div>
+        <div class="step-item step-active">
+          <div class="step-circle">3</div>
+          <div class="step-label">Pembayaran</div>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">4</div>
+          <div class="step-label">Konfirmasi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 8: Tooltip & Popover -->
+    <div class="ui-section-card">
+      <h3>Tooltip &amp; Popover</h3>
+
+      <span class="ui-sublabel">Tooltip (Hover) — 4 Arah</span>
+      <div class="ui-group" style="justify-content:center; gap:20px;">
+        <div class="tooltip-wrap tooltip-top">
+          <button class="btn-premium btn-sm btn-secondary tooltip-trigger">Atas ↑</button>
+          <div class="tooltip-content">Tooltip di atas</div>
+        </div>
+        <div class="tooltip-wrap tooltip-bottom">
+          <button class="btn-premium btn-sm btn-secondary tooltip-trigger">Bawah ↓</button>
+          <div class="tooltip-content">Tooltip di bawah</div>
+        </div>
+        <div class="tooltip-wrap tooltip-left">
+          <button class="btn-premium btn-sm btn-secondary tooltip-trigger">Kiri ←</button>
+          <div class="tooltip-content">Tooltip di kiri</div>
+        </div>
+        <div class="tooltip-wrap tooltip-right">
+          <button class="btn-premium btn-sm btn-secondary tooltip-trigger">Kanan →</button>
+          <div class="tooltip-content">Tooltip di kanan</div>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:16px;">Tooltip dengan Ikon</span>
+      <div class="ui-group" style="gap:16px;">
+        <div class="tooltip-wrap tooltip-top">
+          <div class="tooltip-trigger" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink);">
+            Kapasitas Server
+            <svg style="width:15px;height:15px;color:var(--muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="tooltip-content">Kapasitas tersisa: 256 GB dari 1 TB</div>
+        </div>
+        <div class="tooltip-wrap tooltip-top">
+          <div class="tooltip-trigger" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink);">
+            Versi Terakhir
+            <svg style="width:15px;height:15px;color:var(--muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="tooltip-content">v2.4.1 — rilis 12 Juni 2026</div>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:20px;">Popover (Klik)</span>
+      <div class="ui-group">
+        <div class="popover-wrap">
+          <button class="btn-premium btn-md btn-outline" onclick="togglePopover('popover-demo')">
+            <svg style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Info Popover
+          </button>
+          <div id="popover-demo" class="popover-content">
+            <h5>Informasi Layanan</h5>
+            <p>Layanan grooming tersedia setiap Senin-Sabtu pukul 09:00-17:00 WIB. Reservasi minimal 2 jam sebelum jadwal kunjungan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 9: Breadcrumb & Pagination -->
+    <div class="ui-section-card">
+      <h3>Breadcrumb &amp; Pagination</h3>
+
+      <span class="ui-sublabel">Breadcrumb Navigation</span>
+      <div style="display:flex; flex-direction:column; gap:14px; width:100%;">
+        <!-- Simple breadcrumb -->
+        <nav class="breadcrumb">
+          <a href="#">Beranda</a>
+          <span class="breadcrumb-sep">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </span>
+          <a href="#">Layanan</a>
+          <span class="breadcrumb-sep">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </span>
+          <a href="#">Pet Grooming</a>
+          <span class="breadcrumb-sep">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </span>
+          <span class="breadcrumb-active">Detail Booking #247</span>
+        </nav>
+
+        <!-- Icon breadcrumb -->
+        <nav class="breadcrumb">
+          <a href="#" style="display:inline-flex;align-items:center;gap:4px;">
+            <svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            Home
+          </a>
+          <span class="breadcrumb-sep">/</span>
+          <a href="#">Users</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-active">Profile Settings</span>
+        </nav>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:20px;">Pagination</span>
+      <div style="display:flex; flex-direction:column; gap:16px; width:100%;">
+        <!-- Full pagination -->
+        <nav class="pagination">
+          <button class="page-btn" disabled>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="page-btn page-active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span class="page-ellipsis">...</span>
+          <button class="page-btn">12</button>
+          <button class="page-btn">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </nav>
+
+        <!-- Compact pagination -->
+        <nav class="pagination">
+          <button class="page-btn">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="page-btn">4</button>
+          <button class="page-btn page-active">5</button>
+          <button class="page-btn">6</button>
+          <button class="page-btn">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <span style="font-size:12px;color:var(--muted);margin-left:8px;">Halaman 5 dari 20</span>
+        </nav>
+      </div>
+    </div>
+
+  </div> <!-- End of Row 3 -->
+
+  <!-- Component Showcase Grid Row 4 -->
+  <div class="ui-grid" style="margin-top: 24px;">
+
+    <!-- Card 10: Avatar & Avatar Group -->
+    <div class="ui-section-card">
+      <h3>Avatar &amp; Avatar Group</h3>
+
+      <span class="ui-sublabel">Ukuran Avatar</span>
+      <div class="ui-group" style="align-items:center; gap:14px;">
+        <div class="avatar avatar-xs" style="background:linear-gradient(135deg,var(--amber-1),var(--amber-2));">XS</div>
+        <div class="avatar avatar-sm" style="background:linear-gradient(135deg,var(--coral-1),var(--coral-2));">SM</div>
+        <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--teal-1),var(--teal-2));">MD</div>
+        <div class="avatar avatar-lg" style="background:linear-gradient(135deg,var(--violet-1),var(--violet-2));">LG</div>
+        <div class="avatar avatar-xl" style="background:linear-gradient(135deg,var(--navy-1),var(--navy-2));">XL</div>
+      </div>
+
+      <span class="ui-sublabel">Avatar dengan Status</span>
+      <div class="ui-group" style="gap:18px;">
+        <div class="avatar-status-wrap">
+          <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--teal-1),var(--teal-2));">RA</div>
+          <span class="avatar-status-dot status-online"></span>
+        </div>
+        <div class="avatar-status-wrap">
+          <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--coral-1),var(--coral-2));">BP</div>
+          <span class="avatar-status-dot status-busy"></span>
+        </div>
+        <div class="avatar-status-wrap">
+          <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--amber-1),var(--amber-2));">CL</div>
+          <span class="avatar-status-dot status-away"></span>
+        </div>
+        <div class="avatar-status-wrap">
+          <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--violet-1),var(--violet-2));">DS</div>
+          <span class="avatar-status-dot status-offline"></span>
+        </div>
+      </div>
+
+      <span class="ui-sublabel">Avatar Group (Stacked)</span>
+      <div class="avatar-group">
+        <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--amber-1),var(--amber-2));z-index:4;">RA</div>
+        <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--coral-1),var(--coral-2));z-index:3;">BP</div>
+        <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--teal-1),var(--teal-2));z-index:2;">CL</div>
+        <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--violet-1),var(--violet-2));z-index:1;">DS</div>
+        <div class="avatar avatar-md avatar-more" style="z-index:0;">+5</div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:6px;">Avatar dengan Label Info</span>
+      <div style="display:flex;flex-direction:column;gap:12px;width:100%;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar-status-wrap">
+            <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--teal-1),var(--teal-2));">RA</div>
+            <span class="avatar-status-dot status-online"></span>
+          </div>
+          <div>
+            <div style="font-size:13.5px;font-weight:600;color:var(--ink);">Rina Aulia</div>
+            <div style="font-size:12px;color:var(--muted);">Admin Senior — Online</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar-status-wrap">
+            <div class="avatar avatar-md" style="background:linear-gradient(135deg,var(--coral-1),var(--coral-2));">BP</div>
+            <span class="avatar-status-dot status-busy"></span>
+          </div>
+          <div>
+            <div style="font-size:13.5px;font-weight:600;color:var(--ink);">Bayu Pratama</div>
+            <div style="font-size:12px;color:var(--muted);">Moderator Forum — Sibuk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 11: Card Variants -->
+    <div class="ui-section-card">
+      <h3>Card Variants</h3>
+
+      <span class="ui-sublabel">Pricing Cards</span>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%;">
+        <!-- Basic Plan -->
+        <div class="pricing-card">
+          <div class="pricing-icon" style="background:#E1F8F4;">
+            <svg fill="none" viewBox="0 0 24 24" stroke="#13A39A" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div class="pricing-plan">Basic</div>
+          <div class="pricing-desc">Untuk hewan peliharaan tunggal</div>
+          <div class="pricing-amount">Rp 99k<span>/bln</span></div>
+          <ul class="pricing-features">
+            <li><svg class="feat-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>1 profil hewan</li>
+            <li><svg class="feat-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Booking grooming</li>
+            <li><svg class="feat-x" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>Konsultasi 24/7</li>
+          </ul>
+          <button class="btn-premium btn-md btn-secondary" style="width:100%;">Pilih Paket</button>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="pricing-card pricing-recommended">
+          <span class="pricing-badge">Populer</span>
+          <div class="pricing-icon" style="background:#EFE9FF;">
+            <svg fill="none" viewBox="0 0 24 24" stroke="#7B5CFA" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          </div>
+          <div class="pricing-plan">Pro</div>
+          <div class="pricing-desc">Untuk banyak hewan peliharaan</div>
+          <div class="pricing-amount">Rp 249k<span>/bln</span></div>
+          <ul class="pricing-features">
+            <li><svg class="feat-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>5 profil hewan</li>
+            <li><svg class="feat-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Booking prioritas</li>
+            <li><svg class="feat-check" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Konsultasi 24/7</li>
+          </ul>
+          <button class="btn-premium btn-md btn-primary" style="width:100%;">Pilih Paket</button>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:16px;">Profile Card</span>
+      <div class="profile-card" style="width:100%;">
+        <div class="profile-card-banner"></div>
+        <div class="profile-card-body">
+          <div class="avatar avatar-xl" style="background:linear-gradient(135deg,var(--violet-1),var(--violet-2));">AD</div>
+          <div class="profile-card-name">Admin Pawfect</div>
+          <div class="profile-card-role">Super Administrator</div>
+          <div class="profile-card-stats">
+            <div><div class="pc-val">2,348</div><div class="pc-lbl">Hewan</div></div>
+            <div><div class="pc-val">186</div><div class="pc-lbl">Booking</div></div>
+            <div><div class="pc-val">964</div><div class="pc-lbl">Forum</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 12: Skeleton Loaders & Spinners -->
+    <div class="ui-section-card">
+      <h3>Skeleton Loader &amp; Spinner</h3>
+
+      <span class="ui-sublabel">Skeleton — Card Preview</span>
+      <div style="display:flex; flex-direction:column; gap:0; width:100%; padding:16px; border:1px solid var(--line); border-radius:var(--radius-lg);">
+        <div class="skeleton skeleton-card-img"></div>
+        <div class="skeleton skeleton-heading"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text w-75"></div>
+        <div class="skeleton skeleton-text w-50"></div>
+        <div style="margin-top:8px;">
+          <div class="skeleton skeleton-btn"></div>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:12px;">Skeleton — User Row</span>
+      <div style="display:flex; flex-direction:column; gap:14px; width:100%;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="skeleton skeleton-avatar"></div>
+          <div style="flex:1;">
+            <div class="skeleton skeleton-text w-50" style="margin-bottom:6px;"></div>
+            <div class="skeleton skeleton-text w-30"></div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="skeleton skeleton-avatar"></div>
+          <div style="flex:1;">
+            <div class="skeleton skeleton-text w-75" style="margin-bottom:6px;"></div>
+            <div class="skeleton skeleton-text w-50"></div>
+          </div>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:16px;">Spinner Variants</span>
+      <div class="ui-group" style="gap:24px; align-items:center;">
+        <div style="text-align:center;">
+          <div class="spinner-sm" style="border:2px solid #e2e8f0; border-top-color:var(--navy-2);"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Small</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="spinner-md"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Medium</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="spinner-lg"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Large</div>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:12px;">Animated Loaders</span>
+      <div class="ui-group" style="gap:32px; align-items:center;">
+        <div style="text-align:center;">
+          <div class="dots-loader"><span></span><span></span><span></span></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:8px;">Dots</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="pulse-loader"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:8px;">Pulse</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="bar-loader"><span></span><span></span><span></span><span></span><span></span></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:8px;">Bars</div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- End of Row 4 -->
+
+  <!-- Component Showcase Grid Row 5 -->
+  <div class="ui-grid" style="margin-top: 24px; margin-bottom: 40px;">
+
+    <!-- Card 13: Toast Notifications -->
+    <div class="ui-section-card">
+      <h3>Toast Notification (Interactive)</h3>
+
+      <span class="ui-sublabel">Klik untuk Menampilkan Toast</span>
+      <div style="display:flex; flex-direction:column; gap:10px; width:100%;">
+        <button class="btn-premium btn-md btn-primary" style="width:100%;"
+          onclick="showToast('success', 'Berhasil!', 'Data booking hewan berhasil disimpan ke database.')">
+          <svg style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Toast Success
+        </button>
+        <button class="btn-premium btn-md btn-secondary" style="width:100%;border-color:#ef4444;color:#ef4444;"
+          onclick="showToast('error', 'Error!', 'Gagal terhubung ke server. Coba lagi nanti.')">
+          <svg style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Toast Error
+        </button>
+        <button class="btn-premium btn-md btn-secondary" style="width:100%;border-color:#f59e0b;color:#b45309;"
+          onclick="showToast('warning', 'Peringatan!', 'Kuota penyimpanan tersisa 5%. Harap bersihkan file lama.')">
+          <svg style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          Toast Warning
+        </button>
+        <button class="btn-premium btn-md btn-secondary" style="width:100%;border-color:#3b82f6;color:#2563eb;"
+          onclick="showToast('info', 'Info', 'Pembaruan sistem dijadwalkan hari Jumat pukul 22:00 WIB.')">
+          <svg style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Toast Info
+        </button>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:16px;">Keterangan</span>
+      <div style="font-size:12.5px; color:var(--muted); line-height:1.5;">
+        Toast muncul di <strong>pojok kanan atas</strong> layar dan otomatis hilang setelah <strong>3 detik</strong>. Terdapat progress bar countdown dan tombol close manual.
+      </div>
+    </div>
+
+    <!-- Card 14: Dropdown Menu -->
+    <div class="ui-section-card">
+      <h3>Dropdown Menu</h3>
+
+      <span class="ui-sublabel">Basic Dropdown</span>
+      <div class="dropdown-wrap">
+        <button class="btn-premium btn-md btn-secondary" onclick="toggleDropdown('dd-basic')">
+          Aksi
+          <svg style="width:16px;height:16px;margin-left:4px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="dd-basic" class="dropdown-menu">
+          <button class="dropdown-item" onclick="toggleDropdown('dd-basic')">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            Lihat Detail
+          </button>
+          <button class="dropdown-item" onclick="toggleDropdown('dd-basic')">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            Edit Data
+          </button>
+          <button class="dropdown-item" onclick="toggleDropdown('dd-basic')">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Duplikat
+          </button>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item dropdown-danger" onclick="toggleDropdown('dd-basic')">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            Hapus
+          </button>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:20px;">Dropdown dengan Label Group</span>
+      <div class="dropdown-wrap">
+        <button class="btn-premium btn-md btn-primary" onclick="toggleDropdown('dd-grouped')">
+          <svg style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          Tambah Baru
+          <svg style="width:16px;height:16px;margin-left:2px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="dd-grouped" class="dropdown-menu" style="min-width:220px;">
+          <div class="dropdown-label">Hewan</div>
+          <button class="dropdown-item" onclick="toggleDropdown('dd-grouped')">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="4"/><circle cx="6" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/></svg>
+            Tambah Hewan Baru
+          </button>
+          <button class="dropdown-item" onclick="toggleDropdown('dd-grouped')">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Upload Foto Profil
+          </button>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-label">Layanan</div>
+          <button class="dropdown-item" onclick="toggleDropdown('dd-grouped')">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Booking Baru
+          </button>
+          <button class="dropdown-item" onclick="toggleDropdown('dd-grouped')">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Buat Invoice
+          </button>
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:20px;">Keterangan</span>
+      <div style="font-size:12.5px; color:var(--muted); line-height:1.5;">
+        Dropdown menu muncul saat tombol diklik dan otomatis tertutup ketika klik di luar area menu. Mendukung <strong>icon</strong>, <strong>divider</strong>, <strong>label group</strong>, dan item <strong>danger</strong> merah.
+      </div>
+    </div>
+
+    <!-- Card 15: Autocomplete Dropdown -->
+    <div class="ui-section-card">
+      <h3>Autocomplete Dropdown (Combobox)</h3>
+
+      <span class="ui-sublabel">Cari Ras Hewan Peliharaan</span>
+      <div class="autocomplete-wrap" id="breed-autocomplete">
+        <div class="autocomplete-input-container">
+          <input type="text" class="form-input-premium autocomplete-input" placeholder="Ketik ras hewan (cth: Persian, Golden)..." autocomplete="off">
+          <div class="autocomplete-actions">
+            <!-- Spinner (hidden by default) -->
+            <span class="autocomplete-spinner spinner-sm hidden" style="width:14px; height:14px; border-width:2px; border-top-color:var(--navy-2);"></span>
+            <!-- Clear button (hidden by default) -->
+            <button type="button" class="autocomplete-clear-btn hidden" aria-label="Clear input">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <!-- Dropdown arrow -->
+            <span class="autocomplete-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </div>
+        </div>
+        <!-- Dropdown Menu -->
+        <div class="autocomplete-menu">
+          <!-- Items will be injected dynamically by JS -->
+        </div>
+      </div>
+
+      <span class="ui-sublabel" style="margin-top:20px;">Keterangan</span>
+      <div style="font-size:12.5px; color:var(--muted); line-height:1.5;">
+        Autocomplete mem-filter hasil pencarian secara dinamis saat mengetik, mendukung <strong>navigasi keyboard</strong> (panah atas/bawah, Enter, Esc), simulasi delay loading, dan status kosong jika data tidak ditemukan.
+      </div>
+    </div>
+
+  </div> <!-- End of Row 5 -->
+
 </div>
+
