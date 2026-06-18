@@ -141,6 +141,102 @@ window.toggleModal = function(modalId, show) {
   }
 };
 
+// Custom Reusable Confirmation Modal (Elegant replacement for browser confirm())
+window.confirmModal = function(title, message, onConfirm) {
+  let existing = document.getElementById('global-confirm-modal');
+  if (existing) existing.remove();
+
+  const modalMarkup = `
+    <div id="global-confirm-modal" class="modal-overlay-premium show" style="display: flex;">
+      <div class="modal-dialog-premium" style="max-width: 400px; text-align: center;" onclick="event.stopPropagation()">
+        <div class="modal-body-content" style="padding: 36px 24px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: #FDEAEC; color: #E0264B; display: flex; align-items: center; justify-content: center; margin-bottom: 4px;">
+            <svg style="width: 28px; height: 28px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+          <h4 style="font-size: 17px; font-weight: 700; margin: 0; color: var(--ink); font-family: 'Poppins', sans-serif;">${title}</h4>
+          <p style="font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; text-align: center;">
+            ${message}
+          </p>
+          <div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;">
+            <button id="confirm-cancel-btn" class="btn-premium btn-md btn-secondary" style="flex: 1; padding: 8px 12px; font-size: 13px;">Batal</button>
+            <button id="confirm-ok-btn" class="btn-premium btn-md btn-primary" style="flex: 1; padding: 8px 12px; font-size: 13px; background: linear-gradient(135deg, #FF6B8A, #E0264B); border: none; box-shadow: 0 4px 15px -4px rgba(224, 38, 75, 0.35); color: white;">Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = modalMarkup;
+  const modalEl = tempDiv.firstElementChild;
+  document.body.appendChild(modalEl);
+  document.body.style.overflow = 'hidden';
+
+  const closeConfirmModal = () => {
+    modalEl.remove();
+    document.body.style.overflow = '';
+  };
+
+  modalEl.addEventListener('click', (e) => {
+    if (e.target === modalEl) closeConfirmModal();
+  });
+
+  modalEl.querySelector('#confirm-cancel-btn').addEventListener('click', closeConfirmModal);
+
+  modalEl.querySelector('#confirm-ok-btn').addEventListener('click', () => {
+    closeConfirmModal();
+    if (onConfirm) onConfirm();
+  });
+};
+
+// Custom Reusable Alert Modal (Elegant replacement for browser alert())
+window.alertModal = function(title, message, type = 'success') {
+  let existing = document.getElementById('global-alert-modal');
+  if (existing) existing.remove();
+
+  const colors = {
+    success: { bg: '#E7F8EF', stroke: '#1AA964', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>' },
+    info: { bg: '#EFE9FF', stroke: '#7B5CFA', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' },
+    warning: { bg: '#FEF3C7', stroke: '#B45309', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>' }
+  };
+
+  const current = colors[type] || colors.success;
+
+  const modalMarkup = `
+    <div id="global-alert-modal" class="modal-overlay-premium show" style="display: flex;">
+      <div class="modal-dialog-premium" style="max-width: 380px; text-align: center;" onclick="event.stopPropagation()">
+        <div class="modal-body-content" style="padding: 36px 24px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: ${current.bg}; color: ${current.stroke}; display: flex; align-items: center; justify-content: center; margin-bottom: 4px;">
+            <svg style="width: 28px; height: 28px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">${current.icon}</svg>
+          </div>
+          <h4 style="font-size: 17px; font-weight: 700; margin: 0; color: var(--ink); font-family: 'Poppins', sans-serif;">${title}</h4>
+          <p style="font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; text-align: center;">
+            ${message}
+          </p>
+          <button id="alert-ok-btn" class="btn-premium btn-md btn-primary" style="width: 100%; margin-top: 8px; font-size: 13px;">Oke</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = modalMarkup;
+  const modalEl = tempDiv.firstElementChild;
+  document.body.appendChild(modalEl);
+  document.body.style.overflow = 'hidden';
+
+  const closeAlertModal = () => {
+    modalEl.remove();
+    document.body.style.overflow = '';
+  };
+
+  modalEl.addEventListener('click', (e) => {
+    if (e.target === modalEl) closeAlertModal();
+  });
+
+  modalEl.querySelector('#alert-ok-btn').addEventListener('click', closeAlertModal);
+};
+
 // 5. Toast Notification System
 window.showToast = function(type, title, message) {
   // Ensure toast container exists
@@ -798,5 +894,151 @@ function initNewComponents() {
         sourceBox.appendChild(item);
       });
     });
+  }
+
+  // --- ADVANCED DATATABLE LOGIC ---
+  const datatable = document.getElementById('advanced-datatable');
+  if (datatable) {
+    const searchInput = document.getElementById('datatable-search');
+    const statusFilter = document.getElementById('datatable-status-filter');
+    const selectAllCb = document.getElementById('datatable-select-all');
+    const bulkBtn = document.getElementById('datatable-bulk-btn');
+    const bulkCount = document.getElementById('datatable-bulk-count');
+    const infoLabel = document.getElementById('datatable-info');
+    const tbody = document.getElementById('datatable-body');
+
+    function updateDatatableInfo() {
+      const totalRows = tbody.querySelectorAll('tr').length;
+      const visibleRows = tbody.querySelectorAll('tr:not([style*="display: none"])').length;
+      infoLabel.textContent = `Menampilkan 1-${visibleRows} dari ${totalRows} data`;
+    }
+
+    // Filter logic
+    function filterTable() {
+      const query = searchInput.value.toLowerCase().trim();
+      const status = statusFilter.value;
+      const rows = tbody.querySelectorAll('tr');
+
+      rows.forEach(row => {
+        const name = row.querySelector('.name').textContent.toLowerCase();
+        const role = row.querySelectorAll('td')[2].textContent.toLowerCase();
+        const rowStatus = row.getAttribute('data-status');
+
+        const matchesSearch = name.includes(query) || role.includes(query);
+        const matchesStatus = status === 'all' || rowStatus === status;
+
+        if (matchesSearch && matchesStatus) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      updateDatatableInfo();
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    statusFilter.addEventListener('change', filterTable);
+
+    // Bulk selection logic
+    function updateBulkButton() {
+      const selectedCbs = datatable.querySelectorAll('.datatable-row-select:checked');
+      if (selectedCbs.length > 0) {
+        bulkBtn.style.display = 'inline-flex';
+        bulkCount.textContent = selectedCbs.length;
+      } else {
+        bulkBtn.style.display = 'none';
+      }
+    }
+
+    selectAllCb.addEventListener('change', () => {
+      const checked = selectAllCb.checked;
+      tbody.querySelectorAll('tr:not([style*="display: none"]) .datatable-row-select').forEach(cb => {
+        cb.checked = checked;
+      });
+      updateBulkButton();
+    });
+
+    tbody.addEventListener('change', (e) => {
+      if (e.target.classList.contains('datatable-row-select')) {
+        updateBulkButton();
+      }
+    });
+
+    // Row Actions: Delete
+    tbody.addEventListener('click', (e) => {
+      const deleteBtn = e.target.closest('.delete-row-btn');
+      if (deleteBtn) {
+        const row = deleteBtn.closest('tr');
+        const name = row.querySelector('.name').textContent;
+        window.confirmModal(
+          'Hapus Anggota',
+          `Apakah Anda yakin ingin menghapus ${name}?`,
+          () => {
+            row.remove();
+            showToast('success', 'Anggota Dihapus', `${name} telah dihapus dari tim.`);
+            updateDatatableInfo();
+            updateBulkButton();
+          }
+        );
+      }
+    });
+
+    // Row Actions: Edit
+    tbody.addEventListener('click', (e) => {
+      const editBtn = e.target.closest('.edit-row-btn');
+      if (editBtn) {
+        const row = editBtn.closest('tr');
+        const name = row.querySelector('.name').textContent;
+        toggleModal('form-modal', true);
+        
+        // Fill form modal name input with row's name
+        const modalNameInput = document.querySelector('#form-modal .form-input-premium[placeholder*="Snowy"]');
+        if (modalNameInput) {
+          modalNameInput.value = name;
+        }
+      }
+    });
+
+    // Expose sort function globally
+    window.sortDatatable = function(colIndex) {
+      const table = document.getElementById("advanced-datatable");
+      if (!table) return;
+      const tbodyEl = table.querySelector("#datatable-body");
+      const rows = Array.from(tbodyEl.querySelectorAll("tr"));
+      
+      const ths = table.querySelectorAll("thead th");
+      const indicator = ths[colIndex].querySelector(".sort-indicator");
+      const currentDir = indicator.getAttribute("data-dir") || "asc";
+      const nextDir = currentDir === "asc" ? "desc" : "asc";
+      
+      // Reset other indicators
+      table.querySelectorAll(".sort-indicator").forEach(ind => {
+        ind.textContent = "↕";
+        ind.setAttribute("data-dir", "");
+      });
+      
+      indicator.textContent = nextDir === "asc" ? "▲" : "▼";
+      indicator.setAttribute("data-dir", nextDir);
+
+      const sortedRows = rows.sort((a, b) => {
+        let cellA = a.querySelectorAll("td")[colIndex].textContent.trim();
+        let cellB = b.querySelectorAll("td")[colIndex].textContent.trim();
+        
+        // Custom name comparison (contains sub-elements)
+        if (colIndex === 1) {
+          cellA = a.querySelector(".name").textContent.trim();
+          cellB = b.querySelector(".name").textContent.trim();
+        }
+
+        return nextDir === "asc" 
+          ? cellA.localeCompare(cellB) 
+          : cellB.localeCompare(cellA);
+      });
+
+      tbodyEl.innerHTML = "";
+      sortedRows.forEach(row => tbodyEl.appendChild(row));
+    };
+
+    updateDatatableInfo();
   }
 }

@@ -448,15 +448,27 @@
 
       </div>
 
-      <span class="ui-sublabel" style="margin-top:20px;">Popup Dialog Modal</span>
-      <div>
-        <button class="btn-premium btn-md btn-primary" style="width:100%;" onclick="toggleModal('demo-modal', true)">
-          <svg style="width:16px;height:16px;margin-right:6px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-          Buka Demo Modal Dialog
+      <span class="ui-sublabel" style="margin-top:20px;">Macam-macam Popup / Modal Dialog</span>
+      <div style="display:flex; flex-direction:column; gap:10px; width:100%;">
+        <button class="btn-premium btn-md btn-secondary" style="width:100%; justify-content: flex-start;" onclick="toggleModal('demo-modal', true)">
+          <svg style="width:16px;height:16px;margin-right:8px;color:var(--muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          1. Modal Konfirmasi (Confirmation)
+        </button>
+        <button class="btn-premium btn-md btn-secondary" style="width:100%; justify-content: flex-start;" onclick="toggleModal('form-modal', true)">
+          <svg style="width:16px;height:16px;margin-right:8px;color:var(--muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          2. Modal Form (Input Data)
+        </button>
+        <button class="btn-premium btn-md btn-secondary" style="width:100%; justify-content: flex-start;" onclick="toggleModal('alert-modal', true)">
+          <svg style="width:16px;height:16px;margin-right:8px;color:var(--muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          3. Modal Notifikasi (Alert Success)
+        </button>
+        <button class="btn-premium btn-md btn-secondary" style="width:100%; justify-content: flex-start;" onclick="toggleModal('lightbox-modal', true)">
+          <svg style="width:16px;height:16px;margin-right:8px;color:var(--muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          4. Modal Preview Gambar (Lightbox)
         </button>
       </div>
 
-      <!-- Actual Modal Markup (hidden by default) -->
+      <!-- 1. Modal Konfirmasi Markup (hidden by default) -->
       <div id="demo-modal" class="modal-overlay-premium" onclick="if(event.target === this) toggleModal('demo-modal', false)">
         <div class="modal-dialog-premium" onclick="event.stopPropagation()">
           <div class="modal-header">
@@ -470,7 +482,92 @@
           </div>
           <div class="modal-footer">
             <button class="btn-premium btn-sm btn-secondary" onclick="toggleModal('demo-modal', false)">Batalkan</button>
-            <button class="btn-premium btn-sm btn-primary" onclick="alert('Layanan adopsi disetujui!'); toggleModal('demo-modal', false);">Setujui Adopsi</button>
+            <button class="btn-premium btn-sm btn-primary" onclick="window.alertModal('Adopsi Disetujui', 'Layanan adopsi untuk hewan terpilih telah berhasil disetujui.', 'success'); toggleModal('demo-modal', false);">Setujui Adopsi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Modal Form Markup (hidden by default) -->
+      <div id="form-modal" class="modal-overlay-premium" onclick="if(event.target === this) toggleModal('form-modal', false)">
+        <div class="modal-dialog-premium" style="max-width: 500px;" onclick="event.stopPropagation()">
+          <div class="modal-header">
+            <h4>Tambah Hewan Baru</h4>
+            <button class="modal-close-btn" onclick="toggleModal('form-modal', false)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div class="modal-body-content" style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <label class="ui-sublabel" style="margin-top:0; margin-bottom:6px; display:block;">Nama Hewan</label>
+              <input type="text" class="form-input-premium" placeholder="Nama hewan peliharaan (cth: Snowy)">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label class="ui-sublabel" style="margin-top:0; margin-bottom:6px; display:block;">Spesies</label>
+                <select class="form-select-premium">
+                  <option value="kucing">Kucing</option>
+                  <option value="anjing">Anjing</option>
+                  <option value="kelinci">Kelinci</option>
+                  <option value="lainnya">Lainnya</option>
+                </select>
+              </div>
+              <div>
+                <label class="ui-sublabel" style="margin-top:0; margin-bottom:6px; display:block;">Umur (Bulan)</label>
+                <input type="number" class="form-input-premium" placeholder="Umur (bulan)">
+              </div>
+            </div>
+            <div>
+              <label class="ui-sublabel" style="margin-top:0; margin-bottom:6px; display:block;">Catatan Medis</label>
+              <textarea class="form-textarea-premium" style="min-height: 80px;" placeholder="Tulis riwayat medis singkat..."></textarea>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; width:100%; padding-top: 4px;">
+              <span style="font-size:13px; font-weight:600; color:var(--ink);">Siap Diadopsi</span>
+              <label class="switch-premium" style="margin-left:auto;">
+                <input type="checkbox" checked>
+                <span class="slider-premium"></span>
+              </label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-premium btn-sm btn-secondary" onclick="toggleModal('form-modal', false)">Batal</button>
+            <button class="btn-premium btn-sm btn-primary" onclick="showToast('success', 'Tersimpan', 'Data hewan Snowy berhasil disimpan!'); toggleModal('form-modal', false);">Simpan Data</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Modal Alert Success Markup (hidden by default) -->
+      <div id="alert-modal" class="modal-overlay-premium" onclick="if(event.target === this) toggleModal('alert-modal', false)">
+        <div class="modal-dialog-premium" style="max-width: 380px; text-align: center;" onclick="event.stopPropagation()">
+          <div class="modal-body-content" style="padding: 36px 24px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: #E7F8EF; color: #1AA964; display: flex; align-items: center; justify-content: center; margin-bottom: 4px;">
+              <svg style="width: 30px; height: 30px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h4 style="font-size: 18px; font-weight: 700; margin: 0; color: var(--ink);">Penyimpanan Berhasil!</h4>
+            <p style="font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; text-align: center;">
+              Seluruh data profil hewan telah sukses diperbarui dan disinkronisasikan ke dalam basis data cloud Pawfect.
+            </p>
+            <button class="btn-premium btn-md btn-primary" style="width: 100%; margin-top: 8px;" onclick="toggleModal('alert-modal', false)">
+              Selesai
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Modal Image Lightbox Markup (hidden by default) -->
+      <div id="lightbox-modal" class="modal-overlay-premium" onclick="if(event.target === this) toggleModal('lightbox-modal', false)">
+        <div class="modal-dialog-premium" style="max-width: 600px; background: transparent; box-shadow: none;" onclick="event.stopPropagation()">
+          <div style="position: relative; display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <button class="modal-close-btn" style="position: absolute; top: -38px; right: 0; color: white; background: rgba(15,23,42,0.6); border-radius: 50%; padding: 6px;" onclick="toggleModal('lightbox-modal', false)">
+              <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80" alt="Pet Preview" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-card);">
+            <div style="width: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); padding: 12px 18px; border-radius: var(--radius-md); margin-top: 10px; color: white; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;">
+              <div style="text-align: left;">
+                <h5 style="margin: 0; font-size: 14px; font-weight: 600;">Golden Retriever - Buddy</h5>
+                <p style="margin: 2px 0 0 0; font-size: 11px; color: #cbd5e1;">Diunggah oleh: Rina Aulia (Admin)</p>
+              </div>
+              <span class="badge badge-premium-info" style="background: var(--violet-2); color: white; font-size:10px;">Aktif</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1246,7 +1343,7 @@
           </div>
           <div class="drawer-footer">
             <button class="btn-premium btn-sm btn-secondary" style="flex:1;" onclick="toggleDrawer('demo-drawer', false)">Batal</button>
-            <button class="btn-premium btn-sm btn-primary" style="flex:1;" onclick="alert('Filter diterapkan!'); toggleDrawer('demo-drawer', false);">Terapkan</button>
+            <button class="btn-premium btn-sm btn-primary" style="flex:1;" onclick="window.alertModal('Filter Diterapkan', 'Kriteria pencarian filter berhasil diperbarui.', 'info'); toggleDrawer('demo-drawer', false);">Terapkan</button>
           </div>
         </div>
       </div>
@@ -1388,5 +1485,180 @@
 
   </div> <!-- End of Row 8 -->
 
+  <!-- Advanced Datatable Section -->
+  <div class="panel" style="margin-top: 36px; padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; flex-wrap:wrap; gap:12px;">
+      <div>
+        <h3 style="font-size:18px; font-weight:700; margin:0 0 4px 0; border:none; padding:0; font-family:'Poppins',sans-serif; color:var(--ink);">Datatable Lanjutan (Advanced Grid)</h3>
+        <p style="font-size:12.5px; color:var(--muted); margin:0;">Kelola data anggota tim dengan fitur filter pencarian instan, seleksi massal, dan aksi cepat.</p>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="btn-premium btn-md btn-secondary" id="datatable-bulk-btn" style="display:none;" onclick="window.alertModal('Aksi Massal', 'Aksi massal berhasil diterapkan pada seluruh anggota terpilih!', 'success')">
+          <span id="datatable-bulk-count" style="background:var(--coral-2); color:white; border-radius:50%; width:18px; height:18px; font-size:10px; display:inline-flex; align-items:center; justify-content:center; margin-right:6px; font-weight:700;">0</span>
+          Aksi Massal
+        </button>
+        <button class="btn-premium btn-md btn-primary" onclick="toggleModal('form-modal', true)">
+          <svg style="width:16px;height:16px;margin-right:6px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          Tambah Anggota
+        </button>
+      </div>
+    </div>
+
+    <!-- Search & Filter Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; gap:12px; flex-wrap:wrap;">
+      <div class="input-group-premium" style="max-width:320px;">
+        <svg class="input-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="datatable-search" class="form-input-premium" placeholder="Cari nama atau peran...">
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:12.5px; color:var(--muted); font-weight:600;">Status:</span>
+        <select id="datatable-status-filter" class="form-select-premium" style="height:44px; width:150px;">
+          <option value="all">Semua Status</option>
+          <option value="aktif">Aktif</option>
+          <option value="nonaktif">Nonaktif</option>
+          <option value="pending">Pending</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- The Table -->
+    <div style="overflow-x:auto; margin:0 -28px; padding:0 28px;">
+      <table style="width:100%; border-collapse:collapse; min-width:700px; font-size:13px;" id="advanced-datatable">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--line);">
+            <th style="width:40px; padding: 14px 12px; text-align:left; vertical-align:middle;">
+              <label class="checkbox-premium">
+                <input type="checkbox" id="datatable-select-all">
+                <span class="checkbox-indicator" style="width:18px; height:18px;"><svg viewBox="0 0 24 24" style="width:12px; height:12px;"><path d="M5 13l4 4L19 7"/></svg></span>
+              </label>
+            </th>
+            <th style="padding: 14px 12px; font-weight:600; text-align:left; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:0.05em; cursor:pointer;" onclick="sortDatatable(1)">
+              Anggota Tim <span class="sort-indicator" style="color:var(--muted); font-size:10px; margin-left:4px;">↕</span>
+            </th>
+            <th style="padding: 14px 12px; font-weight:600; text-align:left; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:0.05em; cursor:pointer;" onclick="sortDatatable(2)">
+              Peran <span class="sort-indicator" style="color:var(--muted); font-size:10px; margin-left:4px;">↕</span>
+            </th>
+            <th style="padding: 14px 12px; font-weight:600; text-align:left; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:0.05em; cursor:pointer;" onclick="sortDatatable(3)">
+              Status <span class="sort-indicator" style="color:var(--muted); font-size:10px; margin-left:4px;">↕</span>
+            </th>
+            <th style="padding: 14px 12px; font-weight:600; text-align:left; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:0.05em;">
+              Tanggal Bergabung
+            </th>
+            <th style="padding: 14px 12px; font-weight:600; text-align:right; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:0.05em;">
+              Aksi
+            </th>
+          </tr>
+        </thead>
+        <tbody id="datatable-body">
+          <tr data-status="aktif" style="border-bottom:1px solid var(--line); transition:background 0.15s ease;">
+            <td style="padding: 12px;"><label class="checkbox-premium"><input type="checkbox" class="datatable-row-select"><span class="checkbox-indicator" style="width:18px; height:18px;"><svg viewBox="0 0 24 24" style="width:12px; height:12px;"><path d="M5 13l4 4L19 7"/></svg></span></label></td>
+            <td style="padding: 12px;">
+              <div class="who-cell">
+                <div class="av" style="background:linear-gradient(135deg,var(--teal-1),var(--teal-2));">RA</div>
+                <div><div class="name" style="font-weight:600; color:var(--ink);">Rina Aulia</div><div class="sub" style="font-size:11.5px; color:var(--muted);">rina.a@pawfect.com</div></div>
+              </div>
+            </td>
+            <td style="padding: 12px; font-weight:500; color:var(--ink);">Admin Senior</td>
+            <td style="padding: 12px;"><span class="badge badge-premium-success">Aktif</span></td>
+            <td style="padding: 12px; color:var(--muted);">12 Mei 2024</td>
+            <td style="padding: 12px; text-align:right;">
+              <div style="display:inline-flex; gap:6px;">
+                <button class="btn-premium btn-sm btn-secondary edit-row-btn" title="Edit Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                <button class="btn-premium btn-sm btn-secondary delete-row-btn" style="border-color:#fca5a5; color:#ef4444;" title="Hapus Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="aktif" style="border-bottom:1px solid var(--line); transition:background 0.15s ease;">
+            <td style="padding: 12px;"><label class="checkbox-premium"><input type="checkbox" class="datatable-row-select"><span class="checkbox-indicator" style="width:18px; height:18px;"><svg viewBox="0 0 24 24" style="width:12px; height:12px;"><path d="M5 13l4 4L19 7"/></svg></span></label></td>
+            <td style="padding: 12px;">
+              <div class="who-cell">
+                <div class="av" style="background:linear-gradient(135deg,var(--coral-1),var(--coral-2));">BP</div>
+                <div><div class="name" style="font-weight:600; color:var(--ink);">Bayu Pratama</div><div class="sub" style="font-size:11.5px; color:var(--muted);">bayu.p@pawfect.com</div></div>
+              </div>
+            </td>
+            <td style="padding: 12px; font-weight:500; color:var(--ink);">Moderator Forum</td>
+            <td style="padding: 12px;"><span class="badge badge-premium-success">Aktif</span></td>
+            <td style="padding: 12px; color:var(--muted);">08 Jan 2025</td>
+            <td style="padding: 12px; text-align:right;">
+              <div style="display:inline-flex; gap:6px;">
+                <button class="btn-premium btn-sm btn-secondary edit-row-btn" title="Edit Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                <button class="btn-premium btn-sm btn-secondary delete-row-btn" style="border-color:#fca5a5; color:#ef4444;" title="Hapus Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="pending" style="border-bottom:1px solid var(--line); transition:background 0.15s ease;">
+            <td style="padding: 12px;"><label class="checkbox-premium"><input type="checkbox" class="datatable-row-select"><span class="checkbox-indicator" style="width:18px; height:18px;"><svg viewBox="0 0 24 24" style="width:12px; height:12px;"><path d="M5 13l4 4L19 7"/></svg></span></label></td>
+            <td style="padding: 12px;">
+              <div class="who-cell">
+                <div class="av" style="background:linear-gradient(135deg,var(--violet-1),var(--violet-2));">CL</div>
+                <div><div class="name" style="font-weight:600; color:var(--ink);">Citra Lestari</div><div class="sub" style="font-size:11.5px; color:var(--muted);">citra.l@pawfect.com</div></div>
+              </div>
+            </td>
+            <td style="padding: 12px; font-weight:500; color:var(--ink);">Veterinarian (Dokter)</td>
+            <td style="padding: 12px;"><span class="badge badge-premium-pending">Pending</span></td>
+            <td style="padding: 12px; color:var(--muted);">14 Feb 2026</td>
+            <td style="padding: 12px; text-align:right;">
+              <div style="display:inline-flex; gap:6px;">
+                <button class="btn-premium btn-sm btn-secondary edit-row-btn" title="Edit Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                <button class="btn-premium btn-sm btn-secondary delete-row-btn" style="border-color:#fca5a5; color:#ef4444;" title="Hapus Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="nonaktif" style="border-bottom:1px solid var(--line); transition:background 0.15s ease;">
+            <td style="padding: 12px;"><label class="checkbox-premium"><input type="checkbox" class="datatable-row-select"><span class="checkbox-indicator" style="width:18px; height:18px;"><svg viewBox="0 0 24 24" style="width:12px; height:12px;"><path d="M5 13l4 4L19 7"/></svg></span></label></td>
+            <td style="padding: 12px;">
+              <div class="who-cell">
+                <div class="av" style="background:linear-gradient(135deg,var(--amber-1),var(--amber-2));">DS</div>
+                <div><div class="name" style="font-weight:600; color:var(--ink);">Dimas Saputra</div><div class="sub" style="font-size:11.5px; color:var(--muted);">dimas.s@pawfect.com</div></div>
+              </div>
+            </td>
+            <td style="padding: 12px; font-weight:500; color:var(--ink);">Marketing Specialist</td>
+            <td style="padding: 12px;"><span class="badge badge-premium-danger">Nonaktif</span></td>
+            <td style="padding: 12px; color:var(--muted);">30 Nov 2023</td>
+            <td style="padding: 12px; text-align:right;">
+              <div style="display:inline-flex; gap:6px;">
+                <button class="btn-premium btn-sm btn-secondary edit-row-btn" title="Edit Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                <button class="btn-premium btn-sm btn-secondary delete-row-btn" style="border-color:#fca5a5; color:#ef4444;" title="Hapus Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="aktif" style="border-bottom:1px solid var(--line); transition:background 0.15s ease;">
+            <td style="padding: 12px;"><label class="checkbox-premium"><input type="checkbox" class="datatable-row-select"><span class="checkbox-indicator" style="width:18px; height:18px;"><svg viewBox="0 0 24 24" style="width:12px; height:12px;"><path d="M5 13l4 4L19 7"/></svg></span></label></td>
+            <td style="padding: 12px;">
+              <div class="who-cell">
+                <div class="av" style="background:linear-gradient(135deg,var(--navy-1),var(--navy-2));">SW</div>
+                <div><div class="name" style="font-weight:600; color:var(--ink);">Sari Wulandari</div><div class="sub" style="font-size:11.5px; color:var(--muted);">sari.w@pawfect.com</div></div>
+              </div>
+            </td>
+            <td style="padding: 12px; font-weight:500; color:var(--ink);">Customer Relations</td>
+            <td style="padding: 12px;"><span class="badge badge-premium-success">Aktif</span></td>
+            <td style="padding: 12px; color:var(--muted);">19 Jun 2024</td>
+            <td style="padding: 12px; text-align:right;">
+              <div style="display:inline-flex; gap:6px;">
+                <button class="btn-premium btn-sm btn-secondary edit-row-btn" title="Edit Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                <button class="btn-premium btn-sm btn-secondary delete-row-btn" style="border-color:#fca5a5; color:#ef4444;" title="Hapus Anggota"><svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Table Footer / Pagination -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:12px; border-top: 1px solid var(--line); padding-top:16px;">
+      <span style="font-size:12.5px; color:var(--muted); font-weight:600;" id="datatable-info">Menampilkan 1-5 dari 5 data</span>
+      <nav class="pagination" style="margin:0;">
+        <button class="page-btn" disabled>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="page-btn page-active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </nav>
+    </div>
+  </div>
 </div>
 
