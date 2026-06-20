@@ -1,0 +1,398 @@
+<div id="access-control-container" class="space-y-6">
+  <!-- Welcome Banner -->
+  <div class="welcome mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900">Manajemen Hak Akses & Pengguna</h1>
+      <p class="text-sm text-slate-500">Kelola pengguna, tentukan peran (role), dan konfigurasi menu dinamis untuk website company profile.</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+        Role Akses Dinamis Aktif
+      </span>
+    </div>
+  </div>
+
+  <!-- Main Tabs Navigation -->
+  <div class="tabs-container pill-tabs bg-white p-2 rounded-xl border border-slate-100 shadow-sm mb-6">
+    <div class="tab-buttons flex flex-nowrap gap-1 overflow-x-auto scrollbar-none -mx-2 px-2">
+      <button class="tab-btn tab-active px-4 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2" onclick="checkTabSwitch(this, 'tab-users')">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        Daftar Pengguna
+      </button>
+      <button class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2" onclick="checkTabSwitch(this, 'tab-roles')">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+        Hak Akses & Peran
+      </button>
+      <button class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2" onclick="checkTabSwitch(this, 'tab-simulation')">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        Simulasi Pratinjau Role
+      </button>
+      <button class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2" onclick="checkTabSwitch(this, 'tab-audit')">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Log Audit
+      </button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tab-panes mt-6">
+      
+      <!-- TAB 1: DAFTAR PENGGUNA -->
+      <div id="tab-users" class="tab-pane active space-y-4">
+        <!-- Filter and Search controls -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
+          <div class="flex flex-1 flex-col sm:flex-row gap-3">
+            <div class="relative flex-1">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </span>
+              <input type="text" id="user-search-input" placeholder="Cari nama atau email pengguna..." class="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-lg outline-none focus:border-blue-600 transition-colors bg-white">
+            </div>
+            <div class="w-full sm:w-48">
+              <select id="user-status-filter" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg outline-none focus:border-blue-600 transition-colors bg-white cursor-pointer appearance-none">
+                <option value="all">Semua Status</option>
+                <option value="active">Aktif</option>
+                <option value="inactive">Nonaktif</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <button id="btn-add-user" class="w-full md:w-auto px-4 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-600/10">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Tambah Pengguna
+            </button>
+          </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="panel overflow-hidden border border-slate-100 shadow-sm p-0 rounded-xl bg-white">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+              <thead class="bg-slate-50 border-b border-slate-100">
+                <tr>
+                  <th class="py-3.5 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[25%]">Pengguna</th>
+                  <th class="py-3.5 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[18%]">Role Akses</th>
+                  <th class="py-3.5 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[15%]">Dibuat</th>
+                  <th class="py-3.5 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[17%]">Terakhir Aktif</th>
+                  <th class="py-3.5 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[10%] text-center">Status</th>
+                  <th class="py-3.5 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[15%] text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body" class="divide-y divide-slate-100">
+                <!-- Dynamic Content Loaded by JS -->
+              </tbody>
+            </table>
+          </div>
+          <div id="users-table-empty" class="hidden p-8 text-center text-slate-400">
+            <svg class="w-12 h-12 mx-auto mb-3 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <p class="font-medium text-slate-500">Tidak ada data pengguna ditemukan</p>
+            <p class="text-xs text-slate-400 mt-1">Gunakan kata kunci pencarian atau filter status yang lain.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: HAK AKSES & PERAN -->
+      <div id="tab-roles" class="tab-pane hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Roles Sidebar (Left) -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="bg-white rounded-xl border border-slate-100 shadow-sm p-4 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-semibold text-slate-900 text-sm">Daftar Peran (Roles)</h3>
+                <button id="btn-add-role" class="p-1 text-blue-600 hover:bg-blue-50 rounded-md transition-colors" title="Tambah Peran Baru">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </button>
+              </div>
+              <div id="roles-list-container" class="space-y-2">
+                <!-- Dynamic list of roles -->
+              </div>
+            </div>
+            
+            <div class="bg-blue-50/70 border border-blue-100 rounded-xl p-4 text-xs text-blue-800 space-y-2">
+              <div class="font-bold flex items-center gap-1">
+                <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Informasi Pengaturan
+              </div>
+              <p class="leading-relaxed">Setiap perubahan hak akses menu di sebelah kanan akan langsung berpengaruh ke semua pengguna yang ditugaskan pada peran tersebut.</p>
+              <p class="leading-relaxed font-semibold">Gunakan menu 'Simulasi Pratinjau Role' untuk menguji menu yang ditampilkan secara langsung.</p>
+            </div>
+          </div>
+
+          <!-- Permissions Grid (Right) -->
+          <div class="lg:col-span-8 bg-white rounded-xl border border-slate-100 shadow-sm p-5 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+              <div>
+                <h3 class="text-base font-bold text-slate-900" id="selected-role-name">Detail Peran: Administrator</h3>
+                <p class="text-xs text-slate-500 mt-0.5" id="selected-role-description">Akses penuh ke semua fitur dan pengaturan sistem.</p>
+              </div>
+            </div>
+
+            <!-- Permission Table -->
+            <div class="overflow-x-auto border border-slate-100 rounded-lg">
+              <table class="w-full text-left border-collapse text-sm">
+                <thead class="bg-slate-50/70">
+                  <tr>
+                    <th class="py-3 px-4 font-semibold text-slate-700 text-xs w-[32%]">Nama Menu / Modul Website</th>
+                    <th class="py-3 px-4 font-semibold text-slate-700 text-xs text-center w-[17%]">
+                      <div class="flex flex-col items-center">
+                        <span>Lihat (Read)</span>
+                        <button type="button" class="btn-check-all text-[10px] text-blue-600 hover:underline mt-1 focus:outline-none" data-type="view" data-state="true">Set Semua</button>
+                      </div>
+                    </th>
+                    <th class="py-3 px-4 font-semibold text-slate-700 text-xs text-center w-[17%]">
+                      <div class="flex flex-col items-center">
+                        <span>Tambah (Create)</span>
+                        <button type="button" class="btn-check-all text-[10px] text-blue-600 hover:underline mt-1 focus:outline-none" data-type="create" data-state="true">Set Semua</button>
+                      </div>
+                    </th>
+                    <th class="py-3 px-4 font-semibold text-slate-700 text-xs text-center w-[17%]">
+                      <div class="flex flex-col items-center">
+                        <span>Edit (Write)</span>
+                        <button type="button" class="btn-check-all text-[10px] text-blue-600 hover:underline mt-1 focus:outline-none" data-type="edit" data-state="true">Set Semua</button>
+                      </div>
+                    </th>
+                    <th class="py-3 px-4 font-semibold text-slate-700 text-xs text-center w-[17%]">
+                      <div class="flex flex-col items-center">
+                        <span>Hapus (Delete)</span>
+                        <button type="button" class="btn-check-all text-[10px] text-blue-600 hover:underline mt-1 focus:outline-none" data-type="delete" data-state="true">Set Semua</button>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="permissions-table-body" class="divide-y divide-slate-100">
+                  <!-- Dynamic check-boxes rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+              <div class="text-xs text-slate-400">
+                * Toggles akan langsung disimpan setelah menekan tombol Simpan.
+              </div>
+              <button id="btn-save-permissions" class="px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg transition-colors shadow-sm shadow-blue-600/10 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                </svg>
+                Simpan Konfigurasi Akses
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: SIMULASI PRATINJAU ROLE -->
+      <div id="tab-simulation" class="tab-pane hidden space-y-4">
+        <!-- Banner Warning Belum Disimpan -->
+        <div id="simulation-dirty-warning" class="hidden bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-xl text-xs flex items-center gap-2.5 shadow-sm">
+          <span class="text-base">⚠️</span>
+          <span>Perhatian: Anda memiliki perubahan konfigurasi hak akses yang belum disimpan di Tab 2. Pratinjau di bawah menunjukkan konfigurasi terakhir yang disimpan.</span>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-100 shadow-sm p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <h3 class="font-bold text-slate-900 text-sm">Simulator Hak Akses Sidebar & Menu</h3>
+            <p class="text-xs text-slate-500">Pilih salah satu peran untuk melihat secara langsung bagaimana tampilan menu & fungsi admin beradaptasi secara dinamis.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <label class="text-xs font-bold text-slate-700 whitespace-nowrap">Simulasikan Sebagai:</label>
+            <div class="relative w-56">
+              <select id="simulation-role-select" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg outline-none focus:border-blue-600 transition-colors bg-white font-semibold cursor-pointer appearance-none">
+                <!-- Loaded dynamically -->
+              </select>
+              <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated Dashboard Browser Window Mockup -->
+        <div class="border border-slate-200 rounded-xl overflow-hidden shadow-md bg-[#f8fafc] flex flex-col h-[580px]">
+          <!-- Browser Top bar -->
+          <div class="bg-slate-100 border-b border-slate-200 px-4 py-3 flex items-center gap-3 shrink-0">
+            <div class="flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-green-400 inline-block"></span>
+            </div>
+            <div class="flex-1 bg-white border border-slate-200 rounded px-3 py-1 text-xs text-slate-400 flex items-center gap-1.5 select-none truncate">
+              <svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              https://companyprofile.com/admin#<span id="simulated-browser-url-hash" class="font-medium text-slate-600">dashboard</span>
+            </div>
+            <div class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800 select-none animate-pulse">
+              PREVIEW MODE
+            </div>
+          </div>
+
+          <!-- Browser Layout -->
+          <div class="flex flex-1 overflow-hidden min-h-0">
+            <!-- Simulated Sidebar -->
+            <div class="w-56 bg-slate-900 border-r border-slate-800 text-slate-300 flex flex-col shrink-0">
+              <div class="h-12 border-b border-slate-800 px-4 flex items-center gap-2 select-none">
+                <div class="w-6 h-6 rounded bg-blue-600 flex items-center justify-center">
+                  <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" />
+                  </svg>
+                </div>
+                <span class="font-bold text-xs text-white uppercase tracking-wider">CP Admin Mock</span>
+              </div>
+              <div class="flex-1 overflow-y-auto p-3 space-y-1" id="simulated-sidebar-menu">
+                <!-- Dynamically loaded menus matching permissions -->
+              </div>
+              <div class="p-3 bg-slate-950 border-t border-slate-800 text-[10px] text-slate-500 space-y-1">
+                <div>Simulated User:</div>
+                <div class="text-slate-300 font-semibold truncate" id="simulated-user-display-name">-</div>
+                <div class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-bold inline-block" id="simulated-user-role-badge">-</div>
+              </div>
+            </div>
+
+            <!-- Simulated App Area -->
+            <div class="flex-1 bg-[#f1f5f9] p-5 overflow-y-auto relative flex flex-col" id="simulated-app-content">
+              <!-- Dynamically populated page details based on simulation state -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: LOG AUDIT -->
+      <div id="tab-audit" class="tab-pane hidden space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
+          <div>
+            <h3 class="font-bold text-slate-800 text-sm">Log Audit Keamanan</h3>
+            <p class="text-xs text-slate-500">Rekam jejak aktivitas perubahan peran, pengguna, dan hak akses sistem.</p>
+          </div>
+          <button id="btn-export-audit" class="px-4 py-2.5 text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 active:bg-slate-100 rounded-lg transition-colors flex items-center gap-1.5 shadow-sm">
+            <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Ekspor Log (.CSV)
+          </button>
+        </div>
+
+        <div class="panel overflow-hidden border border-slate-100 shadow-sm p-0 rounded-xl bg-white">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+              <thead class="bg-slate-50 border-b border-slate-100">
+                <tr>
+                  <th class="py-3 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[20%]">Waktu</th>
+                  <th class="py-3 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[25%]">Pengguna</th>
+                  <th class="py-3 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[15%]">Peran</th>
+                  <th class="py-3 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[28%]">Aktivitas</th>
+                  <th class="py-3 px-4 font-semibold text-slate-500 uppercase tracking-wider text-[11px] w-[12%]">IP Address</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body" class="divide-y divide-slate-100">
+                <!-- Log Audit loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== USER MODAL ==================== -->
+  <div id="user-modal" class="modal-overlay-premium">
+    <div class="modal-dialog-premium max-w-md w-full">
+      <div class="modal-header">
+        <h4 id="user-modal-title" class="text-base font-bold text-slate-900">Tambah Pengguna Baru</h4>
+        <button class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none" onclick="toggleModal('user-modal', false)">&times;</button>
+      </div>
+      <form id="user-modal-form" class="p-5 space-y-4">
+        <input type="hidden" id="user-modal-action-id" value="">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
+          <input type="text" id="user-modal-name" required placeholder="Masukkan nama lengkap..." class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Alamat Email</label>
+          <input type="email" id="user-modal-email" required placeholder="name@company.com" class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Foto Profil / Avatar</label>
+          <div class="flex items-center gap-3" style="display: flex; align-items: center; gap: 12px;">
+            <div id="user-modal-avatar-preview" class="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs overflow-hidden shadow-sm shrink-0">
+              U
+            </div>
+            <div class="flex flex-col gap-1.5" style="display: flex; flex-direction: column; gap: 4px;">
+              <input type="file" id="user-modal-avatar-input" accept="image/*" class="hidden">
+              <button type="button" class="btn-premium btn-sm btn-secondary" onclick="document.getElementById('user-modal-avatar-input').click()" style="padding: 6px 12px; font-size: 12px;">Pilih Foto</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Pilih Peran (Role)</label>
+          <div class="relative">
+            <select id="user-modal-role" class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white cursor-pointer appearance-none">
+              <!-- Dynamically populated roles -->
+            </select>
+            <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kata Sandi Awal</label>
+          <input type="password" id="user-modal-password" placeholder="Biarkan kosong untuk generate otomatis..." class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white">
+          <label class="inline-flex items-center gap-2 mt-2 cursor-pointer select-none">
+            <input type="checkbox" id="user-modal-force-reset" class="rounded border-slate-350 text-blue-600 focus:ring-blue-500/30" style="width: 14px; height: 14px;">
+            <span class="text-[11.5px] text-slate-500 font-medium">Wajibkan ganti password saat login pertama</span>
+          </label>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Status Pengguna</label>
+          <div class="relative">
+            <select id="user-modal-status" class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white cursor-pointer appearance-none">
+              <option value="active">Aktif</option>
+              <option value="inactive">Nonaktif</option>
+            </select>
+            <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" class="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors" onclick="toggleModal('user-modal', false)">Batal</button>
+          <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm shadow-blue-600/10">Simpan Pengguna</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== ROLE META MODAL ==================== -->
+  <div id="role-modal" class="modal-overlay-premium">
+    <div class="modal-dialog-premium max-w-sm w-full">
+      <div class="modal-header">
+        <h4 id="role-modal-title" class="text-base font-bold text-slate-900">Peran Baru</h4>
+        <button class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none" onclick="toggleModal('role-modal', false)">&times;</button>
+      </div>
+      <form id="role-modal-form" class="p-5 space-y-4">
+        <input type="hidden" id="role-modal-action-id" value="">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Peran (Role Name)</label>
+          <input type="text" id="role-modal-name" required placeholder="E.g., Content Editor" class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Deskripsi Peran</label>
+          <textarea id="role-modal-description" required rows="3" placeholder="Masukkan deskripsi singkat tentang wewenang peran ini..." class="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white resize-none"></textarea>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" class="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors" onclick="toggleModal('role-modal', false)">Batal</button>
+          <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm shadow-blue-600/10">Simpan Peran</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
