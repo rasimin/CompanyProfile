@@ -309,7 +309,7 @@
 
   <!-- ==================== USER MODAL ==================== -->
   <div id="user-modal" class="modal-overlay-premium">
-    <div class="modal-dialog-premium max-w-md w-full">
+    <div class="modal-dialog-premium max-w-2xl w-full">
       <div class="modal-header">
         <h4 id="user-modal-title" class="text-base font-bold text-slate-900">Tambah Pengguna Baru</h4>
         <button class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none" onclick="toggleModal('user-modal', false)">&times;</button>
@@ -319,6 +319,10 @@
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
           <input type="text" id="user-modal-name" required placeholder="Masukkan nama lengkap..." class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Username</label>
+          <input type="text" id="user-modal-username" required placeholder="E.g., ahmad.faisal" class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white">
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Alamat Email</label>
@@ -371,15 +375,70 @@
     </div>
   </div>
 
+  <!-- ==================== USER DETAIL MODAL ==================== -->
+  <div id="user-detail-modal" class="modal-overlay-premium">
+    <div class="modal-dialog-premium max-w-2xl w-full">
+      <div class="modal-header">
+        <h4 class="text-base font-bold text-slate-900">Detail Profil Staf / Pengguna</h4>
+        <button class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none" onclick="toggleModal('user-detail-modal', false)">&times;</button>
+      </div>
+      <div class="p-5 space-y-6">
+        <!-- Profile Card Header -->
+        <div class="flex items-center gap-4 border-b border-slate-100 pb-4">
+          <div id="user-detail-avatar" class="w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg text-white shadow-md">
+            AF
+          </div>
+          <div>
+            <h3 id="user-detail-name" class="text-base font-bold text-slate-900">Ahmad Faisal</h3>
+            <p id="user-detail-username" class="text-xs text-slate-500 mt-0.5">@ahmad.faisal</p>
+            <p id="user-detail-email" class="text-xs text-slate-400">ahmad.f@company.com</p>
+          </div>
+        </div>
+
+        <!-- Meta Grid -->
+        <div class="grid grid-cols-2 gap-4 text-xs font-medium">
+          <div>
+            <span class="block text-slate-400 font-semibold uppercase tracking-wider text-[10px] mb-1">Peran Akses</span>
+            <span id="user-detail-role-badge" class="badge bg-blue-50 text-blue-700 border border-blue-200">Administrator</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold uppercase tracking-wider text-[10px] mb-1">Status Akun</span>
+            <span id="user-detail-status-badge" class="badge">Aktif</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold uppercase tracking-wider text-[10px] mb-1">Tanggal Dibuat</span>
+            <span id="user-detail-created" class="font-medium text-slate-700">12 Jan 2026</span>
+          </div>
+          <div>
+            <span class="block text-slate-400 font-semibold uppercase tracking-wider text-[10px] mb-1">Terakhir Aktif</span>
+            <span id="user-detail-active" class="font-medium text-slate-700">5 menit lalu</span>
+          </div>
+        </div>
+
+        <!-- Modules Access List -->
+        <div class="space-y-2">
+          <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wider text-[10px]">Akses Modul Website</h5>
+          <div id="user-detail-permissions" class="flex flex-wrap gap-1.5">
+            <!-- Badges rendered by JS -->
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex justify-end">
+          <button type="button" class="btn-premium btn-md btn-secondary" onclick="toggleModal('user-detail-modal', false)">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== ROLE META MODAL ==================== -->
   <div id="role-modal" class="modal-overlay-premium">
-    <div class="modal-dialog-premium max-w-sm w-full">
+    <div class="modal-dialog-premium max-w-2xl w-full">
       <div class="modal-header">
         <h4 id="role-modal-title" class="text-base font-bold text-slate-900">Peran Baru</h4>
         <button class="text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none" onclick="toggleModal('role-modal', false)">&times;</button>
       </div>
       <form id="role-modal-form" class="p-5 space-y-4">
-        <input type="hidden" id="role-modal-action-id" value="">
+        <input type="hidden" id="role-meta-action-id" value="">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Peran (Role Name)</label>
           <input type="text" id="role-modal-name" required placeholder="E.g., Content Editor" class="w-full h-10 px-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white">

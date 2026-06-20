@@ -111,6 +111,22 @@ async function loadView(viewName) {
       initUserRoleAccess();
     } else if (viewName === 'profile') {
       initProfileView();
+    } else if (viewName === 'dashboard') {
+      initDashboard();
+    } else if (viewName === 'home-settings') {
+      initHomeSettings();
+    } else if (viewName === 'about-us') {
+      initAboutUs();
+    } else if (viewName === 'services') {
+      initServices();
+    } else if (viewName === 'products') {
+      initProducts();
+    } else if (viewName === 'portfolio') {
+      initPortfolio();
+    } else if (viewName === 'blog') {
+      initBlog();
+    } else if (viewName === 'inbox') {
+      initInbox();
     }
   } catch (error) {
     contentArea.style.opacity = '1';
@@ -121,7 +137,7 @@ async function loadView(viewName) {
 
 function handleHashChange() {
   const hash = window.location.hash.substring(1); // Remove '#'
-  const route = hash || 'ui-components'; // Default to ui-components
+  const route = hash || 'dashboard'; // Default to dashboard
   loadView(route);
 }
 
@@ -153,6 +169,149 @@ submenuToggles.forEach(toggle => {
 
 // 4. Global UI Component Helpers for Dynamic Content
 window.isPermissionsDirty = false;
+
+// Global Shared State (PM & Data Mocking Agents)
+if (!window.roleAccessState) {
+  window.roleAccessState = {
+    roles: [
+      {
+        id: 'admin',
+        name: 'Administrator',
+        description: 'Akses penuh ke semua fitur, modul, dan pengaturan sistem.',
+        permissions: {
+          dashboard: { view: true, create: true, edit: true, delete: true },
+          services: { view: true, create: true, edit: true, delete: true },
+          products: { view: true, create: true, edit: true, delete: true },
+          forum: { view: true, create: true, edit: true, delete: true },
+          bookings: { view: true, create: true, edit: true, delete: true },
+          adoptions: { view: true, create: true, edit: true, delete: true },
+          settings: { view: true, create: true, edit: true, delete: true },
+          audit_logs: { view: true, create: true, edit: true, delete: true }
+        }
+      },
+      {
+        id: 'editor',
+        name: 'Editor Konten',
+        description: 'Mengelola konten company profile (Layanan, Diskusi Forum, Adopsi Hewan). Tidak memiliki izin ke Bookings & Settings.',
+        permissions: {
+          dashboard: { view: true, create: false, edit: false, delete: false },
+          services: { view: true, create: true, edit: true, delete: false },
+          products: { view: true, create: true, edit: true, delete: false },
+          forum: { view: true, create: true, edit: true, delete: true },
+          bookings: { view: false, create: false, edit: false, delete: false },
+          adoptions: { view: true, create: true, edit: true, delete: false },
+          settings: { view: false, create: false, edit: false, delete: false },
+          audit_logs: { view: false, create: false, edit: false, delete: false }
+        }
+      },
+      {
+        id: 'moderator',
+        name: 'Moderator Forum',
+        description: 'Fokus pada moderasi forum diskusi dan status adopsi hewan.',
+        permissions: {
+          dashboard: { view: true, create: false, edit: false, delete: false },
+          services: { view: false, create: false, edit: false, delete: false },
+          products: { view: false, create: false, edit: false, delete: false },
+          forum: { view: true, create: false, edit: true, delete: true },
+          bookings: { view: false, create: false, edit: false, delete: false },
+          adoptions: { view: true, create: false, edit: true, delete: false },
+          settings: { view: false, create: false, edit: false, delete: false },
+          audit_logs: { view: false, create: false, edit: false, delete: false }
+        }
+      },
+      {
+        id: 'viewer',
+        name: 'Viewer (Read-Only)',
+        description: 'Hanya memiliki izin untuk memantau data tanpa izin perubahan.',
+        permissions: {
+          dashboard: { view: true, create: false, edit: false, delete: false },
+          services: { view: true, create: false, edit: false, delete: false },
+          products: { view: true, create: false, edit: false, delete: false },
+          forum: { view: true, create: false, edit: false, delete: false },
+          bookings: { view: true, create: false, edit: false, delete: false },
+          adoptions: { view: true, create: false, edit: false, delete: false },
+          settings: { view: true, create: false, edit: false, delete: false },
+          audit_logs: { view: true, create: false, edit: false, delete: false }
+        }
+      }
+    ],
+    users: [
+      { id: 1, name: 'Ahmad Faisal', username: 'ahmad.faisal', email: 'ahmad.f@company.com', role: 'admin', status: 'active', avatar: 'AF', color: 'bg-blue-600 text-white', createdAt: '12 Jan 2026', lastActive: '5 menit lalu' },
+      { id: 2, name: 'Siti Rahma', username: 'siti.rahma', email: 'siti.r@company.com', role: 'editor', status: 'active', avatar: 'SR', color: 'bg-emerald-600 text-white', createdAt: '15 Feb 2026', lastActive: '1 jam lalu' },
+      { id: 3, name: 'Budi Santoso', username: 'budi.santoso', email: 'budi.s@company.com', role: 'moderator', status: 'active', avatar: 'BS', color: 'bg-amber-600 text-white', createdAt: '22 Mar 2026', lastActive: 'Kemarin' },
+      { id: 4, name: 'Diana Lestari', username: 'diana.dian', email: 'diana.l@company.com', role: 'viewer', status: 'inactive', avatar: 'DL', color: 'bg-slate-500 text-white', createdAt: '10 Apr 2026', lastActive: '3 hari lalu' }
+    ],
+    auditLogs: [
+      { time: '2026-06-21 00:15:32', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Melakukan reset password untuk Diana Lestari', ip: '192.168.1.42' },
+      { time: '2026-06-21 00:12:08', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Mengubah hak akses peran Editor Konten', ip: '192.168.1.42' },
+      { time: '2026-06-20 18:44:19', user: 'Siti Rahma', role: 'Editor Konten', activity: 'Mengunggah foto profil baru', ip: '192.168.1.105' },
+      { time: '2026-06-20 15:30:45', user: 'Budi Santoso', role: 'Moderator Forum', activity: 'Menghapus postingan forum berunsur spam', ip: '192.168.1.77' },
+      { time: '2026-06-19 11:22:10', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Menambahkan pengguna baru: Siti Rahma', ip: '192.168.1.42' }
+    ],
+    menus: [
+      { key: 'dashboard', label: 'Dashboard Overview', icon: '<path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>' },
+      { key: 'services', label: 'Pet Services', icon: '<path d="M9 12a3 3 0 1 1 6 0v3a3 3 0 0 1-6 0zM9 13c-3 1-4 3-4 6h14c0-3-1-5-4-6M11 2l1 3 1-3"/>' },
+      { key: 'products', label: 'Katalog Produk', icon: '<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' },
+      { key: 'forum', label: 'Forum Moderasi', icon: '<path d="M21 11.5a8.38 8.38 0 0 1-1.9 5.4L21 21l-4.3-1.1a8.5 8.5 0 1 1 4.3-8.4z"/>' },
+      { key: 'bookings', label: 'Bookings Jadwal', icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>' },
+      { key: 'adoptions', label: 'Adoptions Hewan', icon: '<circle cx="12" cy="13" r="4"/><circle cx="6" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="3" cy="11" r="1.6"/><circle cx="21" cy="11" r="1.6"/>' },
+      { key: 'settings', label: 'Settings Website', icon: '<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066"/>' }
+    ],
+    // Hero & Highlights Data Mocking
+    homeHero: {
+      title: 'Sayangi Hewan Peliharaan Anda Bersama Kami',
+      subtitle: 'Pawfect Indonesia menghadirkan layanan medis hewan profesional berlisensi, daycare premium, hotel bintang 5 bagi anjing dan kucing, serta perawatan salon (grooming) eksklusif untuk hewan peliharaan tersayang Anda.',
+      ctaText: 'Hubungi Kami',
+      ctaUrl: '#inbox',
+      image: null
+    },
+    homeHighlights: [
+      { id: 1, icon: '🩺', title: 'Medis Profesional', desc: 'Konsultasi medis dan tindakan dokter hewan terpercaya 24 jam.' },
+      { id: 2, icon: '🏩', title: 'Daycare Premium', desc: 'Hotel penginapan bersih, ber-AC, dipantau CCTV secara realtime.' },
+      { id: 3, icon: '✂️', title: 'Grooming & Spa', desc: 'Mandi bersih wangi, potong rambut modis, gunting kuku, & anti-kutu.' }
+    ],
+    aboutProfile: {
+      companyName: 'Pawfect Indonesia',
+      vision: 'Menjadi penyedia ekosistem layanan kesehatan, kenyamanan, dan kesejahteraan hewan peliharaan terbaik serta paling terintegrasi di Indonesia.',
+      mission: '1. Menyediakan pelayanan medis darurat dan rawat inap dengan penuh kasih sayang.\n2. Mengedukasi para pemilik hewan mengenai pola asuh, nutrisi, dan gaya hidup sehat satwa.\n3. Menghadirkan fasilitas daycare/hotel ramah hewan yang aman dan bebas stress.\n4. Menginisiasi program adopsi dan steril subsidi secara berkala untuk menekan populasi kucing jalanan.'
+    },
+    aboutTeam: [
+      { id: 1, name: 'Dr. Ahmad Faisal, M.Si', role: 'Head Veterinarian & CEO', avatar: null },
+      { id: 2, name: 'Siti Rahma, S.Kom', role: 'Operations & IT Director', avatar: null },
+      { id: 3, name: 'Budi Santoso', role: 'Daycare & Grooming Manager', avatar: null }
+    ],
+    // Services Mocking
+    services: [
+      { id: 1, icon: '✂️', name: 'Premium Grooming & Spa', category: 'Perawatan', desc: 'Paket memandikan steril, blow dry, potong bulu rapi, potong kuku, pembersihan telinga, dan parfum wangi tahan lama.', price: 'Rp 150.000', status: 'active' },
+      { id: 2, icon: '🏩', name: 'Pet Hotel & Daycare', category: 'Penitipan', desc: 'Hotel penitipan hewan peliharaan harian/mingguan dengan ruangan steril ber-AC, pakan premium, dan sesi bermain luar ruangan.', price: 'Rp 100.000 / malam', status: 'active' },
+      { id: 3, icon: '🩺', name: 'Vaccine & Health Check', category: 'Kesehatan', desc: 'Pemeriksaan kesehatan menyeluruh, suntik vaksin tahunan (F3/F4/Rabies), obat cacing, dan konsultasi gizi dengan dokter hewan.', price: 'Rp 250.000', status: 'active' }
+    ],
+    // Products Mocking
+    products: [
+      { id: 1, name: 'Royal Canin Fit 32 2kg', category: 'Makanan', price: 'Rp 280.000', stock: 45, status: 'active', desc: 'Makanan kering bernutrisi lengkap untuk kucing dewasa aktif usia di atas 1 tahun.', image: null },
+      { id: 2, name: 'Pet LED Safety Collar Blue', category: 'Aksesoris', price: 'Rp 65.000', stock: 120, status: 'active', desc: 'Pet LED safety collar membantu memantau peliharaan di malam hari.', image: null },
+      { id: 3, name: 'Flea & Tick Shampoo 250ml', category: 'Perawatan', price: 'Rp 85.000', stock: 18, status: 'active', desc: 'Shampoo steril anti kutu dan jamur dengan ekstrak lidah buaya.', image: null }
+    ],
+    // Portfolio Mocking
+    portfolio: [
+      { id: 1, title: 'Program CSR Hewan Sehat - Indopet', client: 'PT Indopet Nusantara', category: 'CSR', date: 'Maret 2026', image: null, status: 'active' },
+      { id: 2, title: 'Sponsorship National Cat Show 2026', client: 'Persatuan Kucing Indonesia', category: 'Sponsorship', date: 'Mei 2026', image: null, status: 'active' },
+      { id: 3, title: 'Renovasi Shelter Kucing Liar Jakarta', client: 'Yayasan Peduli Satwa', category: 'Renovasi', date: 'Januari 2026', image: null, status: 'active' }
+    ],
+    // Blog Mocking
+    blog: [
+      { id: 1, title: 'Cara Mengatasi Kucing Stress di Lingkungan Baru', author: 'Dr. Ahmad Faisal', date: '15 Juni 2026', category: 'Tips & Trik', content: 'Kucing merupakan satwa teritorial yang sangat sensitif terhadap perubahan lingkungan tempat tinggal. Membawa kucing baru atau pindah rumah dapat memicu stres berkepanjangan pada mereka.\n\nTips utama penanganan:\n1. Tempatkan kucing di ruang tertutup kecil terlebih dahulu bersama mainan favoritnya.\n2. Berikan makanan lezat beraroma kuat (wet food).\n3. Sediakan kotak pasir (litter box) yang bersih di sudut tenang.\n4. Gunakan spray feromon penenang kucing jika diperlukan.', status: 'active' },
+      { id: 2, title: '5 Makanan Bernutrisi Tinggi untuk Anjing Ras Kecil', author: 'Budi Santoso', date: '10 Juni 2026', category: 'Kesehatan', content: 'Anjing ras kecil (seperti Shih Tzu, Pomeranian, atau Toy Poodle) memiliki laju metabolisme yang sangat tinggi. Mereka membutuhkan makanan padat nutrisi dengan butiran kibble yang disesuaikan dengan rahang kecil mereka.', status: 'active' },
+      { id: 3, title: 'Pentingnya Vaksinasi Tahunan bagi Kucing dan Anjing', author: 'Dr. Ahmad Faisal', date: '01 Juni 2026', category: 'Kesehatan', content: 'Vaksinasi berkala adalah benteng pertahanan utama hewan kesayangan Anda dari virus fatal seperti Parvovirus, Distemper, Panleukopenia, dan Rabies. Jadwalkan vaksinasi hewan kesayangan Anda setahun sekali ke klinik dokter terpercaya.', status: 'active' }
+    ],
+    // Inbox Mocking
+    inbox: [
+      { id: 1, name: 'Andi Wijaya', email: 'andi.wijaya@gmail.com', subject: 'Tanya Paket Daycare Kucing Bulanan', message: 'Halo admin Pawfect Indonesia, saya ingin menanyakan apakah ada diskon paket bulanan khusus untuk penitipan kucing ras Persia? Saya berencana dinas ke luar pulau selama sebulan penuh dan ingin menitipkan kucing kesayangan saya di sana.', date: '21 Juni 2026, 09:12', read: false },
+      { id: 2, name: 'Siti Aminah', email: 'siti.aminah@yahoo.com', subject: 'Jadwal Steril Subsidi Stray Cat', message: 'Selamat pagi dok, apakah bulan depan ada kuota untuk steril bersubsidi kucing jalanan (TNR)? Ada beberapa kucing liar di sekitar pemukiman kami yang populasinya ingin kami kendalikan.', date: '20 Juni 2026, 15:30', read: true },
+      { id: 3, name: 'Rudi Hermawan', email: 'rudi.h@indopet.id', subject: 'Tawaran Kerjasama Suplai Pakan', message: 'Kami dari divisi kemitraan Indopet ingin menawarkan kerjasama suplai pakan basah kaleng premium untuk kebutuhan daycare/hotel hewan di tempat Anda dengan skema harga khusus keagenan. Apakah bisa dijadwalkan sesi presentasi singkat?', date: '19 Juni 2026, 11:45', read: true }
+    ]
+  };
+}
 
 window.updatePermissionsDirtyWarning = function() {
   const warningBanner = document.getElementById('simulation-dirty-warning');
@@ -220,11 +379,94 @@ window.toggleModal = function(modalId, show) {
   if (show) {
     modal.classList.add('show');
     document.body.style.overflow = 'hidden'; // prevent background scrolling
+    // Initialize dropzones inside this modal
+    setTimeout(() => initDropzones(modal), 50);
   } else {
     modal.classList.remove('show');
     document.body.style.overflow = ''; // restore scrolling
   }
 };
+
+// ── Drag-and-drop upload dropzone initializer ──────────────────────────
+function initDropzones(container) {
+  const dropzones = (container || document).querySelectorAll('.upload-dropzone');
+  dropzones.forEach(zone => {
+    if (zone._dropzoneInit) return; // avoid double-binding
+    zone._dropzoneInit = true;
+
+    // Find the hidden file input inside the zone
+    const input = zone.querySelector('input[type="file"]');
+    if (!input) return;
+
+    // Find associated preview element (by sibling or parent lookup)
+    const findPreview = () => {
+      // Try inside the zone first
+      let p = zone.querySelector('[id$="-preview"]');
+      if (!p) {
+        // Try sibling
+        const parent = zone.closest('.form-group-premium, div');
+        p = parent && parent.querySelector('[id$="-preview"]');
+      }
+      return p;
+    };
+
+    const showPreview = (file) => {
+      if (!file || !file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const previewEl = findPreview();
+        if (!previewEl) return;
+        if (previewEl.tagName === 'IMG') {
+          previewEl.src = e.target.result;
+          previewEl.classList.remove('hidden');
+        } else if (previewEl.tagName === 'DIV') {
+          previewEl.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" />`;
+          previewEl.classList.remove('hidden');
+        }
+        // Update avatar-style previews (round)
+        const avatarPrev = zone.querySelector('.rounded-full');
+        if (avatarPrev && avatarPrev !== previewEl) {
+          avatarPrev.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />`;
+        }
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Click handled by inline onclick; also handle change event
+    input.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        showPreview(e.target.files[0]);
+      }
+    });
+
+    // Drag events
+    zone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      zone.classList.add('dragover');
+    });
+    zone.addEventListener('dragleave', (e) => {
+      if (!zone.contains(e.relatedTarget)) {
+        zone.classList.remove('dragover');
+      }
+    });
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files && files.length > 0) {
+        // Assign to the hidden input
+        const dt = new DataTransfer();
+        dt.items.add(files[0]);
+        input.files = dt.files;
+        showPreview(files[0]);
+      }
+    });
+  });
+}
+
+// Init dropzones already in DOM on page load
+document.addEventListener('DOMContentLoaded', () => initDropzones());
+
 
 // Custom Reusable Confirmation Modal (Elegant replacement for browser confirm())
 window.confirmModal = function(title, message, onConfirm) {
@@ -1138,83 +1380,8 @@ function initUserRoleAccess() {
 
   // 1. Initialize State in window so it persists
   if (!window.roleAccessState) {
-    window.roleAccessState = {
-      roles: [
-        {
-          id: 'admin',
-          name: 'Administrator',
-          description: 'Akses penuh ke semua fitur, modul, dan pengaturan sistem.',
-          permissions: {
-            dashboard: { view: true, create: true, edit: true, delete: true },
-            services: { view: true, create: true, edit: true, delete: true },
-            forum: { view: true, create: true, edit: true, delete: true },
-            bookings: { view: true, create: true, edit: true, delete: true },
-            adoptions: { view: true, create: true, edit: true, delete: true },
-            settings: { view: true, create: true, edit: true, delete: true }
-          }
-        },
-        {
-          id: 'editor',
-          name: 'Editor Konten',
-          description: 'Mengelola konten company profile (Layanan, Diskusi Forum, Adopsi Hewan). Tidak memiliki izin ke Bookings & Settings.',
-          permissions: {
-            dashboard: { view: true, create: false, edit: false, delete: false },
-            services: { view: true, create: true, edit: true, delete: false },
-            forum: { view: true, create: true, edit: true, delete: true },
-            bookings: { view: false, create: false, edit: false, delete: false },
-            adoptions: { view: true, create: true, edit: true, delete: false },
-            settings: { view: false, create: false, edit: false, delete: false }
-          }
-        },
-        {
-          id: 'moderator',
-          name: 'Moderator Forum',
-          description: 'Fokus pada moderasi forum diskusi dan status adopsi hewan.',
-          permissions: {
-            dashboard: { view: true, create: false, edit: false, delete: false },
-            services: { view: false, create: false, edit: false, delete: false },
-            forum: { view: true, create: false, edit: true, delete: true },
-            bookings: { view: false, create: false, edit: false, delete: false },
-            adoptions: { view: true, create: false, edit: true, delete: false },
-            settings: { view: false, create: false, edit: false, delete: false }
-          }
-        },
-        {
-          id: 'viewer',
-          name: 'Viewer (Read-Only)',
-          description: 'Hanya memiliki izin untuk memantau data tanpa izin perubahan.',
-          permissions: {
-            dashboard: { view: true, create: false, edit: false, delete: false },
-            services: { view: true, create: false, edit: false, delete: false },
-            forum: { view: true, create: false, edit: false, delete: false },
-            bookings: { view: true, create: false, edit: false, delete: false },
-            adoptions: { view: true, create: false, edit: false, delete: false },
-            settings: { view: true, create: false, edit: false, delete: false }
-          }
-        }
-      ],
-      users: [
-        { id: 1, name: 'Ahmad Faisal', email: 'ahmad.f@company.com', role: 'admin', status: 'active', avatar: 'AF', color: 'bg-blue-600 text-white', createdAt: '12 Jan 2026', lastActive: '5 menit lalu' },
-        { id: 2, name: 'Siti Rahma', email: 'siti.r@company.com', role: 'editor', status: 'active', avatar: 'SR', color: 'bg-emerald-600 text-white', createdAt: '15 Feb 2026', lastActive: '1 jam lalu' },
-        { id: 3, name: 'Budi Santoso', email: 'budi.s@company.com', role: 'moderator', status: 'active', avatar: 'BS', color: 'bg-amber-600 text-white', createdAt: '22 Mar 2026', lastActive: 'Kemarin' },
-        { id: 4, name: 'Diana Lestari', email: 'diana.l@company.com', role: 'viewer', status: 'inactive', avatar: 'DL', color: 'bg-slate-500 text-white', createdAt: '10 Apr 2026', lastActive: '3 hari lalu' }
-      ],
-      auditLogs: [
-        { time: '2026-06-21 00:15:32', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Melakukan reset password untuk Diana Lestari', ip: '192.168.1.42' },
-        { time: '2026-06-21 00:12:08', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Mengubah hak akses peran Editor Konten', ip: '192.168.1.42' },
-        { time: '2026-06-20 18:44:19', user: 'Siti Rahma', role: 'Editor Konten', activity: 'Mengunggah foto profil baru', ip: '192.168.1.105' },
-        { time: '2026-06-20 15:30:45', user: 'Budi Santoso', role: 'Moderator Forum', activity: 'Menghapus postingan forum berunsur spam', ip: '192.168.1.77' },
-        { time: '2026-06-19 11:22:10', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Menambahkan pengguna baru: Siti Rahma', ip: '192.168.1.42' }
-      ],
-      menus: [
-        { key: 'dashboard', label: 'Dashboard Overview', icon: '<path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>' },
-        { key: 'services', label: 'Pet Services', icon: '<path d="M9 12a3 3 0 1 1 6 0v3a3 3 0 0 1-6 0zM9 13c-3 1-4 3-4 6h14c0-3-1-5-4-6M11 2l1 3 1-3"/>' },
-        { key: 'forum', label: 'Forum Moderasi', icon: '<path d="M21 11.5a8.38 8.38 0 0 1-1.9 5.4L21 21l-4.3-1.1a8.5 8.5 0 1 1 4.3-8.4z"/>' },
-        { key: 'bookings', label: 'Bookings Jadwal', icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>' },
-        { key: 'adoptions', label: 'Adoptions Hewan', icon: '<circle cx="12" cy="13" r="4"/><circle cx="6" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="3" cy="11" r="1.6"/><circle cx="21" cy="11" r="1.6"/>' },
-        { key: 'settings', label: 'Settings Website', icon: '<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066"/>' }
-      ]
-    };
+    console.error("roleAccessState is not initialized globally!");
+    return;
   }
 
   const state = window.roleAccessState;
@@ -1259,7 +1426,7 @@ function initUserRoleAccess() {
     const filterStatus = userStatusFilter.value;
     
     const filtered = state.users.filter(u => {
-      const nameMatch = u.name.toLowerCase().includes(query) || u.email.toLowerCase().includes(query);
+      const nameMatch = u.name.toLowerCase().includes(query) || u.email.toLowerCase().includes(query) || (u.username && u.username.toLowerCase().includes(query));
       const statusMatch = filterStatus === 'all' || u.status === filterStatus;
       return nameMatch && statusMatch;
     });
@@ -1285,7 +1452,7 @@ function initUserRoleAccess() {
             <div class="flex items-center gap-3">
               ${avatarHtml}
               <div>
-                <div class="font-semibold text-slate-800 text-[13.5px]">${u.name}</div>
+                <div class="font-semibold text-slate-800 text-[13.5px]">${u.name} <span class="text-xs font-normal text-slate-400 font-mono">(@${u.username || ''})</span></div>
                 <div class="text-xs text-slate-400 font-normal">${u.email}</div>
               </div>
             </div>
@@ -1296,6 +1463,12 @@ function initUserRoleAccess() {
           <td class="py-3 px-4 text-center">${statusBadge}</td>
           <td class="py-3 px-4 text-right">
             <div class="flex items-center justify-end gap-3 md:gap-1.5">
+              <button class="btn-detail-user p-2 md:p-1.5 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-all" data-id="${u.id}" title="Detail User">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
               <button class="btn-reset-user-password p-2 md:p-1.5 text-slate-500 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-all" data-id="${u.id}" title="Reset Password">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m-2 2a2 2 0 01-2-2m2 2a2 2 0 002-2m-2 2v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4a2 2 0 012-2h6zM15 7a2 2 0 100-4 2 2 0 000 4z" />
@@ -1635,12 +1808,81 @@ function initUserRoleAccess() {
     });
   }
 
-  // --- EDIT, DELETE & RESET USER DELEGATE ---
+  // --- EDIT, DELETE, RESET & DETAIL USER DELEGATE ---
   if (tbodyUsers) {
     tbodyUsers.addEventListener('click', (e) => {
       const editBtn = e.target.closest('.btn-edit-user');
       const deleteBtn = e.target.closest('.btn-delete-user');
       const resetBtn = e.target.closest('.btn-reset-user-password');
+      const detailBtn = e.target.closest('.btn-detail-user');
+
+      if (detailBtn) {
+        const uid = parseInt(detailBtn.dataset.id);
+        const user = state.users.find(u => u.id === uid);
+        if (user) {
+          const roleObj = state.roles.find(r => r.id === user.role) || { name: user.role, permissions: {} };
+          
+          document.getElementById('user-detail-name').textContent = user.name;
+          document.getElementById('user-detail-username').textContent = `@${user.username || user.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+          document.getElementById('user-detail-email').textContent = user.email;
+          document.getElementById('user-detail-created').textContent = user.createdAt || '12 Jan 2026';
+          document.getElementById('user-detail-active').textContent = user.lastActive || 'Kemarin';
+          
+          const roleBadge = document.getElementById('user-detail-role-badge');
+          roleBadge.textContent = roleObj.name;
+
+          const statusBadge = document.getElementById('user-detail-status-badge');
+          if (user.status === 'active') {
+            statusBadge.textContent = 'Aktif';
+            statusBadge.className = 'badge badge-done';
+          } else {
+            statusBadge.textContent = 'Nonaktif';
+            statusBadge.className = 'badge';
+          }
+
+          const avatarEl = document.getElementById('user-detail-avatar');
+          if (user.avatar && (user.avatar.startsWith('data:') || user.avatar.startsWith('http'))) {
+            avatarEl.innerHTML = `<img src="${user.avatar}" class="w-full h-full object-cover rounded-full">`;
+            avatarEl.style.backgroundColor = '';
+          } else {
+            avatarEl.innerHTML = user.avatar || user.name.substring(0,2).toUpperCase();
+            avatarEl.className = `w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg text-white shadow-md ${user.color || 'bg-slate-500'}`;
+            avatarEl.style.backgroundColor = '';
+          }
+
+          // Populate permissions list badges
+          const permissionsContainer = document.getElementById('user-detail-permissions');
+          permissionsContainer.innerHTML = '';
+          
+          let hasPerms = false;
+          state.menus.forEach(menu => {
+            const menuPerm = roleObj.permissions[menu.key];
+            if (menuPerm && menuPerm.view) {
+              hasPerms = true;
+              const pill = document.createElement('span');
+              pill.className = 'px-2.5 py-1 bg-slate-105 text-slate-700 text-[11px] rounded-full border border-slate-200 font-medium flex items-center gap-1';
+              
+              let crudText = 'Lihat';
+              if (menuPerm.create || menuPerm.edit || menuPerm.delete) {
+                let list = [];
+                if (menuPerm.create) list.push('C');
+                if (menuPerm.edit) list.push('U');
+                if (menuPerm.delete) list.push('D');
+                crudText += ` (${list.join('/')})`;
+              }
+              
+              pill.innerHTML = `<span>${menu.label}</span> <span class="text-[9px] font-bold text-blue-600 uppercase bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">${crudText}</span>`;
+              permissionsContainer.appendChild(pill);
+            }
+          });
+
+          if (!hasPerms) {
+            permissionsContainer.innerHTML = '<span class="text-slate-400 italic text-[11.5px]">Tidak ada akses modul aktif.</span>';
+          }
+
+          window.toggleModal('user-detail-modal', true);
+        }
+      }
 
       if (editBtn) {
         const uid = parseInt(editBtn.dataset.id);
@@ -1649,6 +1891,7 @@ function initUserRoleAccess() {
           document.getElementById('user-modal-title').textContent = 'Ubah Detail Pengguna';
           document.getElementById('user-modal-action-id').value = uid;
           document.getElementById('user-modal-name').value = user.name;
+          document.getElementById('user-modal-username').value = user.username || '';
           document.getElementById('user-modal-email').value = user.email;
           
           const avatarPreview = document.getElementById('user-modal-avatar-preview');
@@ -1748,6 +1991,7 @@ function initUserRoleAccess() {
       
       const actionId = document.getElementById('user-modal-action-id').value;
       const name = document.getElementById('user-modal-name').value.trim();
+      const username = document.getElementById('user-modal-username').value.trim().toLowerCase().replace(/[^a-z0-9._-]/g, '');
       const email = document.getElementById('user-modal-email').value.trim();
       const role = document.getElementById('user-modal-role').value;
       const status = document.getElementById('user-modal-status').value;
@@ -1761,6 +2005,7 @@ function initUserRoleAccess() {
         const uIdx = state.users.findIndex(u => u.id === parseInt(actionId));
         if (uIdx !== -1) {
           state.users[uIdx].name = name;
+          state.users[uIdx].username = username;
           state.users[uIdx].email = email;
           state.users[uIdx].role = role;
           state.users[uIdx].status = status;
@@ -1785,6 +2030,7 @@ function initUserRoleAccess() {
         state.users.push({
           id: newId,
           name: name,
+          username: username,
           email: email,
           role: role,
           status: status,
@@ -2085,7 +2331,61 @@ function initUserRoleAccess() {
           </div>
         </div>
       `;
-
+      pageWrapper.querySelector('.sim-btn-add')?.addEventListener('click', () => handleSimulatedAction('edit'));
+      pageWrapper.querySelectorAll('.sim-btn-edit').forEach(b => b.addEventListener('click', () => handleSimulatedAction('edit')));
+      pageWrapper.querySelectorAll('.sim-btn-delete').forEach(b => b.addEventListener('click', () => handleSimulatedAction('delete')));
+    }
+    else if (simulatedActiveMenu === 'products') {
+      pageWrapper.innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
+          <div>
+            <h2 class="text-xs font-bold text-slate-800">Daftar Produk (Katalog)</h2>
+            <p class="text-[10px] text-slate-400">Mockup data Produk Fisik Company Profile.</p>
+          </div>
+          <button class="sim-btn-add px-2.5 py-1.5 text-[10px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded transition-all ${
+            !perm.edit ? 'opacity-40 cursor-not-allowed bg-slate-500' : ''
+          }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Tambah Produk Baru"'}>${!perm.edit ? '🔒 ' : ''}+ Tambah Produk</button>
+        </div>
+        <div class="space-y-2.5 overflow-y-auto flex-1 pr-1">
+          <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
+            <div>
+              <div class="text-xs font-bold text-slate-700">Royal Canin Fit 32 2kg</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Kategori: Makanan • Stok: 45 pcs</div>
+            </div>
+            <div class="flex gap-1">
+              <button class="sim-btn-edit px-2 py-1 text-[10px] font-bold border rounded ${
+                perm.edit ? 'text-slate-600 border-slate-200 hover:bg-slate-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
+              }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Ubah Data"'}>
+                <span class="flex items-center gap-1">${perm.edit ? '' : '🔒 '}Edit</span>
+              </button>
+              <button class="sim-btn-delete px-2 py-1 text-[10px] font-bold border rounded ${
+                perm.delete ? 'text-red-600 border-red-100 hover:bg-red-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
+              }" ${!perm.delete ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Hapus (Delete) untuk modul ini"' : 'title="Hapus Data"'}>
+                <span class="flex items-center gap-1">${perm.delete ? '' : '🔒 '}Hapus</span>
+              </button>
+            </div>
+          </div>
+          
+          <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
+            <div>
+              <div class="text-xs font-bold text-slate-700">Pet LED Safety Collar Blue</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Kategori: Aksesoris • Stok: 120 pcs</div>
+            </div>
+            <div class="flex gap-1">
+              <button class="sim-btn-edit px-2 py-1 text-[10px] font-bold border rounded ${
+                perm.edit ? 'text-slate-600 border-slate-200 hover:bg-slate-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
+              }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Ubah Data"'}>
+                <span class="flex items-center gap-1">${perm.edit ? '' : '🔒 '}Edit</span>
+              </button>
+              <button class="sim-btn-delete px-2 py-1 text-[10px] font-bold border rounded ${
+                perm.delete ? 'text-red-600 border-red-100 hover:bg-red-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
+              }" ${!perm.delete ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Hapus (Delete) untuk modul ini"' : 'title="Hapus Data"'}>
+                <span class="flex items-center gap-1">${perm.delete ? '' : '🔒 '}Hapus</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
       pageWrapper.querySelector('.sim-btn-add')?.addEventListener('click', () => handleSimulatedAction('edit'));
       pageWrapper.querySelectorAll('.sim-btn-edit').forEach(b => b.addEventListener('click', () => handleSimulatedAction('edit')));
       pageWrapper.querySelectorAll('.sim-btn-delete').forEach(b => b.addEventListener('click', () => handleSimulatedAction('delete')));
@@ -2316,3 +2616,1271 @@ function initProfileView() {
     });
   }
 }
+
+// --- 7 NEW VIEWS INITIALIZERS ---
+
+function initDashboard() {
+  const state = window.roleAccessState;
+  
+  // Update stats display
+  const vEl = document.getElementById('dashboard-stat-visitors');
+  const sEl = document.getElementById('dashboard-stat-services');
+  const pEl = document.getElementById('dashboard-stat-portfolio');
+  const aEl = document.getElementById('dashboard-stat-articles');
+  
+  if (vEl) vEl.textContent = '12.480';
+  if (sEl) sEl.textContent = state.services.length;
+  if (pEl) pEl.textContent = state.portfolio.length;
+  if (aEl) aEl.textContent = state.blog.length;
+
+  // Render recent inbox
+  const inboxBody = document.getElementById('dashboard-inbox-body');
+  if (inboxBody) {
+    inboxBody.innerHTML = '';
+    const recentMessages = state.inbox.slice(0, 3);
+    recentMessages.forEach(msg => {
+      const readBadge = msg.read 
+        ? '<span class="px-2 py-0.5 inline-flex text-[10px] leading-4 font-semibold rounded bg-slate-105 text-slate-500">Read</span>'
+        : '<span class="px-2 py-0.5 inline-flex text-[10px] leading-4 font-semibold rounded bg-blue-105 text-blue-700 font-bold">New</span>';
+      
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-slate-50/50 transition-colors';
+      tr.innerHTML = `
+        <td class="py-2.5 px-3">
+          <div class="font-medium text-slate-800 text-xs">${msg.name}</div>
+          <div class="text-[10px] text-slate-400 font-normal">${msg.email}</div>
+        </td>
+        <td class="py-2.5 px-3 text-xs text-slate-600 truncate max-w-[200px] font-semibold">${msg.subject}</td>
+        <td class="py-2.5 px-3 text-[11px] text-slate-500 font-mono">${msg.date.split(',')[0]}</td>
+        <td class="py-2.5 px-3 text-center">${readBadge}</td>
+      `;
+      inboxBody.appendChild(tr);
+    });
+  }
+
+  // Render recent activity logs
+  const activityList = document.getElementById('dashboard-activity-list');
+  if (activityList) {
+    activityList.innerHTML = '';
+    const recentLogs = state.auditLogs.slice(0, 4);
+    recentLogs.forEach(log => {
+      const div = document.createElement('div');
+      div.className = 'flex gap-3 text-xs border-l-2 border-slate-150 pl-3 pb-1';
+      div.innerHTML = `
+        <div class="flex-1">
+          <div class="text-[11px] text-slate-400 font-mono">${log.time.split(' ')[1]}</div>
+          <div class="text-slate-800 font-medium mt-0.5"><span class="font-semibold">${log.user}</span>: ${log.activity}</div>
+        </div>
+      `;
+      activityList.appendChild(div);
+    });
+  }
+}
+
+function initHomeSettings() {
+  const state = window.roleAccessState;
+  
+  // Populate form fields
+  const titleInput = document.getElementById('hero-title-input');
+  const subtitleInput = document.getElementById('hero-subtitle-input');
+  const ctaTextInput = document.getElementById('hero-cta-text');
+  const ctaUrlInput = document.getElementById('hero-cta-url');
+  const imagePreview = document.getElementById('hero-image-preview');
+  
+  if (titleInput) titleInput.value = state.homeHero.title;
+  if (subtitleInput) subtitleInput.value = state.homeHero.subtitle;
+  if (ctaTextInput) ctaTextInput.value = state.homeHero.ctaText;
+  if (ctaUrlInput) ctaUrlInput.value = state.homeHero.ctaUrl;
+  
+  if (imagePreview && state.homeHero.image) {
+    imagePreview.innerHTML = `<img src="${state.homeHero.image}" class="w-full h-full object-cover">`;
+  }
+
+  // Save changes button
+  const saveBtn = document.getElementById('btn-save-home-settings');
+  if (saveBtn) {
+    saveBtn.onclick = () => {
+      state.homeHero.title = titleInput.value.trim();
+      state.homeHero.subtitle = subtitleInput.value.trim();
+      state.homeHero.ctaText = ctaTextInput.value.trim();
+      state.homeHero.ctaUrl = ctaUrlInput.value.trim();
+      
+      window.showToast('success', 'Berhasil Disimpan', 'Konfigurasi spanduk Hero halaman depan berhasil diperbarui.');
+      
+      // Log audit
+      state.auditLogs.unshift({
+        time: new Date().toISOString().replace('T', ' ').substring(0, 19),
+        user: 'Ahmad Faisal',
+        role: 'Administrator',
+        activity: 'Memperbarui konfigurasi Hero Banner Beranda',
+        ip: '192.168.1.42'
+      });
+    };
+  }
+
+  // Handle image upload
+  const imageInput = document.getElementById('hero-image-input');
+  if (imageInput) {
+    imageInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+          window.showToast('error', 'Ukuran Berkas Terlalu Besar', 'Maksimal ukuran foto adalah 2MB.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          state.homeHero.image = event.target.result;
+          if (imagePreview) {
+            imagePreview.innerHTML = `<img src="${event.target.result}" class="w-full h-full object-cover">`;
+          }
+          window.showToast('success', 'Gambar Berhasil Dimuat', 'Pratinjau gambar Hero berhasil dimuat. Klik Simpan Perubahan untuk menyimpan.');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Render Highlights list
+  const highlightsContainer = document.getElementById('highlights-list-container');
+  function renderHighlights() {
+    if (!highlightsContainer) return;
+    highlightsContainer.innerHTML = '';
+    
+    state.homeHighlights.forEach(hl => {
+      const div = document.createElement('div');
+      div.className = 'p-3 border border-slate-100 rounded-lg flex items-center justify-between gap-3 bg-slate-50/30';
+      div.innerHTML = `
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-sm shrink-0">${hl.icon}</div>
+          <div>
+            <div class="font-bold text-slate-800 text-[13px]">${hl.title}</div>
+            <div class="text-[11.5px] text-slate-505 leading-normal">${hl.desc}</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button class="btn-edit-hl p-1.5 text-slate-400 hover:text-blue-600 rounded hover:bg-slate-105" data-id="${hl.id}" title="Edit">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          </button>
+          <button class="btn-delete-hl p-1.5 text-slate-400 hover:text-red-600 rounded hover:bg-red-50" data-id="${hl.id}" title="Hapus">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          </button>
+        </div>
+      `;
+      highlightsContainer.appendChild(div);
+    });
+
+    // Bind Edit/Delete buttons
+    highlightsContainer.querySelectorAll('.btn-edit-hl').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const hl = state.homeHighlights.find(h => h.id === id);
+        if (hl) {
+          document.getElementById('highlight-modal-title').textContent = 'Ubah Keunggulan';
+          document.getElementById('highlight-modal-action-id').value = id;
+          document.getElementById('highlight-modal-icon').value = hl.icon;
+          document.getElementById('highlight-modal-title-input').value = hl.title;
+          document.getElementById('highlight-modal-desc').value = hl.desc;
+          window.toggleModal('highlight-modal', true);
+        }
+      };
+    });
+
+    highlightsContainer.querySelectorAll('.btn-delete-hl').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const hl = state.homeHighlights.find(h => h.id === id);
+        if (hl) {
+          window.confirmModal('Hapus Sorotan', `Apakah Anda yakin ingin menghapus sorotan "${hl.title}"?`, () => {
+            state.homeHighlights = state.homeHighlights.filter(h => h.id !== id);
+            window.showToast('success', 'Sorotan Dihapus', 'Satu sorotan berhasil dihapus.');
+            renderHighlights();
+          });
+        }
+      };
+    });
+  }
+
+  // Add highlight button
+  const addHlBtn = document.getElementById('btn-add-highlight');
+  if (addHlBtn) {
+    addHlBtn.onclick = () => {
+      document.getElementById('highlight-modal-title').textContent = 'Tambah Keunggulan';
+      document.getElementById('highlight-modal-action-id').value = '';
+      document.getElementById('highlight-modal-form').reset();
+      window.toggleModal('highlight-modal', true);
+    };
+  }
+
+  // Handle highlight submission
+  const hlForm = document.getElementById('highlight-modal-form');
+  if (hlForm) {
+    hlForm.onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.getElementById('highlight-modal-action-id').value;
+      const icon = document.getElementById('highlight-modal-icon').value.trim();
+      const title = document.getElementById('highlight-modal-title-input').value.trim();
+      const desc = document.getElementById('highlight-modal-desc').value.trim();
+
+      if (id) {
+        const idx = state.homeHighlights.findIndex(h => h.id === parseInt(id));
+        if (idx !== -1) {
+          state.homeHighlights[idx].icon = icon;
+          state.homeHighlights[idx].title = title;
+          state.homeHighlights[idx].desc = desc;
+          window.showToast('success', 'Berhasil Diubah', 'Sorotan berhasil diperbarui.');
+        }
+      } else {
+        const newId = state.homeHighlights.length > 0 ? Math.max(...state.homeHighlights.map(h => h.id)) + 1 : 1;
+        state.homeHighlights.push({ id: newId, icon, title, desc });
+        window.showToast('success', 'Berhasil Ditambahkan', 'Keunggulan sorotan baru berhasil didaftarkan.');
+      }
+      window.toggleModal('highlight-modal', false);
+      renderHighlights();
+    };
+  }
+
+  renderHighlights();
+}
+
+function initAboutUs() {
+  const state = window.roleAccessState;
+  
+  // Populate form
+  const nameInput = document.getElementById('company-name-input');
+  const visionInput = document.getElementById('company-vision-input');
+  const missionInput = document.getElementById('company-mission-input');
+  
+  if (nameInput) nameInput.value = state.aboutProfile.companyName;
+  if (visionInput) visionInput.value = state.aboutProfile.vision;
+  if (missionInput) missionInput.value = state.aboutProfile.mission;
+
+  // Save changes button
+  const saveBtn = document.getElementById('btn-save-about-us');
+  if (saveBtn) {
+    saveBtn.onclick = () => {
+      state.aboutProfile.companyName = nameInput.value.trim();
+      state.aboutProfile.vision = visionInput.value.trim();
+      state.aboutProfile.mission = missionInput.value.trim();
+      
+      window.showToast('success', 'Profil Disimpan', 'Informasi profil instansi, visi, dan misi berhasil diperbarui.');
+    };
+  }
+
+  // Render Team Table
+  const teamBody = document.getElementById('team-table-body');
+  function renderTeam() {
+    if (!teamBody) return;
+    teamBody.innerHTML = '';
+    
+    state.aboutTeam.forEach(member => {
+      const avatarHtml = member.avatar 
+        ? `<img src="${member.avatar}" class="w-8 h-8 rounded-full object-cover">`
+        : `<div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs shrink-0">${member.name.substring(0,2).toUpperCase()}</div>`;
+        
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-slate-50/50 transition-colors';
+      tr.innerHTML = `
+        <td class="py-2.5 px-3">
+          <div class="flex items-center gap-2.5">
+            ${avatarHtml}
+            <div class="font-semibold text-slate-800 text-xs">${member.name}</div>
+          </div>
+        </td>
+        <td class="py-2.5 px-3 text-xs text-slate-505 font-medium">${member.role}</td>
+        <td class="py-2.5 px-3 text-right">
+          <div class="flex items-center justify-end gap-1.5">
+            <button class="btn-edit-team p-1.5 text-slate-400 hover:text-blue-600 rounded hover:bg-slate-105" data-id="${member.id}">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+            </button>
+            <button class="btn-delete-team p-1.5 text-slate-400 hover:text-red-600 rounded hover:bg-red-50" data-id="${member.id}">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </div>
+        </td>
+      `;
+      teamBody.appendChild(tr);
+    });
+
+    // Bind Edit/Delete
+    teamBody.querySelectorAll('.btn-edit-team').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const member = state.aboutTeam.find(m => m.id === id);
+        if (member) {
+          document.getElementById('team-modal-title').textContent = 'Ubah Anggota Tim';
+          document.getElementById('team-modal-action-id').value = id;
+          document.getElementById('team-modal-name').value = member.name;
+          document.getElementById('team-modal-role').value = member.role;
+          
+          const preview = document.getElementById('team-modal-avatar-preview');
+          if (preview) {
+            if (member.avatar) {
+              preview.innerHTML = `<img src="${member.avatar}" class="w-full h-full object-cover">`;
+            } else {
+              preview.innerHTML = member.name.substring(0,2).toUpperCase();
+            }
+          }
+          window.teamModalAvatarData = member.avatar;
+          window.toggleModal('team-modal', true);
+        }
+      };
+    });
+
+    teamBody.querySelectorAll('.btn-delete-team').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const member = state.aboutTeam.find(m => m.id === id);
+        if (member) {
+          window.confirmModal('Hapus Staf', `Apakah Anda yakin ingin menghapus ${member.name} dari struktur tim?`, () => {
+            state.aboutTeam = state.aboutTeam.filter(m => m.id !== id);
+            window.showToast('success', 'Anggota Dihapus', `${member.name} telah dihapus dari tim.`);
+            renderTeam();
+          });
+        }
+      };
+    });
+  }
+
+  // Handle Team image upload
+  const teamAvatarInput = document.getElementById('team-modal-avatar-input');
+  const teamAvatarPreview = document.getElementById('team-modal-avatar-preview');
+  if (teamAvatarInput) {
+    teamAvatarInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+          window.showToast('error', 'Ukuran Berkas Terlalu Besar', 'Maksimal ukuran foto adalah 2MB.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          window.teamModalAvatarData = event.target.result;
+          if (teamAvatarPreview) {
+            teamAvatarPreview.innerHTML = `<img src="${event.target.result}" class="w-full h-full object-cover">`;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Add team member button
+  const addTeamBtn = document.getElementById('btn-add-team-member');
+  if (addTeamBtn) {
+    addTeamBtn.onclick = () => {
+      document.getElementById('team-modal-title').textContent = 'Tambah Anggota Tim';
+      document.getElementById('team-modal-action-id').value = '';
+      document.getElementById('team-modal-form').reset();
+      if (teamAvatarPreview) teamAvatarPreview.innerHTML = 'T';
+      window.teamModalAvatarData = null;
+      window.toggleModal('team-modal', true);
+    };
+  }
+
+  // Handle team submission
+  const teamForm = document.getElementById('team-modal-form');
+  if (teamForm) {
+    teamForm.onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.getElementById('team-modal-action-id').value;
+      const name = document.getElementById('team-modal-name').value.trim();
+      const role = document.getElementById('team-modal-role').value.trim();
+      const avatar = window.teamModalAvatarData || null;
+
+      if (id) {
+        const idx = state.aboutTeam.findIndex(m => m.id === parseInt(id));
+        if (idx !== -1) {
+          state.aboutTeam[idx].name = name;
+          state.aboutTeam[idx].role = role;
+          state.aboutTeam[idx].avatar = avatar;
+          window.showToast('success', 'Berhasil Diubah', `Informasi detail ${name} berhasil disimpan.`);
+        }
+      } else {
+        const newId = state.aboutTeam.length > 0 ? Math.max(...state.aboutTeam.map(m => m.id)) + 1 : 1;
+        state.aboutTeam.push({ id: newId, name, role, avatar });
+        window.showToast('success', 'Berhasil Ditambahkan', `${name} didaftarkan ke struktur tim.`);
+      }
+      window.toggleModal('team-modal', false);
+      renderTeam();
+    };
+  }
+
+  renderTeam();
+}
+
+function initServices() {
+  const state = window.roleAccessState;
+  
+  const tbody = document.getElementById('services-table-body');
+  const emptyView = document.getElementById('services-table-empty');
+  const searchInput = document.getElementById('service-search-input');
+  const categoryFilter = document.getElementById('service-category-filter');
+  
+  function renderServices() {
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    
+    const query = searchInput.value.toLowerCase().trim();
+    const cat = categoryFilter.value;
+    
+    const filtered = state.services.filter(s => {
+      return s.name.toLowerCase().includes(query) || s.desc.toLowerCase().includes(query);
+    });
+
+    const isFiltered = filtered.filter(s => cat === 'all' || s.category === cat);
+
+    if (isFiltered.length === 0) {
+      emptyView.classList.remove('hidden');
+    } else {
+      emptyView.classList.add('hidden');
+      isFiltered.forEach(s => {
+        const statusBadge = s.status === 'active'
+          ? '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-100">Aktif</span>'
+          : '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-600 border border-slate-200">Draf</span>';
+          
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/50 transition-colors';
+        tr.innerHTML = `
+          <td class="py-3 px-4">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-md bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base shrink-0">${s.icon || '🛠️'}</div>
+              <div>
+                <div class="font-bold text-slate-800 text-[13.5px]">${s.name}</div>
+                <div class="text-xs text-slate-450 font-normal truncate max-w-[280px]">${s.desc}</div>
+              </div>
+            </div>
+          </td>
+          <td class="py-3 px-4 text-xs font-semibold text-slate-500">${s.category}</td>
+          <td class="py-3 px-4 font-semibold text-slate-850 text-[13.5px]">${s.price}</td>
+          <td class="py-3 px-4 text-center">${statusBadge}</td>
+          <td class="py-3 px-4 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button class="btn-edit-service p-1.5 text-slate-400 hover:text-blue-600 rounded hover:bg-slate-105" data-id="${s.id}">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              </button>
+              <button class="btn-delete-service p-1.5 text-slate-400 hover:text-red-600 rounded hover:bg-red-50" data-id="${s.id}">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Bind edit/delete
+    tbody.querySelectorAll('.btn-edit-service').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const s = state.services.find(item => item.id === id);
+        if (s) {
+          document.getElementById('service-modal-title').textContent = 'Ubah Detail Layanan';
+          document.getElementById('service-modal-action-id').value = id;
+          document.getElementById('service-modal-name').value = s.name;
+          document.getElementById('service-modal-category').value = s.category;
+          document.getElementById('service-modal-icon').value = s.icon || '';
+          document.getElementById('service-modal-desc').value = s.desc;
+          document.getElementById('service-modal-price').value = s.price;
+          document.getElementById('service-modal-status').value = s.status;
+          window.toggleModal('service-modal', true);
+        }
+      };
+    });
+
+    tbody.querySelectorAll('.btn-delete-service').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const s = state.services.find(item => item.id === id);
+        if (s) {
+          window.confirmModal('Hapus Layanan', `Apakah Anda yakin ingin menghapus layanan "${s.name}"?`, () => {
+            state.services = state.services.filter(item => item.id !== id);
+            window.showToast('success', 'Layanan Dihapus', `${s.name} berhasil dihapus.`);
+            renderServices();
+          });
+        }
+      };
+    });
+  }
+
+  // Bind filters
+  if (searchInput) searchInput.addEventListener('input', renderServices);
+  if (categoryFilter) categoryFilter.addEventListener('change', renderServices);
+
+  // Add Service button
+  const addBtn = document.getElementById('btn-add-service');
+  if (addBtn) {
+    addBtn.onclick = () => {
+      document.getElementById('service-modal-title').textContent = 'Tambah Layanan Baru';
+      document.getElementById('service-modal-action-id').value = '';
+      document.getElementById('service-modal-form').reset();
+      window.toggleModal('service-modal', true);
+    };
+  }
+
+  // Handle Service submission
+  const serviceForm = document.getElementById('service-modal-form');
+  if (serviceForm) {
+    serviceForm.onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.getElementById('service-modal-action-id').value;
+      const name = document.getElementById('service-modal-name').value.trim();
+      const category = document.getElementById('service-modal-category').value;
+      const icon = document.getElementById('service-modal-icon').value.trim() || '🛠️';
+      const desc = document.getElementById('service-modal-desc').value.trim();
+      const price = document.getElementById('service-modal-price').value.trim();
+      const status = document.getElementById('service-modal-status').value;
+
+      if (id) {
+        const idx = state.services.findIndex(item => item.id === parseInt(id));
+        if (idx !== -1) {
+          state.services[idx].name = name;
+          state.services[idx].category = category;
+          state.services[idx].icon = icon;
+          state.services[idx].desc = desc;
+          state.services[idx].price = price;
+          state.services[idx].status = status;
+          window.showToast('success', 'Layanan Diubah', 'Informasi layanan berhasil diperbarui.');
+        }
+      } else {
+        const newId = state.services.length > 0 ? Math.max(...state.services.map(item => item.id)) + 1 : 1;
+        state.services.push({ id: newId, icon, name, category, desc, price, status });
+        window.showToast('success', 'Layanan Ditambahkan', `Layanan ${name} berhasil dibuat.`);
+      }
+      window.toggleModal('service-modal', false);
+      renderServices();
+    };
+  }
+
+  renderServices();
+}
+
+function initPortfolio() {
+  const state = window.roleAccessState;
+  
+  const grid = document.getElementById('portfolio-grid-body');
+  const emptyView = document.getElementById('portfolio-empty-view');
+  const searchInput = document.getElementById('portfolio-search-input');
+  
+  function renderPortfolio() {
+    if (!grid) return;
+    grid.innerHTML = '';
+    
+    const query = searchInput.value.toLowerCase().trim();
+    
+    const filtered = state.portfolio.filter(p => {
+      return p.title.toLowerCase().includes(query) || p.client.toLowerCase().includes(query) || p.category.toLowerCase().includes(query);
+    });
+
+    if (filtered.length === 0) {
+      emptyView.classList.remove('hidden');
+    } else {
+      emptyView.classList.add('hidden');
+      filtered.forEach(p => {
+        const statusBadge = p.status === 'active'
+          ? '<span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-100">Tampil</span>'
+          : '<span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-slate-100 text-slate-500 border border-slate-200">Draf</span>';
+          
+        const thumbnail = p.image 
+          ? `<img src="${p.image}" class="w-full h-full object-cover">`
+          : `<div class="w-full h-full bg-gradient-to-br from-slate-700 to-slate-900 flex flex-col items-center justify-center text-white p-4 text-center">
+               <span class="text-3xl mb-1.5">💼</span>
+               <span class="text-[10px] font-bold font-mono tracking-wide uppercase px-2 py-0.5 rounded bg-white/10 border border-white/5">${p.category}</span>
+             </div>`;
+
+        const card = document.createElement('div');
+        card.className = 'bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm flex flex-col';
+        card.innerHTML = `
+          <div class="h-44 overflow-hidden relative border-b border-slate-100 select-none shrink-0">
+            ${thumbnail}
+            <div class="absolute top-3 right-3 z-10">${statusBadge}</div>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between gap-4">
+            <div>
+              <div class="text-[11px] font-bold text-blue-600 uppercase tracking-wide font-mono">${p.client}</div>
+              <h4 class="font-bold text-slate-800 text-[14px] mt-1 line-clamp-2 leading-snug" title="${p.title}">${p.title}</h4>
+              <div class="text-[11.5px] text-slate-400 font-medium mt-1">${p.date}</div>
+            </div>
+            <div class="flex items-center justify-end gap-1.5 border-t border-slate-50 pt-3">
+              <button class="btn-edit-pf px-3 py-1.5 text-xs font-bold text-slate-600 hover:text-blue-600 hover:bg-slate-105 rounded transition-colors flex items-center gap-1" data-id="${p.id}">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                Edit
+              </button>
+              <button class="btn-delete-pf px-3 py-1.5 text-xs font-bold text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors flex items-center gap-1" data-id="${p.id}">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                Hapus
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Bind edit/delete
+    grid.querySelectorAll('.btn-edit-pf').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const p = state.portfolio.find(item => item.id === id);
+        if (p) {
+          document.getElementById('portfolio-modal-title').textContent = 'Ubah Portofolio';
+          document.getElementById('portfolio-modal-action-id').value = id;
+          document.getElementById('portfolio-modal-title-input').value = p.title;
+          document.getElementById('portfolio-modal-client').value = p.client;
+          document.getElementById('portfolio-modal-category').value = p.category;
+          document.getElementById('portfolio-modal-date').value = p.date;
+          document.getElementById('portfolio-modal-status').value = p.status;
+          
+          const preview = document.getElementById('portfolio-modal-img-preview');
+          if (preview) {
+            if (p.image) {
+              preview.innerHTML = `<img src="${p.image}" class="w-full h-full object-cover">`;
+            } else {
+              preview.innerHTML = 'Sampul';
+            }
+          }
+          window.portfolioModalImgData = p.image;
+          window.toggleModal('portfolio-modal', true);
+        }
+      };
+    });
+
+    grid.querySelectorAll('.btn-delete-pf').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const p = state.portfolio.find(item => item.id === id);
+        if (p) {
+          window.confirmModal('Hapus Projek', `Apakah Anda yakin ingin menghapus portofolio "${p.title}"?`, () => {
+            state.portfolio = state.portfolio.filter(item => item.id !== id);
+            window.showToast('success', 'Portofolio Dihapus', 'Satu item portofolio berhasil dihapus.');
+            renderPortfolio();
+          });
+        }
+      };
+    });
+  }
+
+  if (searchInput) searchInput.addEventListener('input', renderPortfolio);
+
+  // Handle file input
+  const imgInput = document.getElementById('portfolio-modal-img-input');
+  const imgPreview = document.getElementById('portfolio-modal-img-preview');
+  if (imgInput) {
+    imgInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+          window.showToast('error', 'Ukuran Berkas Terlalu Besar', 'Maksimal ukuran foto adalah 2MB.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          window.portfolioModalImgData = event.target.result;
+          if (imgPreview) {
+            imgPreview.innerHTML = `<img src="${event.target.result}" class="w-full h-full object-cover">`;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Add Portfolio Button
+  const addBtn = document.getElementById('btn-add-portfolio');
+  if (addBtn) {
+    addBtn.onclick = () => {
+      document.getElementById('portfolio-modal-title').textContent = 'Tambah Portofolio Baru';
+      document.getElementById('portfolio-modal-action-id').value = '';
+      document.getElementById('portfolio-modal-form').reset();
+      if (imgPreview) imgPreview.innerHTML = 'Sampul';
+      window.portfolioModalImgData = null;
+      window.toggleModal('portfolio-modal', true);
+    };
+  }
+
+  // Handle submit form
+  const pfForm = document.getElementById('portfolio-modal-form');
+  if (pfForm) {
+    pfForm.onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.getElementById('portfolio-modal-action-id').value;
+      const title = document.getElementById('portfolio-modal-title-input').value.trim();
+      const client = document.getElementById('portfolio-modal-client').value.trim();
+      const category = document.getElementById('portfolio-modal-category').value.trim();
+      const date = document.getElementById('portfolio-modal-date').value.trim();
+      const image = window.portfolioModalImgData || null;
+      const status = document.getElementById('portfolio-modal-status').value;
+
+      if (id) {
+        const idx = state.portfolio.findIndex(item => item.id === parseInt(id));
+        if (idx !== -1) {
+          state.portfolio[idx].title = title;
+          state.portfolio[idx].client = client;
+          state.portfolio[idx].category = category;
+          state.portfolio[idx].date = date;
+          state.portfolio[idx].image = image;
+          state.portfolio[idx].status = status;
+          window.showToast('success', 'Portofolio Diubah', 'Item portofolio berhasil diperbarui.');
+        }
+      } else {
+        const newId = state.portfolio.length > 0 ? Math.max(...state.portfolio.map(item => item.id)) + 1 : 1;
+        state.portfolio.push({ id: newId, title, client, category, date, image, status });
+        window.showToast('success', 'Portofolio Ditambahkan', `Projek ${title} berhasil disimpan.`);
+      }
+      window.toggleModal('portfolio-modal', false);
+      renderPortfolio();
+    };
+  }
+
+  renderPortfolio();
+}
+
+function initBlog() {
+  const state = window.roleAccessState;
+  
+  const tbody = document.getElementById('blog-table-body');
+  const emptyView = document.getElementById('blog-table-empty');
+  const searchInput = document.getElementById('blog-search-input');
+  const categoryFilter = document.getElementById('blog-category-filter');
+  
+  function renderBlog() {
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    
+    const query = searchInput.value.toLowerCase().trim();
+    const cat = categoryFilter.value;
+    
+    const filtered = state.blog.filter(post => {
+      const titleMatch = post.title.toLowerCase().includes(query) || (post.content && post.content.toLowerCase().includes(query));
+      const catMatch = cat === 'all' || post.category === cat;
+      return titleMatch && catMatch;
+    });
+
+    if (filtered.length === 0) {
+      emptyView.classList.remove('hidden');
+    } else {
+      emptyView.classList.add('hidden');
+      filtered.forEach(post => {
+        const statusBadge = post.status === 'active'
+          ? '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-100">Dipublikasikan</span>'
+          : '<span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-105 text-slate-600 border border-slate-200">Draf</span>';
+          
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/50 transition-colors';
+        tr.innerHTML = `
+          <td class="py-3 px-4">
+            <div>
+              <div class="font-bold text-slate-800 text-[13.5px] leading-snug line-clamp-1">${post.title}</div>
+              <div class="text-[10px] px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold inline-block border border-blue-100/50 mt-1">${post.category}</div>
+            </div>
+          </td>
+          <td class="py-3 px-4 text-xs font-semibold text-slate-600">${post.author}</td>
+          <td class="py-3 px-4 text-xs text-slate-500 font-medium">${post.date}</td>
+          <td class="py-3 px-4 text-center">${statusBadge}</td>
+          <td class="py-3 px-4 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button class="btn-edit-blog p-1.5 text-slate-400 hover:text-blue-600 rounded hover:bg-slate-105" data-id="${post.id}">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              </button>
+              <button class="btn-delete-blog p-1.5 text-slate-400 hover:text-red-600 rounded hover:bg-red-50" data-id="${post.id}">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Bind edit/delete
+    tbody.querySelectorAll('.btn-edit-blog').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const post = state.blog.find(item => item.id === id);
+        if (post) {
+          document.getElementById('blog-modal-title').textContent = 'Edit Artikel';
+          document.getElementById('blog-modal-action-id').value = id;
+          document.getElementById('blog-modal-title-input').value = post.title;
+          document.getElementById('blog-modal-category').value = post.category;
+          document.getElementById('blog-modal-author').value = post.author;
+          document.getElementById('blog-modal-status').value = post.status;
+          document.getElementById('blog-modal-content').value = post.content || '';
+          
+          const preview = document.getElementById('blog-modal-cover-preview');
+          if (preview) {
+            if (post.image) {
+              preview.innerHTML = `<img src="${post.image}" class="w-full h-full object-cover">`;
+            } else {
+              preview.innerHTML = 'Sampul';
+            }
+          }
+          window.blogModalCoverData = post.image;
+          window.toggleModal('blog-modal', true);
+        }
+      };
+    });
+
+    tbody.querySelectorAll('.btn-delete-blog').forEach(b => {
+      b.onclick = () => {
+        const id = parseInt(b.dataset.id);
+        const post = state.blog.find(item => item.id === id);
+        if (post) {
+          window.confirmModal('Hapus Artikel', `Apakah Anda yakin ingin menghapus artikel "${post.title}"?`, () => {
+            state.blog = state.blog.filter(item => item.id !== id);
+            window.showToast('success', 'Artikel Dihapus', 'Artikel berhasil dihapus dari draf.');
+            renderBlog();
+          });
+        }
+      };
+    });
+  }
+
+  if (searchInput) searchInput.addEventListener('input', renderBlog);
+  if (categoryFilter) categoryFilter.addEventListener('change', renderBlog);
+
+  // Handle cover upload
+  const coverInput = document.getElementById('blog-modal-cover-input');
+  const coverPreview = document.getElementById('blog-modal-cover-preview');
+  if (coverInput) {
+    coverInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+          window.showToast('error', 'Ukuran Berkas Terlalu Besar', 'Maksimal ukuran foto adalah 2MB.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          window.blogModalCoverData = event.target.result;
+          if (coverPreview) {
+            coverPreview.innerHTML = `<img src="${event.target.result}" class="w-full h-full object-cover">`;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Add Blog Button
+  const addBtn = document.getElementById('btn-add-blog');
+  if (addBtn) {
+    addBtn.onclick = () => {
+      document.getElementById('blog-modal-title').textContent = 'Tulis Artikel Baru';
+      document.getElementById('blog-modal-action-id').value = '';
+      document.getElementById('blog-modal-form').reset();
+      if (coverPreview) coverPreview.innerHTML = 'Sampul';
+      window.blogModalCoverData = null;
+      window.toggleModal('blog-modal', true);
+    };
+  }
+
+  // Handle submit form
+  const blogForm = document.getElementById('blog-modal-form');
+  if (blogForm) {
+    blogForm.onsubmit = (e) => {
+      e.preventDefault();
+      const id = document.getElementById('blog-modal-action-id').value;
+      const title = document.getElementById('blog-modal-title-input').value.trim();
+      const category = document.getElementById('blog-modal-category').value;
+      const author = document.getElementById('blog-modal-author').value.trim();
+      const status = document.getElementById('blog-modal-status').value;
+      const content = document.getElementById('blog-modal-content').value.trim();
+      const image = window.blogModalCoverData || null;
+
+      if (id) {
+        const idx = state.blog.findIndex(item => item.id === parseInt(id));
+        if (idx !== -1) {
+          state.blog[idx].title = title;
+          state.blog[idx].category = category;
+          state.blog[idx].author = author;
+          state.blog[idx].status = status;
+          state.blog[idx].content = content;
+          state.blog[idx].image = image;
+          window.showToast('success', 'Artikel Diperbarui', 'Artikel berhasil disimpan.');
+        }
+      } else {
+        const newId = state.blog.length > 0 ? Math.max(...state.blog.map(item => item.id)) + 1 : 1;
+        state.blog.push({
+          id: newId,
+          title,
+          category,
+          author,
+          date: new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }),
+          status,
+          content,
+          image
+        });
+        window.showToast('success', 'Artikel Ditambahkan', `Artikel "${title}" berhasil diterbitkan.`);
+      }
+      window.toggleModal('blog-modal', false);
+      renderBlog();
+    };
+  }
+
+  renderBlog();
+}
+
+function initInbox() {
+  const state = window.roleAccessState;
+  
+  const listContainer = document.getElementById('inbox-list-body');
+  const emptyList = document.getElementById('inbox-list-empty');
+  const searchInput = document.getElementById('inbox-search-input');
+  const detailPane = document.getElementById('inbox-detail-view');
+  
+  let activeMsgId = null;
+
+  function renderInboxList() {
+    if (!listContainer) return;
+    listContainer.innerHTML = '';
+    
+    const query = searchInput.value.toLowerCase().trim();
+    
+    const filtered = state.inbox.filter(msg => {
+      return msg.name.toLowerCase().includes(query) || msg.subject.toLowerCase().includes(query) || msg.message.toLowerCase().includes(query);
+    });
+
+    if (filtered.length === 0) {
+      emptyList.classList.remove('hidden');
+    } else {
+      emptyList.classList.add('hidden');
+      filtered.forEach(msg => {
+        const isActive = msg.id === activeMsgId;
+        const unreadDot = msg.read 
+          ? '' 
+          : '<span class="w-2.5 h-2.5 rounded-full bg-blue-600 inline-block shrink-0"></span>';
+          
+        const item = document.createElement('div');
+        item.className = `p-3 rounded-lg border cursor-pointer transition-all flex items-start justify-between gap-3 ${
+          isActive 
+            ? 'bg-blue-50/40 border-blue-200' 
+            : msg.read 
+              ? 'bg-white border-slate-100 hover:bg-slate-50/50'
+              : 'bg-slate-50 border-slate-150 shadow-sm font-semibold'
+        }`;
+        
+        item.innerHTML = `
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs text-slate-800 font-bold truncate max-w-[150px]">${msg.name}</span>
+              <span class="text-[10px] text-slate-450 font-mono">${msg.date.split(',')[0]}</span>
+            </div>
+            <div class="text-[12px] text-slate-700 font-semibold truncate mt-0.5">${msg.subject}</div>
+            <div class="text-[11px] text-slate-400 font-normal line-clamp-1 mt-0.5">${msg.message}</div>
+          </div>
+          <div class="pt-1.5 shrink-0">${unreadDot}</div>
+        `;
+        
+        item.onclick = () => {
+          activeMsgId = msg.id;
+          msg.read = true; // mark read
+          renderInboxList();
+          renderMessageDetail(msg);
+        };
+        
+        listContainer.appendChild(item);
+      });
+    }
+  }
+
+  function renderMessageDetail(msg) {
+    if (!detailPane) return;
+    
+    detailPane.innerHTML = `
+      <div class="flex items-start justify-between border-b border-slate-100 pb-3 shrink-0">
+        <div>
+          <h3 class="text-base font-bold text-slate-800 leading-snug">${msg.subject}</h3>
+          <div class="flex flex-wrap items-center gap-1.5 mt-1.5 text-xs text-slate-505">
+            <span>Dari: <strong class="text-slate-700">${msg.name}</strong></span>
+            <span class="text-slate-300">|</span>
+            <span class="font-mono">${msg.email}</span>
+          </div>
+        </div>
+        <div class="text-[11px] text-slate-450 font-mono">${msg.date}</div>
+      </div>
+      
+      <div class="flex-1 overflow-y-auto py-2 text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+        ${msg.message}
+      </div>
+
+      <!-- Simulated Reply Form -->
+      <div class="border-t border-slate-100 pt-4 shrink-0 space-y-3">
+        <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wider text-[10px]">Kirim Balasan</h5>
+        <form id="inbox-reply-form" class="space-y-3">
+          <textarea id="inbox-reply-text" required rows="3" placeholder="Tuliskan respon balasan email Anda di sini..." class="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-blue-600 text-sm font-medium transition-colors bg-white resize-none"></textarea>
+          <div class="flex justify-end gap-2">
+            <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm shadow-blue-600/10 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              Kirim Balasan
+            </button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    // Handle reply form submit
+    const replyForm = detailPane.querySelector('#inbox-reply-form');
+    if (replyForm) {
+      replyForm.onsubmit = (e) => {
+        e.preventDefault();
+        const text = replyForm.querySelector('#inbox-reply-text').value.trim();
+        if (text) {
+          window.showToast('success', 'Balasan Terkirim', `Respon Anda telah sukses dikirimkan ke alamat email ${msg.email}`);
+          replyForm.reset();
+          
+          // Log security audit trail
+          state.auditLogs.unshift({
+            time: new Date().toISOString().replace('T', ' ').substring(0, 19),
+            user: 'Ahmad Faisal',
+            role: 'Administrator',
+            activity: `Membalas pesan dari ${msg.name} (Subjek: ${msg.subject})`,
+            ip: '192.168.1.42'
+          });
+        }
+      };
+    }
+  }
+
+  if (searchInput) searchInput.addEventListener('input', renderInboxList);
+  
+  renderInboxList();
+}
+
+function initProducts() {
+  const state = window.roleAccessState;
+  
+  const tbodyEl = document.getElementById('products-table-body');
+  const emptyEl = document.getElementById('products-table-empty');
+  const searchInput = document.getElementById('product-search-input');
+  const categoryFilter = document.getElementById('product-category-filter');
+  
+  const addBtn = document.getElementById('btn-add-product');
+  const modalForm = document.getElementById('product-modal-form');
+  const imageInput = document.getElementById('product-modal-image-input');
+  const imagePreview = document.getElementById('product-modal-image-preview');
+
+  function renderProducts() {
+    if (!tbodyEl) return;
+    tbodyEl.innerHTML = '';
+    
+    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    const filterCat = categoryFilter ? categoryFilter.value : 'all';
+    
+    const filtered = state.products.filter(item => {
+      const matchName = item.name.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query);
+      const matchCat = filterCat === 'all' || item.category === filterCat;
+      return matchName && matchCat;
+    });
+
+    if (filtered.length === 0) {
+      if (emptyEl) emptyEl.classList.remove('hidden');
+    } else {
+      if (emptyEl) emptyEl.classList.add('hidden');
+      
+      filtered.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/50 transition-colors';
+        
+        const statusBadge = item.status === 'active'
+          ? '<span class="px-2 py-1 inline-flex text-[11px] leading-5 font-semibold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-100">Aktif</span>'
+          : '<span class="px-2 py-1 inline-flex text-[11px] leading-5 font-semibold rounded-full bg-slate-100 text-slate-600 border border-slate-200">Draf</span>';
+          
+        const productImg = item.image 
+          ? `<img src="${item.image}" class="w-10 h-10 rounded-lg object-cover shadow-sm shrink-0 border border-slate-100">`
+          : `<div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-400 border border-slate-200 flex items-center justify-center font-bold text-[10px] shrink-0">📦</div>`;
+          
+        tr.innerHTML = `
+          <td class="py-3 px-4">
+            <div class="flex items-center gap-3">
+              ${productImg}
+              <div>
+                <div class="font-bold text-slate-800 text-[13.5px]">${item.name}</div>
+                <div class="text-xs text-slate-450 font-normal line-clamp-1 mt-0.5">${item.desc}</div>
+              </div>
+            </div>
+          </td>
+          <td class="py-3 px-4 text-slate-600 font-medium">${item.category}</td>
+          <td class="py-3 px-4 font-bold text-slate-800">${item.price}</td>
+          <td class="py-3 px-4 text-center font-semibold text-slate-600">${item.stock} pcs</td>
+          <td class="py-3 px-4 text-center">${statusBadge}</td>
+          <td class="py-3 px-4 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button class="btn-edit-product p-1.5 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded transition-colors" data-id="${item.id}" title="Edit Produk">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              </button>
+              <button class="btn-delete-product p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors" data-id="${item.id}" title="Hapus Produk">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              </button>
+            </div>
+          </td>
+        `;
+        
+        tbodyEl.appendChild(tr);
+      });
+    }
+  }
+
+  // Handle search and filter
+  if (searchInput) searchInput.addEventListener('input', renderProducts);
+  if (categoryFilter) categoryFilter.addEventListener('change', renderProducts);
+
+  // File Upload handler
+  if (imageInput) {
+    imageInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+          window.showToast('error', 'Ukuran Berkas Terlalu Besar', 'Maksimal ukuran foto adalah 2MB.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          window.productModalCoverData = event.target.result;
+          if (imagePreview) {
+            imagePreview.innerHTML = `<img src="${event.target.result}" class="w-full h-full object-cover">`;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  }
+
+  // Add Product Button
+  if (addBtn) {
+    addBtn.onclick = () => {
+      document.getElementById('product-modal-title').textContent = 'Tambah Produk Baru';
+      document.getElementById('product-modal-action-id').value = '';
+      if (modalForm) modalForm.reset();
+      if (imagePreview) imagePreview.innerHTML = 'Sampul';
+      window.productModalCoverData = null;
+      window.toggleModal('product-modal', true);
+    };
+  }
+
+  // Edit / Delete delegator
+  if (tbodyEl) {
+    tbodyEl.onclick = (e) => {
+      const editBtn = e.target.closest('.btn-edit-product');
+      const deleteBtn = e.target.closest('.btn-delete-product');
+
+      if (editBtn) {
+        const id = parseInt(editBtn.dataset.id);
+        const item = state.products.find(p => p.id === id);
+        if (item) {
+          document.getElementById('product-modal-title').textContent = 'Edit Produk';
+          document.getElementById('product-modal-action-id').value = item.id;
+          document.getElementById('product-modal-name').value = item.name;
+          document.getElementById('product-modal-category').value = item.category;
+          document.getElementById('product-modal-price').value = item.price;
+          document.getElementById('product-modal-stock').value = item.stock;
+          document.getElementById('product-modal-desc').value = item.desc;
+          document.getElementById('product-modal-status').value = item.status;
+          
+          if (imagePreview) {
+            if (item.image) {
+              imagePreview.innerHTML = `<img src="${item.image}" class="w-full h-full object-cover">`;
+            } else {
+              imagePreview.innerHTML = 'Sampul';
+            }
+          }
+          window.productModalCoverData = item.image;
+          window.toggleModal('product-modal', true);
+        }
+      }
+
+      if (deleteBtn) {
+        const id = parseInt(deleteBtn.dataset.id);
+        const item = state.products.find(p => p.id === id);
+        if (item) {
+          window.confirmModal('Hapus Produk', `Apakah Anda yakin ingin menghapus produk <strong>${item.name}</strong> dari katalog?`, () => {
+            state.products = state.products.filter(p => p.id !== id);
+            window.showToast('success', 'Produk Dihapus', `${item.name} berhasil dihapus dari katalog.`);
+            
+            // Log security audit trail
+            state.auditLogs.unshift({
+              time: new Date().toISOString().replace('T', ' ').substring(0, 19),
+              user: 'Ahmad Faisal',
+              role: 'Administrator',
+              activity: `Menghapus produk dari katalog: ${item.name}`,
+              ip: '192.168.1.42'
+            });
+            
+            renderProducts();
+          });
+        }
+      }
+    };
+  }
+
+  // Handle Form Submit
+  if (modalForm) {
+    modalForm.onsubmit = (e) => {
+      e.preventDefault();
+      
+      const id = document.getElementById('product-modal-action-id').value;
+      const name = document.getElementById('product-modal-name').value.trim();
+      const category = document.getElementById('product-modal-category').value;
+      const price = document.getElementById('product-modal-price').value.trim();
+      const stock = parseInt(document.getElementById('product-modal-stock').value);
+      const desc = document.getElementById('product-modal-desc').value.trim();
+      const status = document.getElementById('product-modal-status').value;
+      const image = window.productModalCoverData || null;
+
+      if (id) {
+        // Edit flow
+        const idx = state.products.findIndex(p => p.id === parseInt(id));
+        if (idx !== -1) {
+          state.products[idx].name = name;
+          state.products[idx].category = category;
+          state.products[idx].price = price;
+          state.products[idx].stock = stock;
+          state.products[idx].desc = desc;
+          state.products[idx].status = status;
+          state.products[idx].image = image;
+          
+          window.showToast('success', 'Produk Diperbarui', `Informasi produk "${name}" berhasil diperbarui.`);
+          
+          // Log security audit trail
+          state.auditLogs.unshift({
+            time: new Date().toISOString().replace('T', ' ').substring(0, 19),
+            user: 'Ahmad Faisal',
+            role: 'Administrator',
+            activity: `Mengubah informasi detail produk: ${name}`,
+            ip: '192.168.1.42'
+          });
+        }
+      } else {
+        // Add flow
+        const newId = state.products.length > 0 ? Math.max(...state.products.map(p => p.id)) + 1 : 1;
+        state.products.push({
+          id: newId,
+          name,
+          category,
+          price,
+          stock,
+          desc,
+          status,
+          image
+        });
+        
+        window.showToast('success', 'Produk Ditambahkan', `Produk baru "${name}" berhasil ditambahkan ke katalog.`);
+        
+        // Log security audit trail
+        state.auditLogs.unshift({
+          time: new Date().toISOString().replace('T', ' ').substring(0, 19),
+          user: 'Ahmad Faisal',
+          role: 'Administrator',
+          activity: `Menambahkan produk baru ke katalog: ${name}`,
+          ip: '192.168.1.42'
+        });
+      }
+
+      window.toggleModal('product-modal', false);
+      renderProducts();
+    };
+  }
+
+  renderProducts();
+}
+
+
