@@ -180,43 +180,46 @@ if (!window.roleAccessState) {
         description: 'Akses penuh ke semua fitur, modul, dan pengaturan sistem.',
         permissions: {
           dashboard: { view: true, create: true, edit: true, delete: true },
+          'home-settings': { view: true, create: true, edit: true, delete: true },
+          'about-us': { view: true, create: true, edit: true, delete: true },
           services: { view: true, create: true, edit: true, delete: true },
           products: { view: true, create: true, edit: true, delete: true },
-          forum: { view: true, create: true, edit: true, delete: true },
-          bookings: { view: true, create: true, edit: true, delete: true },
-          adoptions: { view: true, create: true, edit: true, delete: true },
-          settings: { view: true, create: true, edit: true, delete: true },
-          audit_logs: { view: true, create: true, edit: true, delete: true }
+          portfolio: { view: true, create: true, edit: true, delete: true },
+          blog: { view: true, create: true, edit: true, delete: true },
+          inbox: { view: true, create: true, edit: true, delete: true },
+          settings: { view: true, create: true, edit: true, delete: true }
         }
       },
       {
         id: 'editor',
         name: 'Editor Konten',
-        description: 'Mengelola konten company profile (Layanan, Diskusi Forum, Adopsi Hewan). Tidak memiliki izin ke Bookings & Settings.',
+        description: 'Mengelola konten showroom (Layanan, Katalog Unit, Galeri Serah Terima, Artikel). Tidak memiliki izin ke Inbox & Settings.',
         permissions: {
           dashboard: { view: true, create: false, edit: false, delete: false },
+          'home-settings': { view: true, create: true, edit: true, delete: false },
+          'about-us': { view: true, create: true, edit: true, delete: false },
           services: { view: true, create: true, edit: true, delete: false },
           products: { view: true, create: true, edit: true, delete: false },
-          forum: { view: true, create: true, edit: true, delete: true },
-          bookings: { view: false, create: false, edit: false, delete: false },
-          adoptions: { view: true, create: true, edit: true, delete: false },
-          settings: { view: false, create: false, edit: false, delete: false },
-          audit_logs: { view: false, create: false, edit: false, delete: false }
+          portfolio: { view: true, create: true, edit: true, delete: false },
+          blog: { view: true, create: true, edit: true, delete: true },
+          inbox: { view: false, create: false, edit: false, delete: false },
+          settings: { view: false, create: false, edit: false, delete: false }
         }
       },
       {
-        id: 'moderator',
-        name: 'Moderator Forum',
-        description: 'Fokus pada moderasi forum diskusi dan status adopsi hewan.',
+        id: 'sales',
+        name: 'Sales Executive',
+        description: 'Fokus pada kelola unit, galeri serah terima, dan merespon kotak masuk / permintaan hubungi kami.',
         permissions: {
           dashboard: { view: true, create: false, edit: false, delete: false },
-          services: { view: false, create: false, edit: false, delete: false },
-          products: { view: false, create: false, edit: false, delete: false },
-          forum: { view: true, create: false, edit: true, delete: true },
-          bookings: { view: false, create: false, edit: false, delete: false },
-          adoptions: { view: true, create: false, edit: true, delete: false },
-          settings: { view: false, create: false, edit: false, delete: false },
-          audit_logs: { view: false, create: false, edit: false, delete: false }
+          'home-settings': { view: false, create: false, edit: false, delete: false },
+          'about-us': { view: true, create: false, edit: false, delete: false },
+          services: { view: true, create: false, edit: false, delete: false },
+          products: { view: true, create: true, edit: true, delete: false },
+          portfolio: { view: true, create: true, edit: true, delete: false },
+          blog: { view: false, create: false, edit: false, delete: false },
+          inbox: { view: true, create: true, edit: true, delete: false },
+          settings: { view: false, create: false, edit: false, delete: false }
         }
       },
       {
@@ -225,90 +228,95 @@ if (!window.roleAccessState) {
         description: 'Hanya memiliki izin untuk memantau data tanpa izin perubahan.',
         permissions: {
           dashboard: { view: true, create: false, edit: false, delete: false },
+          'home-settings': { view: true, create: false, edit: false, delete: false },
+          'about-us': { view: true, create: false, edit: false, delete: false },
           services: { view: true, create: false, edit: false, delete: false },
           products: { view: true, create: false, edit: false, delete: false },
-          forum: { view: true, create: false, edit: false, delete: false },
-          bookings: { view: true, create: false, edit: false, delete: false },
-          adoptions: { view: true, create: false, edit: false, delete: false },
-          settings: { view: true, create: false, edit: false, delete: false },
-          audit_logs: { view: true, create: false, edit: false, delete: false }
+          portfolio: { view: true, create: false, edit: false, delete: false },
+          blog: { view: true, create: false, edit: false, delete: false },
+          inbox: { view: true, create: false, edit: false, delete: false },
+          settings: { view: true, create: false, edit: false, delete: false }
         }
       }
     ],
     users: [
-      { id: 1, name: 'Ahmad Faisal', username: 'ahmad.faisal', email: 'ahmad.f@company.com', role: 'admin', status: 'active', avatar: 'AF', color: 'bg-blue-600 text-white', createdAt: '12 Jan 2026', lastActive: '5 menit lalu' },
-      { id: 2, name: 'Siti Rahma', username: 'siti.rahma', email: 'siti.r@company.com', role: 'editor', status: 'active', avatar: 'SR', color: 'bg-emerald-600 text-white', createdAt: '15 Feb 2026', lastActive: '1 jam lalu' },
-      { id: 3, name: 'Budi Santoso', username: 'budi.santoso', email: 'budi.s@company.com', role: 'moderator', status: 'active', avatar: 'BS', color: 'bg-amber-600 text-white', createdAt: '22 Mar 2026', lastActive: 'Kemarin' },
-      { id: 4, name: 'Diana Lestari', username: 'diana.dian', email: 'diana.l@company.com', role: 'viewer', status: 'inactive', avatar: 'DL', color: 'bg-slate-500 text-white', createdAt: '10 Apr 2026', lastActive: '3 hari lalu' }
+      { id: 1, name: 'Ahmad Faisal', username: 'ahmad.faisal', email: 'ahmad.faisal@autodrive.com', role: 'admin', status: 'active', avatar: 'AF', color: 'bg-blue-600 text-white', createdAt: '12 Jan 2026', lastActive: '5 menit lalu' },
+      { id: 2, name: 'Siti Rahma', username: 'siti.rahma', email: 'siti.rahma@autodrive.com', role: 'editor', status: 'active', avatar: 'SR', color: 'bg-emerald-600 text-white', createdAt: '15 Feb 2026', lastActive: '1 jam lalu' },
+      { id: 3, name: 'Budi Santoso', username: 'budi.santoso', email: 'budi.santoso@autodrive.com', role: 'sales', status: 'active', avatar: 'BS', color: 'bg-amber-600 text-white', createdAt: '22 Mar 2026', lastActive: 'Kemarin' },
+      { id: 4, name: 'Diana Lestari', username: 'diana.dian', email: 'diana.lestari@autodrive.com', role: 'viewer', status: 'inactive', avatar: 'DL', color: 'bg-slate-500 text-white', createdAt: '10 Apr 2026', lastActive: '3 hari lalu' }
     ],
     auditLogs: [
-      { time: '2026-06-21 00:15:32', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Melakukan reset password untuk Diana Lestari', ip: '192.168.1.42' },
-      { time: '2026-06-21 00:12:08', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Mengubah hak akses peran Editor Konten', ip: '192.168.1.42' },
-      { time: '2026-06-20 18:44:19', user: 'Siti Rahma', role: 'Editor Konten', activity: 'Mengunggah foto profil baru', ip: '192.168.1.105' },
-      { time: '2026-06-20 15:30:45', user: 'Budi Santoso', role: 'Moderator Forum', activity: 'Menghapus postingan forum berunsur spam', ip: '192.168.1.77' },
-      { time: '2026-06-19 11:22:10', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Menambahkan pengguna baru: Siti Rahma', ip: '192.168.1.42' }
+      { time: '2026-06-21 00:15:32', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Mengubah konfigurasi hero banner utama', ip: '192.168.1.42' },
+      { time: '2026-06-21 00:12:08', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Mengubah hak akses peran Sales Executive', ip: '192.168.1.42' },
+      { time: '2026-06-20 18:44:19', user: 'Siti Rahma', role: 'Editor Konten', activity: 'Menambahkan unit baru: Honda HR-V 1.5 E CVT 2021 ke Katalog Unit', ip: '192.168.1.105' },
+      { time: '2026-06-20 15:30:45', user: 'Budi Santoso', role: 'Sales Executive', activity: 'Membaca pesan masuk dari Andi Wijaya terkait penawaran kredit', ip: '192.168.1.77' },
+      { time: '2026-06-19 11:22:10', user: 'Ahmad Faisal', role: 'Administrator', activity: 'Menghapus unit yang terjual dari katalog aktif', ip: '192.168.1.42' }
     ],
     menus: [
       { key: 'dashboard', label: 'Dashboard Overview', icon: '<path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>' },
-      { key: 'services', label: 'Pet Services', icon: '<path d="M9 12a3 3 0 1 1 6 0v3a3 3 0 0 1-6 0zM9 13c-3 1-4 3-4 6h14c0-3-1-5-4-6M11 2l1 3 1-3"/>' },
-      { key: 'products', label: 'Katalog Produk', icon: '<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' },
-      { key: 'forum', label: 'Forum Moderasi', icon: '<path d="M21 11.5a8.38 8.38 0 0 1-1.9 5.4L21 21l-4.3-1.1a8.5 8.5 0 1 1 4.3-8.4z"/>' },
-      { key: 'bookings', label: 'Bookings Jadwal', icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>' },
-      { key: 'adoptions', label: 'Adoptions Hewan', icon: '<circle cx="12" cy="13" r="4"/><circle cx="6" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="3" cy="11" r="1.6"/><circle cx="21" cy="11" r="1.6"/>' },
+      { key: 'home-settings', label: 'Pengaturan Beranda', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>' },
+      { key: 'about-us', label: 'Tentang Kami', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>' },
+      { key: 'services', label: 'Layanan Showroom', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>' },
+      { key: 'products', label: 'Katalog Unit', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>' },
+      { key: 'portfolio', label: 'Galeri Serah Terima', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' },
+      { key: 'blog', label: 'Artikel Otomotif', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1M19 20a2 2 0 002-2V8a2 2 0 00-2-2h-5a2 2 0 00-2 2v3m9 11h-3m-9.07-12h.01m-.01 4h.01M9 16h3m-3-4h3"/>' },
+      { key: 'inbox', label: 'Hubungi Kami', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>' },
       { key: 'settings', label: 'Settings Website', icon: '<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066"/>' }
     ],
     // Hero & Highlights Data Mocking
     homeHero: {
-      title: 'Sayangi Hewan Peliharaan Anda Bersama Kami',
-      subtitle: 'Pawfect Indonesia menghadirkan layanan medis hewan profesional berlisensi, daycare premium, hotel bintang 5 bagi anjing dan kucing, serta perawatan salon (grooming) eksklusif untuk hewan peliharaan tersayang Anda.',
+      title: 'Cari Mobil & Motor Bekas Berkualitas?',
+      subtitle: 'AutoDrive Showroom menghadirkan pilihan mobil dan motor bekas terbaik dengan inspeksi ketat 175+ titik, garansi mesin & transmisi 1 tahun, serta pilihan pembayaran kredit bunga rendah yang aman dan transparan.',
       ctaText: 'Hubungi Kami',
       ctaUrl: '#inbox',
       image: null
     },
     homeHighlights: [
-      { id: 1, icon: '🩺', title: 'Medis Profesional', desc: 'Konsultasi medis dan tindakan dokter hewan terpercaya 24 jam.' },
-      { id: 2, icon: '🏩', title: 'Daycare Premium', desc: 'Hotel penginapan bersih, ber-AC, dipantau CCTV secara realtime.' },
-      { id: 3, icon: '✂️', title: 'Grooming & Spa', desc: 'Mandi bersih wangi, potong rambut modis, gunting kuku, & anti-kutu.' }
+      { id: 1, icon: '🚗', title: 'Inspeksi 175+ Titik', desc: 'Jaminan unit bebas banjir, bebas tabrakan besar, dan odometer asli.' },
+      { id: 2, icon: '🛡️', title: 'Garansi 1 Tahun', desc: 'Garansi penuh untuk mesin, transmisi, dan sistem kelistrikan utama.' },
+      { id: 3, icon: '🤝', title: 'Tukar Tambah Instan', desc: 'Taksir harga kendaraan lama Anda secara transparan dalam 30 menit.' }
     ],
     aboutProfile: {
-      companyName: 'Pawfect Indonesia',
-      vision: 'Menjadi penyedia ekosistem layanan kesehatan, kenyamanan, dan kesejahteraan hewan peliharaan terbaik serta paling terintegrasi di Indonesia.',
-      mission: '1. Menyediakan pelayanan medis darurat dan rawat inap dengan penuh kasih sayang.\n2. Mengedukasi para pemilik hewan mengenai pola asuh, nutrisi, dan gaya hidup sehat satwa.\n3. Menghadirkan fasilitas daycare/hotel ramah hewan yang aman dan bebas stress.\n4. Menginisiasi program adopsi dan steril subsidi secara berkala untuk menekan populasi kucing jalanan.'
+      companyName: 'AutoDrive Showroom',
+      vision: 'Menjadi platform dan showroom otomotif bekas paling terpercaya, transparan, dan memudahkan kepemilikan kendaraan bagi masyarakat Indonesia.',
+      mission: '1. Menyediakan unit mobil dan motor bekas dengan standar inspeksi kualitas tertinggi.\n2. Memberikan jaminan tertulis bebas banjir dan bebas tabrakan berat pada setiap unit.\n3. Menawarkan opsi pembiayaan kredit yang adil, transparan, dan bekerjasama dengan leasing terkemuka.\n4. Menghadirkan layanan purna jual yang andal untuk kenyamanan berkendara pelanggan.'
     },
     aboutTeam: [
-      { id: 1, name: 'Dr. Ahmad Faisal, M.Si', role: 'Head Veterinarian & CEO', avatar: null },
-      { id: 2, name: 'Siti Rahma, S.Kom', role: 'Operations & IT Director', avatar: null },
-      { id: 3, name: 'Budi Santoso', role: 'Daycare & Grooming Manager', avatar: null }
+      { id: 1, name: 'Rasimin, S.T.', role: 'Chief Executive Officer & Founder', avatar: null },
+      { id: 2, name: 'Siti Rahma, S.Kom', role: 'Head of Sales & Marketing', avatar: null },
+      { id: 3, name: 'Budi Santoso', role: 'Chief Inspector & Quality Manager', avatar: null }
     ],
     // Services Mocking
     services: [
-      { id: 1, icon: '✂️', name: 'Premium Grooming & Spa', category: 'Perawatan', desc: 'Paket memandikan steril, blow dry, potong bulu rapi, potong kuku, pembersihan telinga, dan parfum wangi tahan lama.', price: 'Rp 150.000', status: 'active' },
-      { id: 2, icon: '🏩', name: 'Pet Hotel & Daycare', category: 'Penitipan', desc: 'Hotel penitipan hewan peliharaan harian/mingguan dengan ruangan steril ber-AC, pakan premium, dan sesi bermain luar ruangan.', price: 'Rp 100.000 / malam', status: 'active' },
-      { id: 3, icon: '🩺', name: 'Vaccine & Health Check', category: 'Kesehatan', desc: 'Pemeriksaan kesehatan menyeluruh, suntik vaksin tahunan (F3/F4/Rabies), obat cacing, dan konsultasi gizi dengan dokter hewan.', price: 'Rp 250.000', status: 'active' }
+      { id: 1, icon: '🚗', name: 'Beli Mobil & Motor Bekas', category: 'Utama', desc: 'Temukan ratusan unit kendaraan bekas berkualitas yang siap pakai dengan dokumen kepemilikan yang terjamin legalitasnya.', price: 'Harga Transparan', status: 'active' },
+      { id: 2, icon: '🤝', name: 'Tukar Tambah (Trade-In)', category: 'Utama', desc: 'Tukarkan mobil atau motor lama Anda dengan unit impian di showroom kami. Proses taksir cepat dan penawaran harga terbaik.', price: 'Taksir Gratis', status: 'active' },
+      { id: 3, icon: '🛡️', name: 'Garansi Mesin & Transmisi', category: 'Jaminan', desc: 'Setiap unit mobil yang dibeli di AutoDrive dilengkapi garansi mesin dan transmisi selama 12 bulan demi ketenangan berkendara Anda.', price: 'Gratis 1 Tahun', status: 'active' },
+      { id: 4, icon: '✨', name: 'Premium Detailing & Paint Protection', category: 'Perawatan Unit', desc: 'Layanan restorasi eksterior dan interior kendaraan agar kembali berkilau seperti baru menggunakan produk coating premium.', price: 'Mulai Rp 1.500.000', status: 'active' }
     ],
     // Products Mocking
     products: [
-      { id: 1, name: 'Royal Canin Fit 32 2kg', category: 'Makanan', price: 'Rp 280.000', stock: 45, status: 'active', desc: 'Makanan kering bernutrisi lengkap untuk kucing dewasa aktif usia di atas 1 tahun.', image: null },
-      { id: 2, name: 'Pet LED Safety Collar Blue', category: 'Aksesoris', price: 'Rp 65.000', stock: 120, status: 'active', desc: 'Pet LED safety collar membantu memantau peliharaan di malam hari.', image: null },
-      { id: 3, name: 'Flea & Tick Shampoo 250ml', category: 'Perawatan', price: 'Rp 85.000', stock: 18, status: 'active', desc: 'Shampoo steril anti kutu dan jamur dengan ekstrak lidah buaya.', image: null }
+      { id: 1, name: 'Honda HR-V 1.5 E CVT 2021', category: 'Mobil', price: 'Rp 275.000.050', stock: 1, status: 'active', desc: 'Warna Putih Mutiara, Tangan Pertama dari baru, KM 28.000 (Low), Pajak Panjang s/d Oktober, Body Mulus Orisinil, Kunci Serep Lengkap.', image: null },
+      { id: 2, name: 'Toyota Avanza 1.3 G M/T 2020', category: 'Mobil', price: 'Rp 168.000.000', stock: 1, status: 'active', desc: 'Warna Abu-abu Metalik, Mesin Halus, AC Dingin Double Blower, Kaki-kaki Sunyi, Interior Bersih wangi, Odometer 45.000 km berjalan.', image: null },
+      { id: 3, name: 'Yamaha NMAX 155 ABS Keyless 2022', category: 'Motor', price: 'Rp 28.800.000', stock: 1, status: 'active', desc: 'Tipe Connected ABS (Termahal), Warna Matte Black, Surat Lengkap BPKB/STNK/Faktur, Kunci Keyless 2 pcs & Barcode, KM 11.000.', image: null },
+      { id: 4, name: 'Honda Vario 160 CBS 2023', category: 'Motor', price: 'Rp 23.500.000', stock: 1, status: 'active', desc: 'Warna Active Black, Body Mulus dilapisi stiker proteksi bening, Ban Tebal depan belakang, Kelistrikan normal, Pajak Hidup.', image: null }
     ],
     // Portfolio Mocking
     portfolio: [
-      { id: 1, title: 'Program CSR Hewan Sehat - Indopet', client: 'PT Indopet Nusantara', category: 'CSR', date: 'Maret 2026', image: null, status: 'active' },
-      { id: 2, title: 'Sponsorship National Cat Show 2026', client: 'Persatuan Kucing Indonesia', category: 'Sponsorship', date: 'Mei 2026', image: null, status: 'active' },
-      { id: 3, title: 'Renovasi Shelter Kucing Liar Jakarta', client: 'Yayasan Peduli Satwa', category: 'Renovasi', date: 'Januari 2026', image: null, status: 'active' }
+      { id: 1, title: 'Serah Terima Honda HR-V 2021 - Ibu Retno', client: 'Jakarta Selatan', category: 'Handover', date: 'Maret 2026', image: null, status: 'active' },
+      { id: 2, title: 'Tukar Tambah Avanza lama ke Toyota Fortuner - Bp. Budi', client: 'Tangerang', category: 'Handover', date: 'Mei 2026', image: null, status: 'active' },
+      { id: 3, title: 'Event AutoDrive Showroom Weekend Expo 2026', client: 'AutoDrive Kelapa Gading', category: 'Event', date: 'Juni 2026', image: null, status: 'active' }
     ],
     // Blog Mocking
     blog: [
-      { id: 1, title: 'Cara Mengatasi Kucing Stress di Lingkungan Baru', author: 'Dr. Ahmad Faisal', date: '15 Juni 2026', category: 'Tips & Trik', content: 'Kucing merupakan satwa teritorial yang sangat sensitif terhadap perubahan lingkungan tempat tinggal. Membawa kucing baru atau pindah rumah dapat memicu stres berkepanjangan pada mereka.\n\nTips utama penanganan:\n1. Tempatkan kucing di ruang tertutup kecil terlebih dahulu bersama mainan favoritnya.\n2. Berikan makanan lezat beraroma kuat (wet food).\n3. Sediakan kotak pasir (litter box) yang bersih di sudut tenang.\n4. Gunakan spray feromon penenang kucing jika diperlukan.', status: 'active' },
-      { id: 2, title: '5 Makanan Bernutrisi Tinggi untuk Anjing Ras Kecil', author: 'Budi Santoso', date: '10 Juni 2026', category: 'Kesehatan', content: 'Anjing ras kecil (seperti Shih Tzu, Pomeranian, atau Toy Poodle) memiliki laju metabolisme yang sangat tinggi. Mereka membutuhkan makanan padat nutrisi dengan butiran kibble yang disesuaikan dengan rahang kecil mereka.', status: 'active' },
-      { id: 3, title: 'Pentingnya Vaksinasi Tahunan bagi Kucing dan Anjing', author: 'Dr. Ahmad Faisal', date: '01 Juni 2026', category: 'Kesehatan', content: 'Vaksinasi berkala adalah benteng pertahanan utama hewan kesayangan Anda dari virus fatal seperti Parvovirus, Distemper, Panleukopenia, dan Rabies. Jadwalkan vaksinasi hewan kesayangan Anda setahun sekali ke klinik dokter terpercaya.', status: 'active' }
+      { id: 1, title: '5 Hal Wajib Diperiksa Saat Membeli Mobil Bekas', author: 'Budi Santoso', date: '15 Juni 2026', category: 'Tips Otomotif', content: 'Membeli mobil bekas berkualitas membutuhkan ketelitian ekstra agar tidak menyesal di kemudian hari.\n\nBeberapa bagian penting yang harus diperiksa:\n1. Cek Ruang Mesin: Pastikan tidak ada kebocoran oli atau suara ketukan kasar.\n2. Cek Tulang Sasis (Apron): Pastikan tidak ada las-lasan kasar atau bekas ketok yang menandakan mobil pernah tabrakan besar.\n3. Periksa Kolong Mobil: Indikasi karat parah atau lumpur kering yang mengeras menandakan mobil bekas banjir.\n4. Cek Kelayakan Dokumen: Cocokkan nomor mesin dan nomor rangka pada fisik mobil dengan STNK dan BPKB.', status: 'active' },
+      { id: 2, title: 'Review Yamaha NMAX Bekas: Apakah Masih Layak di Tahun 2026?', author: 'Siti Rahma', date: '10 Juni 2026', category: 'Review Kendaraan', content: 'Yamaha NMAX 155 bekas tetap menjadi raja motor matic besar di pasar motor bekas Indonesia. Dengan kisaran harga Rp 20 jutaan untuk tahun 2020-2022, motor ini menawarkan kenyamanan riding jarak jauh, bagasi luas, serta mesin berteknologi Blue Core VVA yang bertenaga namun irit bahan bakar.', status: 'active' },
+      { id: 3, title: 'Pentingnya Garansi Mesin untuk Pembelian Unit Bekas', author: 'Rasimin, S.T.', date: '02 Juni 2026', category: 'Berita Showroom', content: 'Di AutoDrive Showroom, kami percaya bahwa ketenangan pikiran pembeli adalah segalanya. Itulah mengapa kami menyediakan garansi mesin dan transmisi selama 1 tahun secara gratis. Temukan informasi mengapa garansi ini sangat vital di artikel ini.', status: 'active' }
     ],
     // Inbox Mocking
     inbox: [
-      { id: 1, name: 'Andi Wijaya', email: 'andi.wijaya@gmail.com', subject: 'Tanya Paket Daycare Kucing Bulanan', message: 'Halo admin Pawfect Indonesia, saya ingin menanyakan apakah ada diskon paket bulanan khusus untuk penitipan kucing ras Persia? Saya berencana dinas ke luar pulau selama sebulan penuh dan ingin menitipkan kucing kesayangan saya di sana.', date: '21 Juni 2026, 09:12', read: false },
-      { id: 2, name: 'Siti Aminah', email: 'siti.aminah@yahoo.com', subject: 'Jadwal Steril Subsidi Stray Cat', message: 'Selamat pagi dok, apakah bulan depan ada kuota untuk steril bersubsidi kucing jalanan (TNR)? Ada beberapa kucing liar di sekitar pemukiman kami yang populasinya ingin kami kendalikan.', date: '20 Juni 2026, 15:30', read: true },
-      { id: 3, name: 'Rudi Hermawan', email: 'rudi.h@indopet.id', subject: 'Tawaran Kerjasama Suplai Pakan', message: 'Kami dari divisi kemitraan Indopet ingin menawarkan kerjasama suplai pakan basah kaleng premium untuk kebutuhan daycare/hotel hewan di tempat Anda dengan skema harga khusus keagenan. Apakah bisa dijadwalkan sesi presentasi singkat?', date: '19 Juni 2026, 11:45', read: true }
+      { id: 1, name: 'Andi Wijaya', email: 'andi.wijaya@gmail.com', subject: 'Tanya Simulasi Kredit Toyota Avanza 2020', message: 'Halo admin AutoDrive, saya berminat dengan unit Toyota Avanza 2020 abu-abu. Bolehkah dikirimkan simulasi kredit untuk tenor 3 tahun dan 4 tahun dengan DP minimal 15%? Terima kasih.', date: '21 Juni 2026, 09:12', read: false },
+      { id: 2, name: 'Siti Aminah', email: 'siti.aminah@yahoo.com', subject: 'Pengajuan Jual Titip Honda Jazz 2018', message: 'Selamat pagi, saya ingin titip jual (konsinyasi) Honda Jazz RS CVT tahun 2018 warna merah milik pribadi. Mobil tangan pertama, km 60 ribu, plat B genap. Bagaimana skema bagi hasil atau biayanya di showroom AutoDrive?', date: '20 Juni 2026, 15:30', read: true },
+      { id: 3, name: 'Rudi Hermawan', email: 'rudi.h@leasingpartner.id', subject: 'Penawaran Program Bunga Murah Tenor Panjang', message: 'Kami dari divisi kemitraan leasing partner ingin menawarkan program pembiayaan mobil bekas dengan suku bunga khusus 4.5% flat untuk nasabah AutoDrive Showroom. Apakah kita bisa jadwalkan meeting singkat membahas MoU kerjasama ini?', date: '19 Juni 2026, 11:45', read: true }
     ]
   };
 }
@@ -661,18 +669,18 @@ function initAutocomplete() {
   const clearBtn = wrap.querySelector('.autocomplete-clear-btn');
 
   const breeds = [
-    { name: 'Persian Cat', category: 'Kucing' },
-    { name: 'Siamese Cat', category: 'Kucing' },
-    { name: 'Maine Coon', category: 'Kucing' },
-    { name: 'Angora Cat', category: 'Kucing' },
-    { name: 'Sphynx Cat', category: 'Kucing' },
-    { name: 'Golden Retriever', category: 'Anjing' },
-    { name: 'German Shepherd', category: 'Anjing' },
-    { name: 'Siberian Husky', category: 'Anjing' },
-    { name: 'Poodle', category: 'Anjing' },
-    { name: 'Bulldog', category: 'Anjing' },
-    { name: 'Beagle', category: 'Anjing' },
-    { name: 'Chihuahua', category: 'Anjing' }
+    { name: 'Toyota Avanza', category: 'Mobil' },
+    { name: 'Honda HR-V', category: 'Mobil' },
+    { name: 'Mitsubishi Xpander', category: 'Mobil' },
+    { name: 'Hyundai Creta', category: 'Mobil' },
+    { name: 'Toyota Fortuner', category: 'Mobil' },
+    { name: 'Honda Civic', category: 'Mobil' },
+    { name: 'Yamaha NMAX', category: 'Motor' },
+    { name: 'Honda Vario', category: 'Motor' },
+    { name: 'Kawasaki Ninja', category: 'Motor' },
+    { name: 'Honda Beat', category: 'Motor' },
+    { name: 'Suzuki Satria F150', category: 'Motor' },
+    { name: 'Vespa Sprint', category: 'Motor' }
   ];
 
   let activeIndex = -1;
@@ -881,7 +889,7 @@ function initNewComponents() {
   if (tagInputWrap) {
     const chipsContainer = tagInputWrap.querySelector('.tag-chips-container');
     const inputField = tagInputWrap.querySelector('.tag-input-field');
-    let tags = ['Grooming', 'Kucing'];
+    let tags = ['Mobil', 'Motor'];
 
     function renderChips() {
       // Remove all current chips (except the input field itself)
@@ -1919,7 +1927,7 @@ function initUserRoleAccess() {
         const user = state.users.find(u => u.id === uid);
         if (user) {
           window.confirmModal('Reset Password', `Apakah Anda yakin ingin me-reset password untuk pengguna <strong>${user.name}</strong>? Kata sandi baru akan dibuat secara otomatis oleh sistem.`, () => {
-            const tempPassword = 'Pawfect' + Math.floor(1000 + Math.random() * 9000) + '!';
+            const tempPassword = 'AutoDrive' + Math.floor(1000 + Math.random() * 9000) + '!';
             window.alertModal('Password Berhasil Direset', `Password untuk <strong>${user.name}</strong> telah berhasil di-reset.<br><br>Kata sandi sementara baru:<br><code style="background:#f1f5f9; padding:6px 12px; border-radius:4px; font-weight:bold; font-size:14px; margin-top:8px; display:inline-block; letter-spacing:1px;">${tempPassword}</code>`, 'success');
             
             // Log security audit trail
@@ -2260,15 +2268,15 @@ function initUserRoleAccess() {
         <div class="grid grid-cols-3 gap-3 mb-4">
           <div class="p-3 border border-slate-100 rounded-lg bg-slate-50/50 text-center">
             <div class="text-[10px] text-slate-400 font-semibold uppercase">Layanan</div>
-            <div class="text-xl font-bold text-slate-800 mt-0.5">18</div>
+            <div class="text-xl font-bold text-slate-800 mt-0.5">4</div>
           </div>
           <div class="p-3 border border-slate-100 rounded-lg bg-slate-50/50 text-center">
-            <div class="text-[10px] text-slate-400 font-semibold uppercase">Diskusi</div>
-            <div class="text-xl font-bold text-slate-800 mt-0.5">946</div>
+            <div class="text-[10px] text-slate-400 font-semibold uppercase">Unit Ready</div>
+            <div class="text-xl font-bold text-slate-800 mt-0.5">42</div>
           </div>
           <div class="p-3 border border-slate-100 rounded-lg bg-slate-50/50 text-center">
-            <div class="text-[10px] text-slate-400 font-semibold uppercase">Booking</div>
-            <div class="text-xl font-bold text-slate-800 mt-0.5">24</div>
+            <div class="text-[10px] text-slate-400 font-semibold uppercase">Pengajuan</div>
+            <div class="text-xl font-bold text-slate-800 mt-0.5">12</div>
           </div>
         </div>
         <div class="flex-1 flex flex-col items-center justify-center text-center p-4">
@@ -2285,7 +2293,7 @@ function initUserRoleAccess() {
         <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
           <div>
             <h2 class="text-xs font-bold text-slate-800">Daftar Layanan</h2>
-            <p class="text-[10px] text-slate-400">Mockup data Layanan Company Profile.</p>
+            <p class="text-[10px] text-slate-400">Mockup data Layanan Showroom.</p>
           </div>
           <button class="sim-btn-add px-2.5 py-1.5 text-[10px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded transition-all ${
             !perm.edit ? 'opacity-40 cursor-not-allowed bg-slate-500' : ''
@@ -2294,8 +2302,8 @@ function initUserRoleAccess() {
         <div class="space-y-2.5 overflow-y-auto flex-1 pr-1">
           <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
             <div>
-              <div class="text-xs font-bold text-slate-700">Premium Grooming & Spa</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">Mandi + Pijat + Gunting Kuku</div>
+              <div class="text-xs font-bold text-slate-700">Tukar Tambah (Trade-In)</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Taksir instan dalam 30 menit</div>
             </div>
             <div class="flex gap-1">
               <button class="sim-btn-edit px-2 py-1 text-[10px] font-bold border rounded ${
@@ -2313,8 +2321,8 @@ function initUserRoleAccess() {
           
           <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
             <div>
-              <div class="text-xs font-bold text-slate-700">Vaccine & Health Check</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">Vaksinasi lengkap + Vitamin</div>
+              <div class="text-xs font-bold text-slate-700">Garansi Mesin & Transmisi</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Proteksi penuh 12 bulan</div>
             </div>
             <div class="flex gap-1">
               <button class="sim-btn-edit px-2 py-1 text-[10px] font-bold border rounded ${
@@ -2339,18 +2347,18 @@ function initUserRoleAccess() {
       pageWrapper.innerHTML = `
         <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
           <div>
-            <h2 class="text-xs font-bold text-slate-800">Daftar Produk (Katalog)</h2>
-            <p class="text-[10px] text-slate-400">Mockup data Produk Fisik Company Profile.</p>
+            <h2 class="text-xs font-bold text-slate-800">Katalog Unit (Katalog)</h2>
+            <p class="text-[10px] text-slate-400">Mockup data Unit Mobil & Motor.</p>
           </div>
           <button class="sim-btn-add px-2.5 py-1.5 text-[10px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded transition-all ${
             !perm.edit ? 'opacity-40 cursor-not-allowed bg-slate-500' : ''
-          }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Tambah Produk Baru"'}>${!perm.edit ? '🔒 ' : ''}+ Tambah Produk</button>
+          }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Tambah Unit Baru"'}>${!perm.edit ? '🔒 ' : ''}+ Tambah Unit</button>
         </div>
         <div class="space-y-2.5 overflow-y-auto flex-1 pr-1">
           <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
             <div>
-              <div class="text-xs font-bold text-slate-700">Royal Canin Fit 32 2kg</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">Kategori: Makanan • Stok: 45 pcs</div>
+              <div class="text-xs font-bold text-slate-700">Honda HR-V 1.5 E CVT 2021</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Kategori: Mobil • KM: 28.000 (Low)</div>
             </div>
             <div class="flex gap-1">
               <button class="sim-btn-edit px-2 py-1 text-[10px] font-bold border rounded ${
@@ -2368,8 +2376,8 @@ function initUserRoleAccess() {
           
           <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
             <div>
-              <div class="text-xs font-bold text-slate-700">Pet LED Safety Collar Blue</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">Kategori: Aksesoris • Stok: 120 pcs</div>
+              <div class="text-xs font-bold text-slate-700">Yamaha NMAX 155 ABS 2022</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Kategori: Motor • KM: 11.000</div>
             </div>
             <div class="flex gap-1">
               <button class="sim-btn-edit px-2 py-1 text-[10px] font-bold border rounded ${
@@ -2390,101 +2398,30 @@ function initUserRoleAccess() {
       pageWrapper.querySelectorAll('.sim-btn-edit').forEach(b => b.addEventListener('click', () => handleSimulatedAction('edit')));
       pageWrapper.querySelectorAll('.sim-btn-delete').forEach(b => b.addEventListener('click', () => handleSimulatedAction('delete')));
     } 
-    else if (simulatedActiveMenu === 'forum') {
+    else if (simulatedActiveMenu === 'portfolio') {
       pageWrapper.innerHTML = `
         <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
           <div>
-            <h2 class="text-xs font-bold text-slate-800">Forum Diskusi (Moderasi)</h2>
-            <p class="text-[10px] text-slate-400">Daftar komentar dilaporkan.</p>
+            <h2 class="text-xs font-bold text-slate-800">Galeri Serah Terima Unit</h2>
+            <p class="text-[10px] text-slate-400">Daftar serah terima dokumentasi ke pelanggan.</p>
           </div>
+          <button class="sim-btn-add px-2.5 py-1.5 text-[10px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded transition-all ${
+            !perm.edit ? 'opacity-40 cursor-not-allowed bg-slate-500' : ''
+          }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Tambah Serah Terima Baru"'}>${!perm.edit ? '🔒 ' : ''}+ Serah Terima</button>
         </div>
         <div class="space-y-3 overflow-y-auto flex-1 pr-1">
-          <div class="p-3 border border-red-100 rounded-lg bg-red-50/20 space-y-2">
-            <div class="flex justify-between items-center text-[10px]">
-              <span class="font-bold text-slate-700">Pelapor: Citra Lestari</span>
-              <span class="text-red-500 font-semibold bg-red-50 px-1.5 py-0.5 rounded">Spam</span>
-            </div>
-            <p class="text-[11px] text-slate-600 bg-white p-2 rounded border border-slate-100 italic leading-relaxed">"Jual obat kuat murah kunjungi situs abal-abal..."</p>
-            <div class="flex justify-end gap-1.5 pt-1">
-              <button class="sim-btn-edit px-2 py-1 text-[9.5px] font-bold border rounded ${
-                perm.edit ? 'text-slate-600 border-slate-200 hover:bg-slate-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
-              }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Abaikan Laporan"'}>
-                <span>${perm.edit ? '' : '🔒 '}Abaikan</span>
-              </button>
-              <button class="sim-btn-delete px-2 py-1 text-[9.5px] font-bold border rounded ${
-                perm.delete ? 'text-red-600 border-red-100 hover:bg-red-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
-              }" ${!perm.delete ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Hapus (Delete) untuk modul ini"' : 'title="Hapus Komentar"'}>
-                <span>${perm.delete ? '' : '🔒 '}Hapus Komentar</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      `;
-      pageWrapper.querySelectorAll('.sim-btn-edit').forEach(b => b.addEventListener('click', () => handleSimulatedAction('edit')));
-      pageWrapper.querySelectorAll('.sim-btn-delete').forEach(b => b.addEventListener('click', () => handleSimulatedAction('delete')));
-    } 
-    else if (simulatedActiveMenu === 'bookings') {
-      pageWrapper.innerHTML = `
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
-          <div>
-            <h2 class="text-xs font-bold text-slate-800">Booking Perawatan Hewan</h2>
-            <p class="text-[10px] text-slate-400">Jadwal aktif yang menunggu konfirmasi.</p>
-          </div>
-        </div>
-        <div class="overflow-x-auto flex-1">
-          <table class="w-full text-left border-collapse text-[10px]">
-            <thead class="bg-slate-50">
-              <tr>
-                <th class="py-2 px-3">Hewan</th>
-                <th class="py-2 px-3">Layanan</th>
-                <th class="py-2 px-3 text-center">Status</th>
-                <th class="py-2 px-3 text-right">Aksi</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-100">
-              <tr>
-                <td class="py-2 px-3 font-semibold text-slate-700">Mochi (Kucing)</td>
-                <td class="py-2 px-3">Grooming Spa</td>
-                <td class="py-2 px-3 text-center"><span class="bg-amber-100 text-amber-800 px-1 py-0.5 rounded text-[9px] font-bold">Pending</span></td>
-                <td class="py-2 px-3 text-right">
-                  <button class="sim-btn-edit px-1.5 py-0.5 text-[9px] font-semibold bg-blue-50 text-blue-700 border border-blue-100 rounded hover:bg-blue-100 ${
-                    !perm.edit ? 'opacity-40 cursor-not-allowed bg-slate-50 text-slate-400 border-slate-100' : ''
-                  }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Konfirmasi Booking"'}>${perm.edit ? '' : '🔒 '}Konfirmasi</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      `;
-      pageWrapper.querySelectorAll('.sim-btn-edit').forEach(b => b.addEventListener('click', () => handleSimulatedAction('edit')));
-    } 
-    else if (simulatedActiveMenu === 'adoptions') {
-      pageWrapper.innerHTML = `
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
-          <div>
-            <h2 class="text-xs font-bold text-slate-800">Adoptions Hewan</h2>
-            <p class="text-[10px] text-slate-400">Daftar hewan siap diadopsi.</p>
-          </div>
-          <button class="sim-btn-add px-2 py-1 text-[9.5px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded transition-all ${
-            !perm.edit ? 'opacity-40 cursor-not-allowed bg-slate-500' : ''
-          }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Registrasi Hewan Baru"'}>${!perm.edit ? '🔒 ' : ''}+ Registrasi Hewan</button>
-        </div>
-        <div class="grid grid-cols-2 gap-3 overflow-y-auto flex-1 pr-1">
-          <div class="p-2.5 border border-slate-150 rounded-lg bg-slate-50/30 flex flex-col justify-between space-y-2">
-            <div class="h-16 bg-slate-200 rounded flex items-center justify-center text-slate-400 text-[9px]">
-              [Foto Hewan - Luna]
-            </div>
+          <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
             <div>
-              <div class="text-[11px] font-bold text-slate-700">Luna (Persia Mix)</div>
-              <div class="text-[9px] text-slate-400">Umur: 10 Bulan</div>
+              <div class="text-xs font-bold text-slate-700">Serah Terima HR-V - Ibu Retno</div>
+              <div class="text-[10px] text-slate-450 mt-0.5">Kategori: Handover • Klien: Jakarta Selatan</div>
             </div>
-            <div class="flex gap-1 pt-1">
-              <button class="sim-btn-edit flex-1 px-1 py-0.5 text-[9px] font-semibold border rounded text-center ${
+            <div class="flex gap-1">
+              <button class="sim-btn-edit px-2 py-1 text-[9.5px] font-bold border rounded ${
                 perm.edit ? 'text-slate-600 border-slate-200 hover:bg-slate-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
               }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Ubah Data"'}>
                 <span>${perm.edit ? '' : '🔒 '}Edit</span>
               </button>
-              <button class="sim-btn-delete flex-1 px-1 py-0.5 text-[9px] font-semibold border rounded text-center ${
+              <button class="sim-btn-delete px-2 py-1 text-[9.5px] font-bold border rounded ${
                 perm.delete ? 'text-red-600 border-red-100 hover:bg-red-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
               }" ${!perm.delete ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Hapus (Delete) untuk modul ini"' : 'title="Hapus Data"'}>
                 <span>${perm.delete ? '' : '🔒 '}Hapus</span>
@@ -2497,6 +2434,68 @@ function initUserRoleAccess() {
       pageWrapper.querySelectorAll('.sim-btn-edit').forEach(b => b.addEventListener('click', () => handleSimulatedAction('edit')));
       pageWrapper.querySelectorAll('.sim-btn-delete').forEach(b => b.addEventListener('click', () => handleSimulatedAction('delete')));
     } 
+    else if (simulatedActiveMenu === 'blog') {
+      pageWrapper.innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
+          <div>
+            <h2 class="text-xs font-bold text-slate-800">Artikel Otomotif</h2>
+            <p class="text-[10px] text-slate-400">Kelola artikel tips & review.</p>
+          </div>
+          <button class="sim-btn-add px-2.5 py-1.5 text-[10px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded transition-all ${
+            !perm.edit ? 'opacity-40 cursor-not-allowed bg-slate-500' : ''
+          }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Tulis Artikel Baru"'}>${!perm.edit ? '🔒 ' : ''}+ Tulis Artikel</button>
+        </div>
+        <div class="space-y-2.5 overflow-y-auto flex-1 pr-1">
+          <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
+            <div>
+              <div class="text-xs font-bold text-slate-700">5 Hal Wajib Diperiksa Saat Membeli Mobil Bekas</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Tips Otomotif • Penulis: Budi Santoso</div>
+            </div>
+            <div class="flex gap-1">
+              <button class="sim-btn-edit px-2 py-1 text-[9.5px] font-bold border rounded ${
+                perm.edit ? 'text-slate-600 border-slate-200 hover:bg-slate-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
+              }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Edit Artikel"'}>
+                <span>${perm.edit ? '' : '🔒 '}Edit</span>
+              </button>
+              <button class="sim-btn-delete px-2 py-1 text-[9.5px] font-bold border rounded ${
+                perm.delete ? 'text-red-600 border-red-100 hover:bg-red-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
+              }" ${!perm.delete ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Hapus (Delete) untuk modul ini"' : 'title="Hapus Artikel"'}>
+                <span>${perm.delete ? '' : '🔒 '}Hapus</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      pageWrapper.querySelector('.sim-btn-add')?.addEventListener('click', () => handleSimulatedAction('edit'));
+      pageWrapper.querySelectorAll('.sim-btn-edit').forEach(b => b.addEventListener('click', () => handleSimulatedAction('edit')));
+      pageWrapper.querySelectorAll('.sim-btn-delete').forEach(b => b.addEventListener('click', () => handleSimulatedAction('delete')));
+    } 
+    else if (simulatedActiveMenu === 'inbox') {
+      pageWrapper.innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
+          <div>
+            <h2 class="text-xs font-bold text-slate-800">Hubungi Kami (Pesan Masuk)</h2>
+            <p class="text-[10px] text-slate-400">Pesan dari calon konsumen.</p>
+          </div>
+        </div>
+        <div class="space-y-2.5 overflow-y-auto flex-1 pr-1">
+          <div class="p-3 border border-slate-100 rounded-lg flex items-center justify-between bg-slate-50/20">
+            <div>
+              <div class="text-xs font-bold text-slate-700">Andi Wijaya</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Subjek: Tanya Kredit Toyota Avanza 2020</div>
+            </div>
+            <div class="flex gap-1">
+              <button class="sim-btn-edit px-2 py-1 text-[9.5px] font-bold border rounded ${
+                perm.edit ? 'text-slate-600 border-slate-200 hover:bg-slate-50' : 'text-slate-300 border-slate-100 cursor-not-allowed'
+              }" ${!perm.edit ? 'title="Fitur dikunci: Peran Anda tidak memiliki izin Edit (Write) untuk modul ini"' : 'title="Buka Pesan"'}>
+                <span>${perm.edit ? '' : '🔒 '}Balas</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      pageWrapper.querySelectorAll('.sim-btn-edit').forEach(b => b.addEventListener('click', () => handleSimulatedAction('edit')));
+    }
     else if (simulatedActiveMenu === 'settings') {
       pageWrapper.innerHTML = `
         <div class="welcome mb-3">
@@ -2506,11 +2505,11 @@ function initUserRoleAccess() {
         <div class="space-y-3 flex-1 overflow-y-auto">
           <div>
             <label class="block text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Perusahaan</label>
-            <input type="text" class="w-full h-8 px-2 border border-slate-200 rounded text-[11px]" value="Pawfect Indonesia" disabled>
+            <input type="text" class="w-full h-8 px-2 border border-slate-200 rounded text-[11px]" value="AutoDrive Showroom" disabled>
           </div>
           <div>
             <label class="block text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-1">Email Kontak</label>
-            <input type="email" class="w-full h-8 px-2 border border-slate-200 rounded text-[11px]" value="info@pawfect.id" disabled>
+            <input type="email" class="w-full h-8 px-2 border border-slate-200 rounded text-[11px]" value="info@autodrive.com" disabled>
           </div>
           <div class="pt-3 border-t border-slate-100">
             <button class="sim-btn-save px-3 py-1.5 text-[10px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded transition-all ${
