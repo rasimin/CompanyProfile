@@ -127,6 +127,8 @@ async function loadView(viewName) {
       initBlog();
     } else if (viewName === 'inbox') {
       initInbox();
+    } else if (viewName === 'settings-landing') {
+      initSettingsLanding();
     }
   } catch (error) {
     contentArea.style.opacity = '1';
@@ -170,9 +172,26 @@ submenuToggles.forEach(toggle => {
 // 4. Global UI Component Helpers for Dynamic Content
 window.isPermissionsDirty = false;
 
+// Helper to save state
+window.saveRoleAccessState = function() {
+  if (window.roleAccessState) {
+    localStorage.setItem('roleAccessState', JSON.stringify(window.roleAccessState));
+  }
+};
+
 // Global Shared State (PM & Data Mocking Agents)
 if (!window.roleAccessState) {
-  window.roleAccessState = {
+  const savedState = localStorage.getItem('roleAccessState');
+  if (savedState) {
+    try {
+      window.roleAccessState = JSON.parse(savedState);
+    } catch (e) {
+      console.error("Error parsing saved roleAccessState", e);
+    }
+  }
+  
+  if (!window.roleAccessState) {
+    window.roleAccessState = {
     roles: [
       {
         id: 'admin',
@@ -319,6 +338,8 @@ if (!window.roleAccessState) {
       { id: 3, name: 'Rudi Hermawan', email: 'rudi.h@leasingpartner.id', subject: 'Penawaran Program Bunga Murah Tenor Panjang', message: 'Kami dari divisi kemitraan leasing partner ingin menawarkan program pembiayaan mobil bekas dengan suku bunga khusus 4.5% flat untuk nasabah AutoDrive Showroom. Apakah kita bisa jadwalkan meeting singkat membahas MoU kerjasama ini?', date: '19 Juni 2026, 11:45', read: true }
     ]
   };
+  window.saveRoleAccessState();
+  }
 }
 
 window.updatePermissionsDirtyWarning = function() {
@@ -574,6 +595,9 @@ window.alertModal = function(title, message, type = 'success') {
 
 // 5. Toast Notification System
 window.showToast = function(type, title, message) {
+  if (type === 'success' && window.saveRoleAccessState) {
+    window.saveRoleAccessState();
+  }
   // Ensure toast container exists
   let container = document.getElementById('toast-container');
   if (!container) {
@@ -3880,6 +3904,57 @@ function initProducts() {
   }
 
   renderProducts();
+}
+
+function initSettingsLanding() {
+  const state = window.roleAccessState;
+  
+  // Populate hero title
+  const heroTitleEl = document.getElementById('stats-hero-title');
+  if (heroTitleEl) {
+    heroTitleEl.textContent = state.homeHero.title || 'Belum diatur';
+  }
+
+  // Populate active catalog count
+  const productsCountEl = document.getElementById('stats-products-count');
+  if (productsCountEl) {
+    const activeProducts = state.products.filter(p => p.status === 'active').length;
+    productsCountEl.textContent = activeProducts;
+  }
+
+  // Populate active services count
+  const servicesCountEl = document.getElementById('stats-services-count');
+  if (servicesCountEl) {
+    const activeServices = state.services.filter(s => s.status === 'active').length;
+    servicesCountEl.textContent = activeServices;
+  }
+
+  // Populate active portfolio count
+  const portfolioCountEl = document.getElementById('stats-portfolio-count');
+  if (portfolioCountEl) {
+    const activePortfolio = state.portfolio.filter(p => p.status === 'active').length;
+    portfolioCountEl.textContent = activePortfolio;
+  }
+
+  // Populate active blog articles count
+  const blogCountEl = document.getElementById('stats-blog-count');
+  if (blogCountEl) {
+    const activeBlog = state.blog.filter(b => b.status === 'active').length;
+    blogCountEl.textContent = activeBlog;
+  }
+
+  // Populate inbox count and show alert if there are unread messages
+  const unreadCount = state.inbox.filter(msg => !msg.read).length;
+  const inboxAlertEl = document.getElementById('stats-inbox-alert');
+  const inboxUnreadEl = document.getElementById('stats-inbox-unread');
+  if (inboxAlertEl && inboxUnreadEl) {
+    if (unreadCount > 0) {
+      inboxUnreadEl.textContent = unreadCount;
+      inboxAlertEl.classList.remove('hidden');
+    } else {
+      inboxAlertEl.classList.add('hidden');
+    }
+  }
 }
 
 

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoDrive Showroom - Mobil & Motor Bekas Berkualitas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandGold: {
+              DEFAULT: '#dfa500',
+              hover: '#c69200',
+              light: '#ffe596',
+              dark: '#a87c00'
+            },
+            brandDark: {
+              DEFAULT: '#0A0A0A',
+              panel: '#121212',
+              card: '#181818',
+              border: '#242424',
+              input: '#1C1C1C'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+            serif: ['Cinzel', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Luxury Styling */
+    body {
+      background-color: #0A0A0A;
+      color: #E2E8F0;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFE49E 0%, #D4AF37 50%, #A87C00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-gradient-bg {
+      background: linear-gradient(135deg, #FFD370 0%, #dfa500 100%);
+    }
+    /* Blur Backgrounds */
+    .glass-nav {
+      background-color: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    /* Hide scrollbars but keep functionality */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="font-sans overflow-x-hidden">
+
+  <!-- Toast Notification -->
+  <div id="toast-container" class="fixed top-24 right-6 z-50 pointer-events-none"></div>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-40 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 bg-brandGold flex items-center justify-center font-bold text-black text-lg shadow-lg shadow-brandGold/20 font-serif transition-transform group-hover:scale-105">
+            AD
+          </div>
+          <div>
+            <div class="text-white font-display font-extrabold text-lg uppercase tracking-wider leading-none">AUTODRIVE</div>
+            <div class="text-brandGold text-[10px] uppercase tracking-widest font-semibold mt-0.5">SHOWROOM</div>
+          </div>
+        </a>
+
+        <!-- Center links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#hero" class="text-sm font-semibold text-slate-300 hover:text-brandGold transition-colors">BERANDA</a>
+          <a href="#specials" class="text-sm font-semibold text-slate-300 hover:text-brandGold transition-colors">KATALOG</a>
+          <a href="#about" class="text-sm font-semibold text-slate-300 hover:text-brandGold transition-colors">TENTANG KAMI</a>
+          <a href="#services" class="text-sm font-semibold text-slate-300 hover:text-brandGold transition-colors">LAYANAN</a>
+          <a href="#portfolio" class="text-sm font-semibold text-slate-300 hover:text-brandGold transition-colors">GALERI</a>
+          <a href="#blog" class="text-sm font-semibold text-slate-300 hover:text-brandGold transition-colors">ARTIKEL</a>
+        </div>
+
+        <!-- Phone Button -->
+        <div class="flex items-center gap-4">
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 border border-brandGold/40 rounded text-brandGold font-semibold text-sm hover:bg-brandGold hover:text-black hover:border-brandGold transition-all duration-300">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <span>+62 812-3456-7890</span>
+          </a>
+          
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Submenu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brandDark border-b border-brandDark-border px-4 pt-2 pb-4 space-y-2">
+      <a href="#hero" class="block py-2 text-sm font-semibold text-slate-300 hover:text-brandGold">BERANDA</a>
+      <a href="#specials" class="block py-2 text-sm font-semibold text-slate-300 hover:text-brandGold">KATALOG</a>
+      <a href="#about" class="block py-2 text-sm font-semibold text-slate-300 hover:text-brandGold">TENTANG KAMI</a>
+      <a href="#services" class="block py-2 text-sm font-semibold text-slate-300 hover:text-brandGold">LAYANAN</a>
+      <a href="#portfolio" class="block py-2 text-sm font-semibold text-slate-300 hover:text-brandGold">GALERI</a>
+      <a href="#blog" class="block py-2 text-sm font-semibold text-slate-300 hover:text-brandGold">ARTIKEL</a>
+      <a href="#contact" class="block py-2 text-sm font-semibold text-brandGold">HUBUNGI KAMI</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <!-- Darkened Car Background Image -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-transparent to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center py-16">
+      
+      <!-- Hero Text Column -->
+      <div class="lg:col-span-7 space-y-6">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold bg-brandGold/15 border border-brandGold/30 text-brandGold rounded tracking-widest uppercase">
+          ✦ Premium Showroom
+        </span>
+        
+        <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold uppercase tracking-tight text-white leading-tight">
+          LUXURY LIFESTYLE RENTALS
+        </h1>
+        
+        <p id="hero-subtitle" class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+          AutoDrive Showroom menghadirkan pilihan mobil dan motor bekas terbaik dengan inspeksi ketat 175+ titik.
+        </p>
+
+        <!-- Dynamic Specs Widget (renders dynamically) -->
+        <div id="hero-specs-widget" class="flex flex-wrap gap-6 pt-2">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="pt-6 flex flex-wrap gap-4">
+          <a id="hero-cta-btn" href="#contact" class="px-8 py-3.5 gold-gradient-bg text-black font-extrabold text-sm uppercase tracking-wider rounded hover:bg-brandGold-hover active:scale-[0.98] transition-all duration-300 shadow-lg shadow-brandGold/15">
+            DRIVE NOW
+          </a>
+          <a href="#specials" class="px-8 py-3.5 border border-white/20 text-white font-bold text-sm uppercase tracking-wider rounded hover:bg-white/5 active:scale-[0.98] transition-all duration-300">
+            LIHAT KATALOG
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Gold Badge / Quick Highlights Card -->
+      <div class="lg:col-span-5 hidden lg:flex justify-end">
+        <div class="bg-brandDark-card/75 backdrop-blur-md border border-brandDark-border p-8 rounded-lg max-w-sm space-y-6 shadow-2xl relative">
+          <div class="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-brandGold"></div>
+          <div class="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-brandGold"></div>
+          
+          <div class="font-serif text-3xl font-extrabold text-brandGold border-b border-brandDark-border pb-3">AUTODRIVE</div>
+          
+          <div class="space-y-4">
+            <div class="flex gap-3">
+              <span class="text-brandGold mt-1">✔</span>
+              <div class="text-xs text-slate-300"><strong class="text-white block text-sm mb-0.5">Inspeksi Lengkap</strong> Unit dijamin bebas tabrakan dan banjir.</div>
+            </div>
+            <div class="flex gap-3">
+              <span class="text-brandGold mt-1">✔</span>
+              <div class="text-xs text-slate-300"><strong class="text-white block text-sm mb-0.5">Garansi Mesin</strong> Garansi tertulis mesin & transmisi 1 tahun.</div>
+            </div>
+            <div class="flex gap-3">
+              <span class="text-brandGold mt-1">✔</span>
+              <div class="text-xs text-slate-300"><strong class="text-white block text-sm mb-0.5">Kredit Cepat</strong> Proses mudah bekerja sama dengan leasing top.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Today's Specials (Catalog Grid) -->
+  <section id="specials" class="py-24 bg-brandDark-panel border-t border-brandDark-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <span class="text-xs font-bold text-brandGold tracking-widest uppercase block mb-2">✦ Penawaran Hari Ini</span>
+          <h2 class="text-3xl font-display font-extrabold uppercase text-white tracking-tight">TODAYS SPECIALS</h2>
+        </div>
+        
+        <!-- Category Filters -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar md:pb-0">
+          <button onclick="filterCatalog('Semua')" id="filter-all" class="px-5 py-2 text-xs font-bold rounded uppercase tracking-wider whitespace-nowrap bg-brandGold text-black font-extrabold transition-all duration-300">
+            SEMUA UNIT
+          </button>
+          <button onclick="filterCatalog('Mobil')" id="filter-mobil" class="px-5 py-2 text-xs font-bold rounded uppercase tracking-wider whitespace-nowrap bg-brandDark border border-brandDark-border text-slate-400 hover:text-white transition-all duration-300">
+            MOBIL
+          </button>
+          <button onclick="filterCatalog('Motor')" id="filter-motor" class="px-5 py-2 text-xs font-bold rounded uppercase tracking-wider whitespace-nowrap bg-brandDark border border-brandDark-border text-slate-400 hover:text-white transition-all duration-300">
+            MOTOR
+          </button>
+        </div>
+      </div>
+
+      <!-- Catalog Grid container -->
+      <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Renders dynamically from state.products -->
+      </div>
+      
+      <div id="catalog-empty" class="hidden py-16 text-center text-slate-500">
+        Tidak ada unit tersedia dalam kategori ini.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Highlights Overlapping Banner -->
+  <section class="py-20 bg-brandDark relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Side Image -->
+        <div class="lg:col-span-7 relative">
+          <div class="aspect-video w-full rounded overflow-hidden shadow-2xl relative group">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Showroom Mobil" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+        </div>
+
+        <!-- Right Side Overlapping Gold Content Block -->
+        <div class="lg:col-span-5 lg:-ml-12 z-10">
+          <div class="bg-brandGold p-8 sm:p-12 shadow-2xl relative flex flex-col justify-between">
+            <div class="text-black space-y-4">
+              <h3 class="text-2xl sm:text-3xl font-display font-extrabold uppercase tracking-tight leading-tight">
+                AUTODRIVE MIAMI
+              </h3>
+              <p class="text-sm font-semibold opacity-90 leading-relaxed">
+                Kami menghadirkan koleksi kendaraan pilihan dengan standardisasi tinggi untuk menunjang gaya hidup dan kenyamanan berkendara Anda. Hubungi tim sales kami untuk konsultasi unit secara gratis.
+              </p>
+              <a href="#contact" class="inline-flex items-center gap-2 font-display font-extrabold text-xs uppercase tracking-widest mt-6 group text-black border-b-2 border-black pb-1 hover:opacity-85 transition-opacity">
+                <span>TALK WITH US</span>
+                <span class="transition-transform group-hover:translate-x-1">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about" class="py-24 bg-brandDark-panel border-t border-brandDark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
+        <!-- Left Side: Vision & Mission -->
+        <div class="space-y-8">
+          <div>
+            <span class="text-xs font-bold text-brandGold tracking-widest uppercase block mb-2">✦ Profil Showroom</span>
+            <h2 id="about-company-name" class="text-3xl sm:text-4xl font-display font-extrabold uppercase text-white tracking-tight">AUTODRIVE SHOWROOM</h2>
+          </div>
+          
+          <div class="space-y-6">
+            <div class="bg-brandDark p-6 rounded border border-brandDark-border">
+              <h3 class="text-xs font-bold text-brandGold uppercase tracking-widest mb-2">Visi Kami</h3>
+              <p id="about-vision" class="text-slate-300 text-sm leading-relaxed italic">
+                Menjadi platform dan showroom otomotif bekas paling terpercaya...
+              </p>
+            </div>
+            
+            <div class="bg-brandDark p-6 rounded border border-brandDark-border">
+              <h3 class="text-xs font-bold text-brandGold uppercase tracking-widest mb-2">Misi Kami</h3>
+              <ul id="about-mission-list" class="text-slate-300 text-sm space-y-2.5 list-none">
+                <!-- Populated dynamically -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Team Showcase -->
+        <div class="space-y-6">
+          <div class="border-b border-brandDark-border pb-4">
+            <h3 class="text-xl font-display font-bold uppercase text-white tracking-wide">Pimpinan Showroom</h3>
+            <p class="text-xs text-slate-400 mt-1">Tim profesional kami siap membantu Anda memilih kendaraan terbaik.</p>
+          </div>
+          
+          <div id="team-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Populated dynamically from aboutTeam -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-24 bg-brandDark border-t border-brandDark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-bold text-brandGold tracking-widest uppercase block mb-2">✦ Layanan Unggulan</span>
+        <h2 class="text-3xl font-display font-extrabold uppercase text-white tracking-tight">LAYANAN UTAMA KAMI</h2>
+        <div class="w-12 h-0.5 bg-brandGold mx-auto mt-4"></div>
+      </div>
+
+      <!-- Services Grid -->
+      <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Populated dynamically -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Gallery Handover Section -->
+  <section id="portfolio" class="py-24 bg-brandDark-panel border-t border-brandDark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-bold text-brandGold tracking-widest uppercase block mb-2">✦ Kebahagiaan Pelanggan</span>
+        <h2 class="text-3xl font-display font-extrabold uppercase text-white tracking-tight">GALERI SERAH TERIMA</h2>
+        <div class="w-12 h-0.5 bg-brandGold mx-auto mt-4"></div>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Populated dynamically -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Blog Articles Section -->
+  <section id="blog" class="py-24 bg-brandDark border-t border-brandDark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="text-xs font-bold text-brandGold tracking-widest uppercase block mb-2">✦ Kabar Otomotif</span>
+          <h2 class="text-3xl font-display font-extrabold uppercase text-white tracking-tight">TIPS & ARTIKEL TERBARU</h2>
+        </div>
+      </div>
+
+      <!-- Articles list -->
+      <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Populated dynamically -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer & Contact Form Section -->
+  <section id="contact" class="py-24 bg-brandDark-panel border-t border-brandDark-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        
+        <!-- Left Side: Showroom Contact Info -->
+        <div class="lg:col-span-5 space-y-8">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-brandGold flex items-center justify-center font-bold text-black text-xl font-serif">
+              AD
+            </div>
+            <div>
+              <div class="text-white font-display font-extrabold text-xl uppercase tracking-wider leading-none">AUTODRIVE</div>
+              <div class="text-brandGold text-[11px] uppercase tracking-widest font-semibold mt-0.5">SHOWROOM</div>
+            </div>
+          </div>
+          
+          <p class="text-slate-400 text-sm leading-relaxed">
+            AutoDrive Showroom Jakarta berkomitmen menyediakan pilihan mobil dan motor bekas dengan jaminan mutu terbaik, proses kredit cepat, dan layanan purna jual profesional.
+          </p>
+
+          <div class="space-y-4 pt-4 text-sm text-slate-300">
+            <div class="flex items-start gap-4">
+              <span class="text-brandGold mt-1">📍</span>
+              <div>
+                <strong class="text-white block">Lokasi Showroom</strong>
+                Kelapa Gading, Jakarta Utara - Indonesia
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-brandGold mt-1">📞</span>
+              <div>
+                <strong class="text-white block">Telepon / WhatsApp</strong>
+                +62 812-3456-7890
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-brandGold mt-1">✉️</span>
+              <div>
+                <strong class="text-white block">Alamat Email</strong>
+                info@autodriveshowroom.com
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Icons -->
+          <div class="flex items-center gap-4 pt-4">
+            <a href="#" class="w-10 h-10 rounded bg-brandDark border border-brandDark-border flex items-center justify-center text-slate-300 hover:border-brandGold hover:text-brandGold transition-colors">FB</a>
+            <a href="#" class="w-10 h-10 rounded bg-brandDark border border-brandDark-border flex items-center justify-center text-slate-300 hover:border-brandGold hover:text-brandGold transition-colors">IG</a>
+            <a href="#" class="w-10 h-10 rounded bg-brandDark border border-brandDark-border flex items-center justify-center text-slate-300 hover:border-brandGold hover:text-brandGold transition-colors">TW</a>
+            <a href="#" class="w-10 h-10 rounded bg-brandDark border border-brandDark-border flex items-center justify-center text-slate-300 hover:border-brandGold hover:text-brandGold transition-colors">WA</a>
+          </div>
+        </div>
+
+        <!-- Right Side: Dynamic Message Input Form -->
+        <div class="lg:col-span-7">
+          <div class="bg-brandDark p-8 sm:p-10 rounded-lg border border-brandDark-border shadow-2xl">
+            <h3 class="text-xl font-display font-extrabold uppercase text-white tracking-wide mb-2">KIRIM PESAN PERTANYAAN</h3>
+            <p class="text-xs text-slate-400 mb-8">Konsultasikan kebutuhan unit, kredit, atau tukar tambah kendaraan Anda sekarang.</p>
+
+            <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Nama Lengkap</label>
+                  <input type="text" id="form-name" required placeholder="Contoh: Budi Santoso" class="w-full h-12 px-4 rounded bg-brandDark-input border border-brandDark-border text-white text-sm outline-none transition-colors focus:border-brandGold placeholder:text-slate-600">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Nomor Telepon</label>
+                  <input type="tel" id="form-phone" required placeholder="Contoh: 081234567890" class="w-full h-12 px-4 rounded bg-brandDark-input border border-brandDark-border text-white text-sm outline-none transition-colors focus:border-brandGold placeholder:text-slate-600">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Alamat Email</label>
+                <input type="email" id="form-email" required placeholder="Contoh: budi@gmail.com" class="w-full h-12 px-4 rounded bg-brandDark-input border border-brandDark-border text-white text-sm outline-none transition-colors focus:border-brandGold placeholder:text-slate-600">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Subjek Pertanyaan</label>
+                <select id="form-subject" class="w-full h-12 px-4 rounded bg-brandDark-input border border-brandDark-border text-slate-300 text-sm outline-none transition-colors focus:border-brandGold cursor-pointer">
+                  <option value="Minat Unit Kendaraan">Saya Tertarik Membeli Unit Kendaraan</option>
+                  <option value="Pengajuan Kredit">Simulasi & Pengajuan Kredit</option>
+                  <option value="Tukar Tambah (Trade-In)">Pengajuan Tukar Tambah</option>
+                  <option value="Lainnya">Lainnya / Pertanyaan Umum</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Isi Pesan Anda</label>
+                <textarea id="form-message" required rows="4" placeholder="Tuliskan detail pertanyaan atau unit kendaraan yang Anda minati..." class="w-full p-4 rounded bg-brandDark-input border border-brandDark-border text-white text-sm outline-none transition-colors focus:border-brandGold placeholder:text-slate-600 resize-none"></textarea>
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" class="w-full py-4 gold-gradient-bg text-black font-extrabold text-sm uppercase tracking-wider rounded hover:bg-brandGold-hover active:scale-[0.99] transition-all duration-300 shadow-lg shadow-brandGold/15">
+                  KIRIM SEKARANG
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Copyright -->
+  <footer class="py-8 bg-brandDark border-t border-brandDark-border text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© Copyright 2026 AutoDrive Showroom. All Rights Reserved.</div>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-brandGold">Privacy Policy</a>
+        <a href="#" class="hover:text-brandGold">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dynamic JS Data Integration -->
+  <script>
+    // 1. Get State from LocalStorage
+    function getShowroomState() {
+      const saved = localStorage.getItem('roleAccessState');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (e) {
+          console.error("Error loading localStorage showroom state", e);
+        }
+      }
+      return null;
+    }
+
+    const state = getShowroomState();
+
+    // 2. Render Page Content dynamically if state is available
+    if (state) {
+      // RENDER HERO
+      if (state.homeHero) {
+        const titleEl = document.getElementById('hero-title');
+        const subtitleEl = document.getElementById('hero-subtitle');
+        const ctaBtn = document.getElementById('hero-cta-btn');
+        
+        if (titleEl && state.homeHero.title) titleEl.textContent = state.homeHero.title;
+        if (subtitleEl && state.homeHero.subtitle) subtitleEl.textContent = state.homeHero.subtitle;
+        if (ctaBtn) {
+          if (state.homeHero.ctaText) ctaBtn.textContent = state.homeHero.ctaText;
+          if (state.homeHero.ctaUrl) ctaBtn.setAttribute('href', state.homeHero.ctaUrl);
+        }
+      }
+
+      // RENDER HERO SPECS
+      if (state.homeHighlights && state.homeHighlights.length > 0) {
+        const specsWidget = document.getElementById('hero-specs-widget');
+        if (specsWidget) {
+          specsWidget.innerHTML = '';
+          state.homeHighlights.forEach(hl => {
+            const item = document.createElement('div');
+            item.className = 'flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm';
+            item.innerHTML = `
+              <span class="text-sm">${hl.icon || '✦'}</span>
+              <span class="text-xs font-bold text-white tracking-wider uppercase">${hl.title}</span>
+            `;
+            specsWidget.appendChild(item);
+          });
+        }
+      }
+
+      // RENDER ABOUT COMPANY PROFILE
+      if (state.aboutProfile) {
+        const compNameEl = document.getElementById('about-company-name');
+        const visionEl = document.getElementById('about-vision');
+        const missionList = document.getElementById('about-mission-list');
+        
+        if (compNameEl && state.aboutProfile.companyName) compNameEl.textContent = state.aboutProfile.companyName;
+        if (visionEl && state.aboutProfile.vision) visionEl.textContent = state.aboutProfile.vision;
+        if (missionList && state.aboutProfile.mission) {
+          missionList.innerHTML = '';
+          const lines = state.aboutProfile.mission.split('\n');
+          lines.forEach(line => {
+            if (line.trim()) {
+              const li = document.createElement('li');
+              li.className = 'flex items-start gap-3';
+              li.innerHTML = `
+                <span class="text-brandGold mt-0.5">✦</span>
+                <span class="leading-relaxed">${line}</span>
+              `;
+              missionList.appendChild(li);
+            }
+          });
+        }
+      }
+
+      // RENDER TEAM
+      if (state.aboutTeam && state.aboutTeam.length > 0) {
+        const teamContainer = document.getElementById('team-list-container');
+        if (teamContainer) {
+          teamContainer.innerHTML = '';
+          state.aboutTeam.forEach(member => {
+            const initials = member.name.split(' ').map(n => n[0]).join('').substring(0, 2);
+            const card = document.createElement('div');
+            card.className = 'flex items-center gap-4 bg-brandDark p-4 rounded border border-brandDark-border';
+            card.innerHTML = `
+              <div class="w-12 h-12 rounded-full gold-gradient-bg text-black font-extrabold flex items-center justify-center shrink-0">
+                ${initials}
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white leading-tight">${member.name}</h4>
+                <p class="text-xs text-brandGold mt-0.5">${member.role}</p>
+              </div>
+            `;
+            teamContainer.appendChild(card);
+          });
+        }
+      }
+
+      // RENDER SERVICES
+      if (state.services && state.services.length > 0) {
+        const servicesGrid = document.getElementById('services-grid');
+        if (servicesGrid) {
+          servicesGrid.innerHTML = '';
+          state.services.filter(s => s.status === 'active').forEach(service => {
+            const card = document.createElement('div');
+            card.className = 'bg-brandDark-card border border-brandDark-border p-6 rounded hover:border-brandGold/45 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full';
+            card.innerHTML = `
+              <div>
+                <div class="w-10 h-10 bg-brandGold/10 rounded flex items-center justify-center text-lg text-brandGold mb-4">
+                  ${service.icon || '⚙️'}
+                </div>
+                <h3 class="text-md font-bold text-white uppercase tracking-wide mb-2">${service.name}</h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-4">${service.desc}</p>
+              </div>
+              <div class="text-xs font-bold text-brandGold tracking-wider uppercase border-t border-brandDark-border pt-3 mt-4">
+                ${service.price || 'Gratis'}
+              </div>
+            `;
+            servicesGrid.appendChild(card);
+          });
+        }
+      }
+
+      // RENDER PORTFOLIO (HANDOVER)
+      if (state.portfolio && state.portfolio.length > 0) {
+        const portGrid = document.getElementById('portfolio-grid');
+        if (portGrid) {
+          portGrid.innerHTML = '';
+          state.portfolio.filter(p => p.status === 'active').forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'bg-brandDark-card border border-brandDark-border rounded overflow-hidden group hover:border-brandGold/30 transition-colors';
+            card.innerHTML = `
+              <div class="aspect-video bg-neutral-900 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80">
+                <span class="absolute top-3 left-3 bg-brandGold text-black font-extrabold text-[10px] tracking-wider uppercase px-2 py-0.5 rounded">
+                  ${p.category}
+                </span>
+              </div>
+              <div class="p-6">
+                <div class="text-[10px] font-bold text-brandGold tracking-widest uppercase mb-1">${p.date} - ${p.client}</div>
+                <h3 class="text-sm font-bold text-white group-hover:text-brandGold transition-colors leading-snug">${p.title}</h3>
+              </div>
+            `;
+            portGrid.appendChild(card);
+          });
+        }
+      }
+
+      // RENDER BLOG
+      if (state.blog && state.blog.length > 0) {
+        const blogGrid = document.getElementById('blog-grid');
+        if (blogGrid) {
+          blogGrid.innerHTML = '';
+          state.blog.filter(b => b.status === 'active').forEach(post => {
+            const card = document.createElement('div');
+            card.className = 'bg-brandDark-card border border-brandDark-border rounded hover:border-brandGold/30 transition-colors flex flex-col justify-between';
+            card.innerHTML = `
+              <div class="p-6 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-brandGold uppercase tracking-widest">${post.category}</span>
+                  <span class="text-[10px] text-slate-500">${post.date}</span>
+                </div>
+                <h3 class="text-md font-bold text-white leading-snug uppercase">${post.title}</h3>
+                <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed">${post.content}</p>
+              </div>
+              <div class="px-6 pb-6 pt-3 border-t border-brandDark-border/50 mt-auto flex items-center justify-between text-[11px] text-slate-500">
+                <span>Penulis: ${post.author}</span>
+                <a href="#blog" class="text-brandGold font-bold hover:underline">Baca Selengkapnya</a>
+              </div>
+            `;
+            blogGrid.appendChild(card);
+          });
+        }
+      }
+
+      // INITIAL RENDER OF PRODUCTS (Today's Specials)
+      renderProductsGrid('Semua');
+    }
+
+    // 3. Products Grid Rendering with filter
+    function renderProductsGrid(categoryFilter) {
+      if (!state || !state.products) return;
+
+      const grid = document.getElementById('catalog-grid');
+      const emptyMsg = document.getElementById('catalog-empty');
+      if (!grid) return;
+
+      grid.innerHTML = '';
+      
+      const filtered = state.products.filter(p => {
+        const isStatusActive = p.status === 'active';
+        if (!isStatusActive) return false;
+        
+        if (categoryFilter === 'Semua') return true;
+        return p.category === categoryFilter;
+      });
+
+      if (filtered.length === 0) {
+        emptyMsg.classList.remove('hidden');
+        return;
+      } else {
+        emptyMsg.classList.add('hidden');
+      }
+
+      filtered.forEach(p => {
+        // Fallback images based on product type
+        const fallbackImg = p.category === 'Motor' 
+          ? 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80' // Cruiser bike
+          : 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80'; // Porsche car
+
+        const card = document.createElement('div');
+        card.className = 'bg-brandDark-card border border-brandDark-border rounded overflow-hidden group hover:border-brandGold/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between';
+        
+        card.innerHTML = `
+          <div>
+            <div class="aspect-[4/3] bg-neutral-900 overflow-hidden relative">
+              <img src="${p.image || fallbackImg}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <span class="absolute top-3 left-3 bg-brandGold text-black font-extrabold text-[10px] tracking-wider uppercase px-2.5 py-0.5 rounded shadow">
+                ${p.category}
+              </span>
+            </div>
+            
+            <div class="p-6 space-y-2">
+              <h3 class="text-lg font-bold text-white group-hover:text-brandGold transition-colors leading-tight uppercase font-display">${p.name}</h3>
+              <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${p.desc || 'Unit showroom pilihan.'}</p>
+            </div>
+          </div>
+          
+          <div class="px-6 pb-6 pt-4 border-t border-brandDark-border/60 mt-auto flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Harga Tunai</div>
+              <div class="text-md font-extrabold text-brandGold font-display mt-0.5">${p.price}</div>
+            </div>
+            <a href="#contact" onclick="setSubjectForUnit('${p.name}')" class="px-4 py-2 border border-brandGold/40 text-brandGold text-xs font-bold uppercase rounded tracking-wider hover:bg-brandGold hover:text-black hover:border-brandGold transition-all duration-200">
+              Minta Kredit
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 4. Handle Filter Button styles
+    function filterCatalog(category) {
+      renderProductsGrid(category);
+      
+      const btnAll = document.getElementById('filter-all');
+      const btnMobil = document.getElementById('filter-mobil');
+      const btnMotor = document.getElementById('filter-motor');
+      
+      const activeClass = 'bg-brandGold text-black font-extrabold';
+      const inactiveClass = 'bg-brandDark border border-brandDark-border text-slate-400 hover:text-white';
+      
+      btnAll.className = `px-5 py-2 text-xs font-bold rounded uppercase tracking-wider whitespace-nowrap transition-all duration-300 ${category === 'Semua' ? activeClass : inactiveClass}`;
+      btnMobil.className = `px-5 py-2 text-xs font-bold rounded uppercase tracking-wider whitespace-nowrap transition-all duration-300 ${category === 'Mobil' ? activeClass : inactiveClass}`;
+      btnMotor.className = `px-5 py-2 text-xs font-bold rounded uppercase tracking-wider whitespace-nowrap transition-all duration-300 ${category === 'Motor' ? activeClass : inactiveClass}`;
+    }
+
+    // 5. Pre-fill select unit on contact form
+    function setSubjectForUnit(unitName) {
+      const selectEl = document.getElementById('form-subject');
+      if (selectEl) {
+        // Add option if not present, and select it
+        let found = false;
+        for (let i = 0; i < selectEl.options.length; i++) {
+          if (selectEl.options[i].value === `Minat: ${unitName}`) {
+            selectEl.selectedIndex = i;
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          const newOpt = document.createElement('option');
+          newOpt.value = `Minat: ${unitName}`;
+          newOpt.text = `Tanya Unit - ${unitName}`;
+          selectEl.add(newOpt);
+          selectEl.value = `Minat: ${unitName}`;
+        }
+      }
+      
+      const messageEl = document.getElementById('form-message');
+      if (messageEl) {
+        messageEl.value = `Halo admin AutoDrive, saya berminat dengan unit "${unitName}". Bolehkah saya mendapatkan simulasi kredit dan detail spesifikasi lengkapnya? Terima kasih.`;
+      }
+    }
+
+    // 6. Submit Contact Form and Push Message to CMS Inbox
+    function submitContactForm(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('form-name').value.trim();
+      const phone = document.getElementById('form-phone').value.trim();
+      const email = document.getElementById('form-email').value.trim();
+      const subject = document.getElementById('form-subject').value;
+      const rawMessage = document.getElementById('form-message').value.trim();
+      
+      const message = `[Telp: ${phone}] ${rawMessage}`;
+      
+      const freshState = getShowroomState() || state;
+      if (freshState) {
+        if (!freshState.inbox) freshState.inbox = [];
+        
+        const newMsgId = freshState.inbox.length > 0 ? Math.max(...freshState.inbox.map(m => m.id)) + 1 : 1;
+        const todayStr = new Date().toLocaleDateString('id-ID', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        });
+        const timeStr = new Date().toLocaleTimeString('id-ID', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+
+        const newMsg = {
+          id: newMsgId,
+          name,
+          email,
+          subject,
+          message,
+          date: `${todayStr}, ${timeStr}`,
+          read: false
+        };
+
+        // Unshift message into inbox array (newest first)
+        freshState.inbox.unshift(newMsg);
+        
+        // Save back to localStorage
+        localStorage.setItem('roleAccessState', JSON.stringify(freshState));
+        
+        // Show success toast
+        showToastNotification('Pesan Terkirim', 'Terima kasih, pesan Anda telah berhasil terkirim. Admin kami akan segera menghubungi Anda.', 'success');
+        
+        // Reset form
+        event.target.reset();
+      } else {
+        showToastNotification('Gagal Mengirim', 'Mohon maaf, sistem tidak dapat menyimpan pesan saat ini.', 'error');
+      }
+    }
+
+    // 7. Small custom Toast display for Landing Page
+    function showToastNotification(title, message, type) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `flex flex-col gap-1 p-4 rounded shadow-2xl border transition-all duration-300 pointer-events-auto transform translate-y-2 opacity-0 max-w-sm mb-3 ${
+        type === 'success' 
+          ? 'bg-emerald-950 border-emerald-800 text-emerald-100' 
+          : 'bg-red-950 border-red-800 text-red-100'
+      }`;
+
+      toast.innerHTML = `
+        <div class="flex items-center gap-2 font-bold text-sm">
+          <span>${type === 'success' ? '✔' : '✖'}</span>
+          <span>${title}</span>
+        </div>
+        <p class="text-xs opacity-90 leading-relaxed">${message}</p>
+      `;
+
+      container.appendChild(toast);
+
+      // Trigger animation
+      requestAnimationFrame(() => {
+        toast.style.transform = 'translateY(0)';
+        toast.style.opacity = '1';
+      });
+
+      // Auto-remove after 4 seconds
+      setTimeout(() => {
+        toast.style.transform = 'translateY(-2px)';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // 8. Mobile navigation menu toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.onclick = () => {
+        mobileMenu.classList.toggle('hidden');
+      };
+    }
+  </script>
+</body>
+</html>
